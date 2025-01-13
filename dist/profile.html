@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Online Wallet</title>
+    <link rel="manifest" href="/assets/manifest-CwjE1--k.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/Artisfinans-logo%20copy-Bor4Oofp.png">
+    <link rel="icon" href="/assets/Artisfinans-logo%20copy-Bor4Oofp.png" type="image/png">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        html, body {
+            overflow: auto; /* Ensures scrolling is enabled */
+        }
+    </style>
+    
+  <script type="module" crossorigin src="/assets/profile-TAyY-U36.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
+</head>
+<body class="font-sans antialiased bg-gray-100">
+</head>
+<body class="font-sans antialiased bg-gray-100">
+
+<!-- Navbar -->
+<nav class="bg-white p-4 shadow">
+    <div class="container mx-auto flex items-center justify-between">
+        <img src="/assets/ARTIS%20LOGO-CtXHgC8J.png" alt="Gift card Brand Logo" class="h-14">
+        </a>
+
+            <!-- Sign out button for mobile and desktop -->
+            <button onclick="signOut()" class="bg-white border-b-2 text-xs text-black px-6 py-2 rounded hover:bg-white border">Sign Out</button>
+        </div>
+    </div>
+</nav>
+
+
+    <div class="flex">
+
+
+
+<!-- Main Profile Content -->
+<div class="flex-1 p-4 mt-2">
+        <div class="w-full bg-white px-1 py-2 rounded mt-0">
+<!-- Profile Header -->
+<div class="flex items-left-2 mb-4">
+    <input type="file" id="profileImageInput" accept="image/*" class="hidden" onchange="uploadProfilePicture(event)">
+    <img id="profilePic" src="https://via.placeholder.com/100" alt="Profile Picture" class="w-16 h-16 rounded-lg border-gray-200 ml-4 mt-4" onclick="document.getElementById('profileImageInput').click();">    
+    <div class="ml-4 mt-4">
+        <h1 id="profileUsername" class="text-sm font-bold"></h1>
+        <span class="inline-block bg-purple-500 text-white text-xs font-semibold px-2 py-1 rounded-full">Fresher 🐾</span>
+    </div>
+</div>
+
+
+    <!-- Profile Sections -->
+        <h2 class="text-sm font-semibold mb-4"></h2>
+        <ul class="space-y-4">
+            <li class="flex items-center text-xs justify-between p-4 border-b">
+                <span>Profile details</span>
+                <a href="profile-2.html" class="text-blue-500" onclick="showUserInfo()">View</a>
+            </li>
+            </li>
+            <li class="flex items-center text-xs justify-between p-4 border-b">
+                <span>Support</span>
+                <a href="support.html" class="text-blue-500">Contact</a>
+            </li>
+        </ul>
+        </div>
+
+<script>
+// Function to upload the profile picture
+function uploadProfilePicture(event) {
+    const file = event.target.files[0];
+    if (file) {
+        // Create a file reader to read the file
+        const reader = new FileReader();
+
+        reader.onloadend = function () {
+            const imageUrl = reader.result; // The image URL after reading the file
+            document.getElementById('profilePic').src = imageUrl; // Set the image source to the uploaded file
+
+            // Store the image URL in localStorage so it persists even after page reload
+            localStorage.setItem('profilePic', imageUrl);
+        };
+
+        // Read the file as a data URL
+        reader.readAsDataURL(file);
+    }
+}
+
+// Check if a profile picture is stored in localStorage when the page loads
+document.addEventListener('DOMContentLoaded', function () {
+    const storedImage = localStorage.getItem('profilePic');
+    if (storedImage) {
+        document.getElementById('profilePic').src = storedImage; // Use the stored image if available
+    }
+});
+
+// Function to show user information from Firebase
+async function showUserInfo() {
+    const user = getAuth().currentUser; // Get the current user
+    if (user) {
+        const userDocRef = doc(db, 'users', user.uid); // Reference to user's document
+        const userDoc = await getDoc(userDocRef);
+
+        if (userDoc.exists()) {
+            const userData = userDoc.data();
+            // Populate the form fields with user data
+            document.getElementById('fullName').value = userData.name || '';
+            document.getElementById('username').value = '@syndicate'; // Assuming this is static or fetched from userData
+            document.getElementById('email').value = user.email;
+            document.getElementById('phone').value = userData.phone || ''; // Assuming phone is stored in Firestore
+
+            // Make the div visible
+            const userInfoDiv = document.getElementById('userInfo');
+            userInfoDiv.classList.remove('hidden');
+        } else {
+            alert('No user document found in Firestore.');
+        }
+    } else {
+        alert('No user is currently signed in.');
+    }
+}
+</script>
+
+
+<div id="profileInfoCard" class="max-w-full bg-white rounded p-6 mt-8 hidden">
+    <h2 class="text-sm font-semibold text-gray-800 mb-6">Profile Information</h2>
+    <form class="space-y-6" onsubmit="event.preventDefault(); updateProfile();">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label for="firstName" class="block text-xs font-medium text-gray-700">Full Name</label>
+                <input type="text" id="firstName" name="firstName" class="mt-1 block w-full border border-gray-300 px-4 py-3 rounded shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 text-xs">
+            </div>
+            <div>
+                <label for="lastName" class="block text-xs font-medium text-gray-700">Username</label>
+                <input type="text" id="lastName" name="lastName" class="mt-1 block w-full border border-gray-300 px-4 py-3 rounded shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 text-xs">
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label for="email" class="text-xs">Email address</label>
+                <input type="email" id="email" class="border rounded w-full px-4 py-3 text-xs" readonly placeholder="Loading email...">
+            </div>
+        </div>
+        <div class="flex justify-end">
+            <button id="saveChangesButton" type="submit" class="px-4 py-3 bg-purple-500 text-white text-xs rounded hover:bg-purple-600 transition duration-200 w-full mt-8">Save Changes</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Function to update the full name and username locally with a delay for processing state
+    function updateProfile() {
+        const saveButton = document.getElementById("saveChangesButton");
+        const originalButtonText = saveButton.textContent;
+
+        // Show processing state
+        saveButton.disabled = true;
+        saveButton.textContent = "Processing...";
+
+        // Delay the actual update by 2 seconds (you can adjust this duration)
+        setTimeout(function() {
+            try {
+                const newFullName = document.getElementById('firstName').value.trim();
+                const newUsername = document.getElementById('lastName').value.trim();
+
+                if (!newFullName || !newUsername) {
+                    alert('Please enter valid information for full name and username.');
+                    return;
+                }
+
+                // Store the full name and username in localStorage
+                localStorage.setItem('fullName', newFullName);
+                localStorage.setItem('username', newUsername);
+
+                // Update the displayed full name and username (You can also update other parts of the UI if needed)
+                document.getElementById('profileUsername').textContent = newUsername;
+
+                // Show success message
+                alert('Profile updated successfully! my Chief');
+            } catch (error) {
+                console.error('Ehhh... my Chief there was an error updating profile:', error);
+                alert('An error occurred while updating your profile. Please try again.');
+            } finally {
+                // Revert button to original state after the operation
+                saveButton.disabled = false;
+                saveButton.textContent = originalButtonText;
+            }
+        }, 2000);  // This is where we delay the actual change, 2000ms = 2 seconds
+    }
+
+    // Load the stored full name and username on page load
+    window.onload = function () {
+        // Check if there's a stored full name and username in localStorage
+        const storedFullName = localStorage.getItem('fullName');
+        const storedUsername = localStorage.getItem('username');
+
+        if (storedFullName) {
+            // Populate the full name field and the profile display with the stored value
+            const fullNameField = document.getElementById('firstName');
+            fullNameField.value = storedFullName;
+            fullNameField.placeholder = storedFullName;
+        }
+
+        if (storedUsername) {
+            // Populate the username field with the stored value
+            const usernameField = document.getElementById('lastName');
+            usernameField.value = storedUsername;
+            usernameField.placeholder = storedUsername;
+        }
+
+        const user = getAuth().currentUser; // Get the current user
+        if (user) {
+            const emailField = document.getElementById('email');
+            emailField.placeholder = user.email; // Email is read-only and cannot be changed
+            emailField.value = user.email; // Optional: Set email as the value
+
+            // Populate the full name from Firebase
+            const fullNameField = document.getElementById('firstName');
+            fullNameField.placeholder = user.displayName || "Enter your full name";
+            fullNameField.value = user.displayName || "";
+
+            // Populate the username (if available from Firebase or set a default)
+            const usernameField = document.getElementById('lastName');
+            usernameField.placeholder = user.displayName?.split(' ')[0] || "Enter your username"; // Example: Derive username from full name
+            usernameField.value = storedUsername || ""; // Optional: Set username if previously saved
+        }
+    };
+</script>
+
+
+
+<section class="py-10" id="spacing"></section>
+    <div class="container mx-auto text-center">
+    </div>
+</section>
+
+
+<!-- Bottom Navbar (Mobile Friendly) -->
+<div class="mobile-nav fixed bottom-0 left-0 right-0 bg-white shadow-lg border-t p-3" style="height: 100px;">
+    <div class="flex justify-around items-center h-full">
+        <!-- Wallet Icon -->
+        <a href="dashboard.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
+            <div class="bg-white rounded p-2">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAwCAYAAAC4wJK5AAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAHsSURBVHgB7Zk9bsIwFMdfAkMnSBFDx8DEyMhW9Qa9AYztBDcgnKCwdewROrIBN+AACNKtXSAzEqR/S3EVUct2P4KN5J+EsJ3nJH+/5w8eRA6Hw2EjnsogDMPA9/1+mqY9VqViiT3Pezkej5M4jhPdTlIRTABuOkOxTedliUG70xXiSy/CA3R+AYw2nj3QNS7LLmYhxMsjjExEBQLPR/D8MHteF1+RTj9pODUajZSXN5uNcv78B795pk+aNJvNIVmKtidMgNB6xdyYrFarucxO2xMmwLy4PxwOM0TBk8zOahEciBnIhFg3sTlYqdoIJ7bMdnlbtnfMT22t9QRedomB60HIhLdlor5hfTjhCDLOVW9FNtaLgEfiXDUQ2VzExFbhRNiCE2ELToQtlMkw7IiP40R02o7dOVqv1yOdexj3hEiArF2EDSJGP2kXYTycst/tEf0BtzrZghNhC06ELahEfCV0W61WSAZgCYNcVZhglorA1j/n5f1+3ycDZEltzkJkUyIJ1Wr1A0J6WbVTq9XCer3+tt1u36lgmOcrlQo7Vz3wNpQfkySJT22VuSQc0MbobMQLefAO7I8XYcqmpOq82+2m8MA1ih0yhEwAQymCwYQEQbBAfLKUyQ0+V1Q8CUJ5ykIIAp7J4XA4Lo5Ps82z+WQwG9wAAAAASUVORK5CYII=" alt="Wallet Icon" class="h-6 w-6" />
+            </div>
+            <span class="text-xs font-medium mt-2">Wallet</span>
+        </a>
+        <!-- Deposit Icon -->
+        <a href="deposit.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
+            <div class="bg-white rounded p-2">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAwCAYAAAC4wJK5AAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAASPSURBVHgB7VktVxtBFJ0ERB0JmMoNIJCpq2vq6tq6OoKrA1xdF1nV4uoAVwf8AhaHI38Asv0FCa4IoPfCm/AYJju7yZ5QenLP2ZP5eDv77ryZ995MjJliiin+O1TMGIiAarW6zvL19fV2CpgnwFgkGo3GKX6aUk1vbm7e5iGyvLzcAun3kP+AaiTNnUql0kH7VtHJGJfEjdPUh2U2z87Odn3yMFwN/V+h/IbJUqpS+SFk+iYHyiZhldh1Z5QE0H5k7i0XQkcsGyRSNeUhtQV8vA2FTxcXF3cGH4IFzEMCCZXEU+92uxWW0ban+pvyThAzZgzU6/XYlqHEKyheV4q+4Brv9XqHdACo/1KytNJav99P8fxhm5QPajUarNIS0deoH7MvS4/SLMGlgxltQ8E1I1aBMoe3H1EzyqUG0ThjHPYlAwWr1Q8mgDKXk1ViF2QatMzV1VWHbSgPlhH2yl5oDFpKld+H5GfNCODywIzuZMmATEdVm6o9MWHod6OQcGFLYLOuc9Oi2FLNac7XjeyPTOR1rRaFSIAAffwPFGu2jWtcPEumXkr+iF4riwyDoap2TAC5SQiBWA9O5c/Pz9dCERZy26oaiQvuIs4cLS0ttV157JtVW6aHMwHkCnaYtLbeA1CCm3OjiNllDHqpyNOdSoDcgzda1ZOFcoOThEn8PiyK5yKBGevaj+NjB5j9jyxjFlcxMJcX040Y6UbQ84BMC2O0UVwNydKCUHpDHEkXzxa+HbtyweUERXWSlkLpTduHcmzu9kckZIKgd5J40hBXmg4R5TKKb5WUOAP5daYvpgiJlZUVKqcDVeKsfz1gIY+S3iGWmMIAmdg+WkDnTShH9nszMzOPgp83Tki2uXN5efngBa5JXcfgm7LOazpAFQUDJH52h/Uz8mP8lnzzjSvrJSHp8gMCku+kRT5eFjB5CYhYPR5lwV4SdIGqmgiBxDwdUlWO3E6vd9LnBKbJ5h9Alk6lJ4BPgWdBwnGrj7zgsyAxOzurN3Pq9g8jMWCLcL/vy28mCXinAQlfLuUlAcFBwkZXi0F29Hl50mCktmXoduz2e8/YOBcn8/PzPC+/Vs1NtF2g78RMEEx7QOKzrWNC1+y53GLonkCitcH8xrHK1zyHmjIBpb/bspzPi21sRmiSMfebiVcR+2ZCYPptHiaf3tQml3eSBM2iOYn9QQL6plDS8tQnm+veifc+uP+5gBXeSRP3RzQ3N3fsrs9xweWK+yxa+5NtEwLxsHdyX55B2RPnYquJ8qeFhQVu9uARMi9AQF9S354iQeBz1juF8yJMVCzptwaPlwdlXO/rHImpPoYLHrZGSu4yzsu8BWyYMTBK8jnS5RnPESDCHD9GlYeUSLoiV1ZuSbhB3WNlny4T3m/TjIlS0uxhs+d6GK8CzuF/FEuUngDqjNM5XHmhUwrfJUAejLScPEjN/ZVOD7Pp9vcxq3XdAJmeuVtitSF/1uT2eKVYwrnh8/U/uo/S6YwPOOdn9muM9SeLhcSQ31AsQvWl7gKBb3AEX9x3VJK5gueF6uIfmFuw3E8zxRRTjIS/rx6WPjRsH6wAAAAASUVORK5CYII=" alt="Redeem Icon" class="h-6 w-6" />
+            </div>
+            <span class="text-xs font-medium mt-2">Deposit</span>
+        </a>
+        <!-- Withdraw Icon -->
+        <a href="withdraw.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
+            <div class="bg-white rounded p-2">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAwCAYAAAC4wJK5AAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAANaSURBVHgB7VndcdpAEF5pUoBLED8PPDodkArsVACpwLgCyxUYVwDuwB2EVBCnAEAl+JEXIN8yOuVy1h17PzCZCd+MhhM63e13+3O7J6ILLrhARybtWBTFVZ7nd/v9fsy3FIcqy7L5brd7rqrqnSIhIsEEMOl3NK8pLd6wKF9iieSiTtAApSfAuMbYE4rEJ0mn2oRU+xErV3K70+ns1f/r9bpVq219oNkSmn2oxxvhp6QIiDRBmg8oAjEwxigoElISH9Dtdh+028rRtbK8kwwic9KhzANm0PyH9outP8zmBc+V6ZR4v6TECNaEhjdcU9tDhNFp3edkiCFRsZMfC5H8jPtwX7KYXayZifYJSRTyhT7mQZAsK1er1SMFIIU5JQH7S6hG/hkSjFAi3tFJin6/P4RT36DJKcuP7Xa7gH9UbX3ZX7TNj4mQj2kl8QlhcshJ3zOEm7aNqe/iB8E8fCTanHq93ggTrnkFyb37FujzZDMX3sXrCHaAj2lFkcAkdzCZOZpXbc9B7hXXPWmh1SVcKJFgElB/Ua9+IwPuv2n37zCHr2w+MJcOm5IunG3cECLBJOADPLDSABP4jN9XrcsVE1U3IDPRhXOhjYg+1gdZKBAYuKkvQOied+Z6516o/7H6M3II50Kd6S60Oax1R4xPNCSWy2WjAUPIIUzhiQzhTCLoM2ubwNDGDVmQZLPjEKvaEHJhTD45RoRDs4WInjgWZEFUAqi1/ypdW4ScmEJaiJhkRbV3MAmuE7T2TNeGEtKISGOBRoLq7WASdZ2gVqqAwD+x8d0ebkCI0w7TjtuE1IlInd5EVNoBYcdmBDoG31ReUgZEOTZWcY7V4x3ZZbvRh2PHEB2dQGRab3TsI3o0UZVfh7QgMBgMCkqMJKl4nWKPbc9hEo02NptNQe7TEW+cqyj61UyY50NKjLOQgEkttPbIDMexOJcmOC1pwjG0MXMldL7wJsEhr77WnCJ7rGrj9NDGLRdSPE6KU8EYTRzqCT7ydxHRPgsM2567agspUpiT83j+hJ8F/sxBnuBdky8j5xnZ+pufBdT7lBDBmvA4ni8s7ySDlESlGikc0eOzgAiiHVtyPG+erbbB97OAFCJNnPB43vlZQAoRCcnxvCdEnwUYsbXGBRf8j/gNGiU8mh1gvK8AAAAASUVORK5CYII=" alt="Withdraw Icon" class="h-6 w-6" />
+            </div>
+            <span class="text-xs font-medium mt-2">Withdraw</span>
+        </a>
+        <!-- Verify Icon -->
+        <a href="support.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
+            <div class="bg-white rounded p-2">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAQYSURBVHgB7Zo7VttAFIavbBcuFaqUMociHUqXUqwAsoJAl1TACoAuHbACTJkKKFMhOrp4A2DRpbPSpeCR/8LYZzyRFM1LCUTfOTq2ZkaPX3PvzJ0HUUtLS8szIiDPRFEUdjqddfxdfnh4SPAbioPJcWRBEPBxdnd3l2aAPOJN8NLSUgIBO/ibkB4pPtDx1dXVkDzgXLCFUJUMFrHiusa75JDFxcWd+/v7If5GJUXYhL/jGOHIxPnrkrIhzHxrYWGBJpPJBTnCWQ1D7BFqZL0gK0f6IX7ZP9Oia+HnMfs5yq1SwceC8OH19fUGOcCJ4BKxOURs6/oixK9DILtEJKe7Em1t0hC7D7Ef5TS83Cn733g8viRN8jwfhWF4ho8V4fSNlBXDvEOY91eywEow1wZ+PstpELoHoZ/w4j/JEFybQ9gXCMe3CxIp6x1E/0Ce9oecYmzSEBvhZc5JMj32VfjpFjkEFnSA+25KSdwmDPCcnAzokCEwOdXPMtdiGfgt33MkJXEgY/wcI8Fcu2ojxT5LnsC9N5TzTY7gyADTGk7kE25BfYaEuDXX8LGUNA1XtTESDIEf5HMEG4fkGdTqUDlfJQO0Gy02JQieSEkZWuUBNcBgMBjTfCP5Srfx0q7hXq8Xy+c8yqGGKHhWTJpoC769vY2UpIwaAq4jt9bU7XYj0kRbsIiASl/CJxA4Z74w6Yg0Me6H/wYwaaNgQ+ZZCXbBfye4R5ZwPI3uoix7BD97XzcoEfH5EZXMlmAmhWzxXcOxEFALlD0h+6mhSpow6USjrHa/qou1SdPTSEZtPfnFjYJ7iZzmR0kk7mn1UawFw0e31bkq+DSPkxOyY4SQdW4EJmZEz8mCtlt66bSCXzqt4H+ZgqGpNi5Cy310Q0X9sC2x6N6m/NYHY2iakiYuAg9f0RELTCrys7K1qiqaMGmdCYK0ZrnMdFrYt+CUR0t1C4v556oPxEL3cLw1nRZ2EVqumJhWEULEW/KISQ3PNVCYZ7IdJDSKdg3zBhTU6uxcbFQ5rXs9DwDQuibiXiOsH9e+1gUuJuLzOj4lRjo8GRApWZkYcTUiXNukxUx/KiXxBzipWtxC3poY1kVF2eL6NWoAo1ZatKayL/NUzjeuRbWssIh9+gM8FWS6IqiDzYL4VokQdaZCjZAeTfjx4U/XR7OXCYJtrAcfkEeMuyWY9oGovR0lqzJCYuuYdmO4Phe7CKYsk2esAg+8+K4w76zuNf1+Xy5rvZKgi/UuHt51g+MwDMMbrDtxEm8065eVR+MVo+wFDl6nYpOe7dRBbR/bbFipQyObS5VurBSxWSUjj3gfPHA3Nm2kquAY2bdYxuleyzJg8pcFe65mCLG71ADeTVqG1454yxEELoulzxuEmaeuBh8tLS0tLc+dX3zd0aoo/ZR3AAAAAElFTkSuQmCC" alt="Support Icon" class="h-6 w-6" />
+            </div>
+            <span class="text-xs font-medium mt-2">Support</span>
+        </a>
+        <!-- Profile Icon -->
+        <a href="profile.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
+            <div class="bg-white rounded p-2">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAwCAYAAAC4wJK5AAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAOPSURBVHgB7Vm9chMxEF7/FFTJkeQBzkmKdJguXcwTYDq6mJIqyRP4XEFH8gQ4HR2ho8MpqXA6F/ZYdNDYR8d4xjbfZiRHODYnnWSn4L4ZzenO0t1+0mr1rUyUIUMGHTnyjDAMg0KhUJlOp8coZX4kf2rncjmB8qnX6zXJI7ySAIEqjHyPapDQVOTz+YYvMgXyhN3d3Xe4nKM8MmgeYJaqW1tbNBwOr8kRefIAEKjDqFPtUYz7Bkqp3+/nuKD+FLN0ht+EaoRnkSTvBGd3ggvVpAvdAoZd4nIqhIiXtA/gShHanWh9XqD9FaWEM4lSqdQnuXhhzAWMOTXpBzJNkD+WtzxzpWXEk+DkTjwLdBd9BEpE5mCyymiOaFVKCScScIvnWr1hM5LcFjNxoe4nk8nDkIALhKo+Ho/bZAkY3tRun1BKuEansqpgZK1JoI/QbkNKCS8h9qHhSkKoysHBQUiWQGAoL3qXLZxIYGHOXGg0GtXIHjqJG0oJ15mYSQbevHgjM+3IbTEI9Zkh+Xzqzc6JhIwus1gPQ+qmfWXbUN4KFzHoJADjOP4dBMFPjKiK8YcQdcHm5uZX/m1RH54BtHmjay0QOoMQtI5uCs4qFsa2YdRjVA/lo0OQerm9vf1rZ2eHBoPBD37IC39jY4P10geUiurPUgUC8S05wFs+ATV6ros6E9horX/BWz4Bd/gM1/qOWeCIk7TAY7jQa9cZUPCenjJYGLKuwkhX6I6QkCH5mgNCWsWaIUOGZBgvbJkbn2Cx1shBNhuCg8AVAoBRomVEQuqcL/S3YFsH2hi0Z0lEjLQTzwCtnwCjjG8nboZFMoB0IVXnKY5ohcDMR0rh8nEoJRxAGLkTjmWmqs4HYbQG2Hzzv0pPZwvLJvFJi7lvJEYnUxIzrY+FVqPVo7ro28tgRIL/U1B1LLQ6RiqkFYHfPZe2Xib1MSIh01Ahb2/3jFUQkQR4PwrlI6O01YgEbzZ8cq1/jz+2t7dXI0/Y39+v4J3fSFMDc99cCqtwOX+ML9HCYXCj2+22KAXYeByBsvtU9Ocg8AqD1zR5h3XM5wMvEPlI9/UT650Wrjfw43axWBSdTkfoDTjPhsEB3LMMI4/43yK6nwUK+X+F8cFBqo1L+m6E6jF5BOfcuES2WZ/T7quROaL0yjaWxjfnDpiN4U1CgE8FbsQikd2EXSSkBS6HEstc+wZu1YbdLcqQIYNX/AFXkoDECHnC/AAAAABJRU5ErkJggg==" alt="Profile Icon" class="h-6 w-6" />
+            </div>
+            <span class="text-xs font-medium mt-2">Profile</span>
+        </a>
+    </div>
+</div>
+
+
+<!-- Script -->
+<script>
+    // Function to set the active navbar item
+    function setActive(element) {
+        // Reset all items to default styles
+        const icons = document.querySelectorAll('.nav-item div');
+        const texts = document.querySelectorAll('.nav-item span');
+        icons.forEach(icon => icon.classList.remove('bg-green-300', 'text-white'));
+        texts.forEach(text => text.classList.remove('text-black'));
+
+        // Add active styles to the clicked item
+        const icon = element.querySelector('div');
+        const text = element.querySelector('span');
+        icon.classList.add('bg-green-300', 'text-white'); // Highlight background of active icon
+        text.classList.add('text-black'); // Highlight text of active item
+    }
+
+    // Set the active state on page load based on the current URL
+    const currentPath = window.location.pathname;
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        if (item.href.includes(currentPath)) {
+            setActive(item);
+        }
+    });
+</script>
+</html>
