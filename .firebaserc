@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "artis-stanbic-holdings"
-  }
+    "default": "artisstanbicholdings"
+  },
+  "targets": {},
+  "etags": {}
 }
