@@ -185,10 +185,13 @@
                 type="text" 
                 id="withdrawCash" 
                 class="w-full bg-white border border-gray-300 rounded px-4 py-3 text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-purple-300 focus:ring-purple-500 text-xs" 
-                placeholder="Enter amount"
+                placeholder="$ Enter amount"
+                oninput="checkBalance()"
             >
             <p id="withdrawCashError" class="text-red-500 text-xs hidden mt-2">Amount is required</p>
+            <p id="insufficientBalanceError" class="text-red-500 text-xs hidden mt-2">Insufficient balance for the transfer.</p>
         </div>
+
 
         <!-- Notice of Withdrawal -->
         <div class="pt-10">
@@ -295,8 +298,45 @@
 </section>
 
 <script>
+    let depositBalance = 0; // Fetch this value from Firebase when the page loads.
+
+    // Fetch deposit balance from Firebase (simulate this with a placeholder)
+    function fetchDepositBalance() {
+        // Simulating a Firebase fetch
+        depositBalance = 50000000; // Example balance
+        updateDepositUI();
+    }
+
+    // Update the deposit balance display (if part of the UI)
+    function updateDepositUI() {
+        document.getElementById('depositBalanceDisplay').innerText = `$${depositBalance.toFixed(2)}`;
+    }
+
+    // Check if entered amount exceeds deposit balance
+    function checkBalance() {
+        const amountInput = document.getElementById('withdrawCash');
+        const insufficientBalanceError = document.getElementById('insufficientBalanceError');
+
+        const enteredAmount = parseFloat(amountInput.value.replace(/[^0-9.]/g, '')) || 0;
+
+        if (enteredAmount > depositBalance) {
+            insufficientBalanceError.classList.remove('hidden');
+        } else {
+            insufficientBalanceError.classList.add('hidden');
+        }
+    }
+
+    // Validate the form before showing the security PIN modal
     function showSecurityPinModal() {
-        document.getElementById('securityPinModal').classList.remove('hidden');
+        if (validateForm()) {
+            const withdrawCash = parseFloat(document.getElementById('withdrawCash').value.replace(/[^0-9.]/g, '')) || 0;
+
+            if (withdrawCash > depositBalance) {
+                document.getElementById('insufficientBalanceError').classList.remove('hidden');
+            } else {
+                document.getElementById('securityPinModal').classList.remove('hidden');
+            }
+        }
     }
 
     function validatePin() {
@@ -316,59 +356,75 @@
     function closeSuccessModal() {
         document.getElementById('successModal').classList.add('hidden');
     }
-</script>
 
+    function validateForm() {
+        const bankName = document.getElementById('bankName').value.trim();
+        const registeredEmail = document.getElementById('registeredEmail').value.trim();
+        const accountName = document.getElementById('accountName').value.trim();
+        const accountNumber = document.getElementById('accountNumber').value.trim();
+        const withdrawCash = document.getElementById('withdrawCash').value.trim();
+        const confirmDetails = document.getElementById('confirmDetails').checked;
 
-<script>
-function submitCashWithdrawal() {
-    const bankName = document.getElementById('bankName').value.trim();
-    const registeredEmail = document.getElementById('registeredEmail').value.trim();
-    const accountName = document.getElementById('accountName').value.trim();
-    const accountNumber = document.getElementById('accountNumber').value.trim();
-    const withdrawCash = document.getElementById('withdrawCash').value.trim();
-    const cashMessage = document.getElementById('cashMessage');
-    const cashWithdrawButton = document.getElementById('cashWithdrawButton');
+        let isValid = true;
 
-    cashMessage.textContent = ''; // Clear previous messages
+        // Clear all error messages
+        document.getElementById('bankNameError').classList.add('hidden');
+        document.getElementById('registeredEmailError').classList.add('hidden');
+        document.getElementById('accountNameError').classList.add('hidden');
+        document.getElementById('accountNumberError').classList.add('hidden');
+        document.getElementById('withdrawCashError').classList.add('hidden');
+        document.getElementById('confirmDetailsError').classList.add('hidden');
 
-    // Clear all error messages
-    document.getElementById('bankNameError').classList.add('hidden');
-    document.getElementById('registeredEmailError').classList.add('hidden');
-    document.getElementById('accountNameError').classList.add('hidden');
-    document.getElementById('accountNumberError').classList.add('hidden');
-    document.getElementById('withdrawCashError').classList.add('hidden');
+        // Validate inputs
+        if (bankName === '') {
+            document.getElementById('bankNameError').classList.remove('hidden');
+            isValid = false;
+        }
 
-    let isValid = true;
+        if (registeredEmail === '') {
+            document.getElementById('registeredEmailError').classList.remove('hidden');
+            isValid = false;
+        }
 
-    // Validate inputs
-    if (bankName === '') {
-        document.getElementById('bankNameError').classList.remove('hidden');
-        isValid = false;
+        if (accountName === '') {
+            document.getElementById('accountNameError').classList.remove('hidden');
+            isValid = false;
+        }
+
+        if (accountNumber === '' || isNaN(accountNumber) || accountNumber.length !== 10) {
+            document.getElementById('accountNumberError').textContent = "Please enter a valid 10-digit account number.";
+            document.getElementById('accountNumberError').classList.remove('hidden');
+            isValid = false;
+        }
+
+        if (withdrawCash === '' || isNaN(withdrawCash) || withdrawCash <= 0) {
+            document.getElementById('withdrawCashError').textContent = "Please enter a valid transfer amount.";
+            document.getElementById('withdrawCashError').classList.remove('hidden');
+            isValid = false;
+        }
+
+        if (!confirmDetails) {
+            document.getElementById('confirmDetailsError').classList.remove('hidden');
+            isValid = false;
+        }
+
+        return isValid;
     }
 
-    if (registeredEmail === '') {
-        document.getElementById('registeredEmailError').classList.remove('hidden');
-        isValid = false;
-    }
+    function submitCashWithdrawal() {
+        if (!validateForm()) {
+            return;
+        }
 
-    if (accountName === '') {
-        document.getElementById('accountNameError').classList.remove('hidden');
-        isValid = false;
-    }
+        const bankName = document.getElementById('bankName').value.trim();
+        const registeredEmail = document.getElementById('registeredEmail').value.trim();
+        const accountName = document.getElementById('accountName').value.trim();
+        const accountNumber = document.getElementById('accountNumber').value.trim();
+        const withdrawCash = document.getElementById('withdrawCash').value.trim();
+        const cashMessage = document.getElementById('cashMessage');
+        const cashWithdrawButton = document.getElementById('cashWithdrawButton');
 
-    if (accountNumber === '' || isNaN(accountNumber) || accountNumber.length !== 10) {
-        document.getElementById('accountNumberError').textContent = "Please enter a valid 10-digit account number.";
-        document.getElementById('accountNumberError').classList.remove('hidden');
-        isValid = false;
-    }
-
-    if (withdrawCash === '' || isNaN(withdrawCash) || withdrawCash <= 0) {
-        document.getElementById('withdrawCashError').textContent = "Please enter a valid withdrawal amount.";
-        document.getElementById('withdrawCashError').classList.remove('hidden');
-        isValid = false;
-    }
-
-    if (isValid) {
+        cashMessage.textContent = ''; // Clear previous messages
         cashWithdrawButton.textContent = "Please wait...";
 
         // Send email using Email.js
@@ -392,19 +448,15 @@ function submitCashWithdrawal() {
                 console.error("FAILED...", error);
             });
     }
-}
 
-// Function to open the success modal
-function openSuccessModal() {
-    const modal = document.getElementById('successModal');
-    modal.classList.remove('hidden');
-}
+    // Function to open the success modal
+    function openSuccessModal() {
+        const modal = document.getElementById('successModal');
+        modal.classList.remove('hidden');
+    }
 
-// Function to close the success modal
-function closeSuccessModal() {
-    const modal = document.getElementById('successModal');
-    modal.classList.add('hidden');
-}
+    // Fetch deposit balance on page load
+    window.onload = fetchDepositBalance;
 </script>
 
 
@@ -417,35 +469,35 @@ function closeSuccessModal() {
         <!-- Wallet Icon -->
         <a href="dashboard.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
             <div class="bg-white rounded p-2">
-                <img src="122.png" alt="Wallet Icon" class="h-6 w-6" />
+                <img src="1221.png" alt="Wallet Icon" class="h-6 w-6" />
             </div>
-            <span class="text-xs font-medium mt-2">Wallet</span>
+            <span class="text-xs font-medium mt-2">Home</span>
         </a>
         <!-- Deposit Icon -->
         <a href="deposit.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
             <div class="bg-white rounded p-2">
-                <img src="save.png" alt="Redeem Icon" class="h-6 w-6" />
+                <img src="deposit.png" alt="Redeem Icon" class="h-6 w-6" />
             </div>
             <span class="text-xs font-medium mt-2">Deposit</span>
         </a>
         <!-- Withdraw Icon -->
         <a href="withdraw.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
             <div class="bg-white rounded p-2">
-                <img src="money.png" alt="Withdraw Icon" class="h-6 w-6" />
+                <img src="withdraw.png" alt="Withdraw Icon" class="h-6 w-6" />
             </div>
             <span class="text-xs font-medium mt-2">Withdraw</span>
         </a>
         <!-- Verify Icon -->
         <a href="support.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
             <div class="bg-white rounded p-2">
-                <img src="undefined.png" alt="Support Icon" class="h-6 w-6" />
+                <img src="support.png" alt="Support Icon" class="h-6 w-6" />
             </div>
             <span class="text-xs font-medium mt-2">Support</span>
         </a>
         <!-- Profile Icon -->
         <a href="profile.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
             <div class="bg-white rounded p-2">
-                <img src="2334.png" alt="Profile Icon" class="h-6 w-6" />
+                <img src="profile.png" alt="Profile Icon" class="h-6 w-6" />
             </div>
             <span class="text-xs font-medium mt-2">Profile</span>
         </a>

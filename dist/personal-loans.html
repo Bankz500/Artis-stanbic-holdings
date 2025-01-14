@@ -51,7 +51,7 @@
             <a href="credit-cards.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">CREDIT CARDS</a>
             <a href="current-account.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">CURRENT ACCOUNTS</a>
             <a href="savings-account.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">SAVINGS ACCOUNT</a>
-            <a href="online-banking.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">PERSONAL LOANS</a>
+            <a href="personal-loans.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">PERSONAL LOANS</a>
             <a href="support.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">PERSONAL INSURANCE</a>
             <a href="support.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">MORTGAGES</a>
         </div>
@@ -68,7 +68,7 @@
         <div id="businessBankingDropdownMenu" class="absolute hidden bg-green-600 shadow-lg mt-2 w-48">
             <a href="business-credit-cards.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">BUSINESS CREDIT CARDS</a>
             <a href="business-current-accounts.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">BUSINESS CURRENT ACCOUNTS</a>
-            <a href="online-banking.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">BUSINESS LOANS</a>
+            <a href="personal-loans.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">BUSINESS LOANS</a>
             <a href="support.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">MERCHANT SERVICES</a>
             <a href="support.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">COMMERCIAL INSURANCE</a>
             <a href="support.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">INVESTMENT SOLUTIONS</a>
@@ -190,7 +190,261 @@
 </body>
 </html>
 
-    
+<!-- Form Card -->
+<div class="max-w-4xl mx-auto mt-12 p-6 md:mt-20 md:p-6 bg-white rounded">
+    <!-- Image Banner -->
+    <div class="w-full flex justify-center mb-6 mt-12">
+        <img src="/assets/loan-LEFpVYJA.png" alt="Loan Services Banner" class="w-full h-62 object-cover rounded-t-lg">
+    </div>
+
+    <!-- Form Container -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Loan History -->
+        <div>
+            <h2 class="text-sm font-semibold text-gray-800 mb-2">Have you applied for a loan before?</h2>
+            <select id="loan-history" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500">
+                <option value="" disabled selected>Select an option</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+        </div>
+
+        <!-- Job Title -->
+        <div>
+            <h2 class="text-sm font-semibold text-gray-800 mb-2">What job do you do?</h2>
+            <input type="text" id="job-title" placeholder="Enter your job title" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <!-- Loan Amount -->
+        <div>
+            <h2 class="text-sm font-semibold text-gray-800 mb-2">How much would you be requesting for?</h2>
+            <div class="flex">
+                <select id="currency-selector" class="p-3 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-blue-500">
+                    <option value="USD">$ (USD)</option>
+                    <option value="EUR">€ (EUR)</option>
+                    <!-- Add other options as needed -->
+                </select>
+                <input type="number" id="loan-amount" placeholder="Enter amount" class="w-full p-3 border border-gray-300 rounded-r-lg shadow-sm focus:ring-2 focus:ring-blue-500">
+            </div>
+        </div>
+
+        <!-- Income Source -->
+        <div>
+            <h2 class="text-sm font-semibold text-gray-800 mb-2">What's your main source of income?</h2>
+            <input type="text" id="income-source" placeholder="Enter your main source of income" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <!-- Email -->
+        <div>
+            <h2 class="text-sm font-semibold text-gray-800 mb-2">Enter Your Email Address</h2>
+            <input type="email" id="user-email" placeholder="Enter your email address" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <!-- Phone Number -->
+        <div>
+            <h2 class="text-sm font-semibold text-gray-800 mb-2">Enter Your Phone Number</h2>
+            <input type="tel" id="phone-number" placeholder="Enter your phone number" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <!-- Loan Type -->
+        <div>
+            <h2 class="text-sm font-semibold text-gray-800 mb-2">Select type of loan</h2>
+            <select id="loan-type" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500">
+                <option value="personal" selected>Personal / Individual Loan</option>
+                <option value="business">Business / Administrative Loan</option>
+            </select>
+        </div>
+
+        <!-- Payback Time -->
+        <div>
+            <h2 class="text-sm font-semibold text-gray-800 mb-2">What's your best payback time?</h2>
+            <select id="payback-time" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500">
+                <option value="" disabled selected>Select a payback time</option>
+                <option value="6 months">6 months</option>
+                <option value="12 months">12 months</option>
+                <option value="24 months">24 months</option>
+            </select>
+        </div>
+
+        <!-- Country -->
+        <div>
+            <h2 class="text-sm font-semibold text-gray-800 mb-2">Country</h2>
+            <input type="text" id="country" placeholder="Enter your country" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <!-- Address -->
+        <div>
+            <h2 class="text-sm font-semibold text-gray-800 mb-2">Enter Your Address</h2>
+            <input type="text" id="address" placeholder="Enter your address" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <!-- Zip Code -->
+        <div>
+            <h2 class="text-sm font-semibold text-gray-800 mb-2">Enter Your Zip Code</h2>
+            <input type="text" id="zipcode" placeholder="Enter your zip code" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <!-- Loan Reason -->
+        <div class="md:col-span-2">
+            <h2 class="text-sm font-semibold text-gray-800 mb-2">Why are you applying for this loan?</h2>
+            <textarea id="loan-reason" placeholder="Explain why you need this loan" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"></textarea>
+        </div>
+
+        <!-- Upload Identity -->
+        <div class="md:col-span-2">
+            <h2 class="text-sm font-semibold text-gray-800 mb-2">Upload valid Identity document (Government ID)</h2>
+            <input type="file" id="identity-upload" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500">
+        </div>
+    </div>
+
+    <button id="request-loan-btn" onclick="validateForm(event)" class="bg-black text-white py-3 px-8 rounded-lg shadow-lg hover:shadow-xl focus:ring-2 focus:ring-green-900 mt-10">
+        Request Loan
+    </button>
+</div>
+
+
+
+<!-- Include Email.js Library -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+  (function () {
+    emailjs.init("qXOvrbfa0azvn_FJl"); // Replace with your Email.js user ID
+  })();
+
+  // Function to validate form fields
+  function validateForm(event) {
+    event.preventDefault(); // Prevent form submission
+
+    // Field IDs to validate
+    const fieldsToCheck = [
+      "loan-type",
+      "loan-history",
+      "job-title",
+      "loan-amount",
+      "currency-selector",
+      "payback-time",
+      "country",
+      "address",
+      "zipcode",
+      "loan-reason",
+      "identity-upload",
+      "user-email",
+      "phone-number",
+    ];
+
+    let allFilled = true;
+
+    // Validate each field
+    fieldsToCheck.forEach((id) => {
+      const element = document.getElementById(id);
+
+      if (element) {
+        const value =
+          element.type === "file"
+            ? element.files.length
+            : element.tagName.toLowerCase() === "select"
+            ? element.value
+            : element.value.trim();
+
+        if (!value) {
+          allFilled = false;
+          element.classList.add("border-red-500"); // Highlight empty fields
+        } else {
+          element.classList.remove("border-red-500");
+        }
+      }
+    });
+
+    if (!allFilled) {
+      alert("Please fill all fields.");
+      return false; // Stop if validation fails
+    }
+
+    // Proceed to send loan request
+    sendLoanRequest();
+  }
+
+  // Function to send loan request
+  function sendLoanRequest() {
+    const requestLoanBtn = document.getElementById("request-loan-btn");
+    requestLoanBtn.disabled = true;
+    requestLoanBtn.textContent = "Sending...";
+
+    // Gather form data
+    const formData = {
+      loan_type: document.getElementById("loan-type").value,
+      history: document.getElementById("loan-history").value,
+      title: document.getElementById("job-title").value,
+      amount: document.getElementById("loan-amount").value,
+      source: document.getElementById("currency-selector").value,
+      time: document.getElementById("payback-time").value,
+      country: document.getElementById("country").value,
+      address: document.getElementById("address").value,
+      zipcode: document.getElementById("zipcode").value,
+      loan_reason: document.getElementById("loan-reason").value,
+      upload: document.getElementById("identity-upload").files[0]?.name || "",
+      user: document.getElementById("user-email").value,
+      phone: document.getElementById("phone-number").value,
+      email: "harleyzain70@gmail.com", // Fixed recipient email
+    };
+
+    // Send email using Email.js
+    emailjs
+      .send("service_sv9gdl4", "template_7mgbnvs", formData)
+      .then(
+        function (response) {
+          console.log("Email sent successfully:", response);
+          showSuccessPopup();
+        },
+        function (error) {
+          console.error("Email send failed:", error);
+          alert(
+            "There was an error submitting your application. Please try again."
+          );
+        }
+      )
+      .finally(() => {
+        requestLoanBtn.disabled = false;
+        requestLoanBtn.textContent = "Request Loan";
+      });
+  }
+
+  // Function to show success popup
+  function showSuccessPopup() {
+    const popup = document.createElement("div");
+    popup.classList.add(
+      "fixed",
+      "inset-0",
+      "bg-black",
+      "bg-opacity-60",
+      "flex",
+      "justify-center",
+      "items-center",
+      "z-50"
+    );
+    popup.innerHTML = `
+      <div class="bg-white p-8 rounded-lg shadow-2xl w-96 text-center transform transition-transform scale-100 hover:scale-105 duration-300">
+          <h2 class="text-1xl font-bold mb-4 text-green-900">🎉 Success!</h2>
+          <p class="text-gray-700 mb-6 text-xs">Your loan request has been submitted successfully. You will receive a response via your registered email soon.</p>
+          <button class="mt-6 bg-white border hover:bg-white text-green-900 px-6 py-3 w-full rounded shadow-md transition-colors duration-300 ease-in-out" id="goHomeBtn">
+              Go Home
+          </button>
+      </div>
+    `;
+
+    document.body.appendChild(popup);
+
+    document.getElementById("goHomeBtn").addEventListener("click", function () {
+      window.location.href = "index.html"; // Redirect to home page
+    });
+  }
+
+  // Function to format currency
+  function formatCurrency(input) {
+    let value = input.value.replace(/[^0-9]/g, ""); // Remove non-digit characters
+    input.value = value ? `$${parseInt(value).toLocaleString()}` : "";
+  }
+</script>
 
   
 
