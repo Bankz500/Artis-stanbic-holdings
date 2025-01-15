@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Online wallet</title>
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" sizes="180x180" href="app logo.png">
-    <link rel="icon" href="app logo.png" type="image/png">
+    <link rel="manifest" href="/assets/manifest-CwjE1--k.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/LOGO-CCzuxV7h.png">
+    <link rel="icon" href="/assets/LOGO-CCzuxV7h.png" type="image/png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js Library -->
@@ -17,147 +17,9 @@
             overflow: auto; /* Ensures scrolling is enabled */
         }
     </style>
-    <script type="module">
-        // Firebase SDK imports
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js';
-        import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js';
-        import { getFirestore, doc, getDoc, collection, getDocs, query, where } from 'https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js';
     
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyDyZiL4-h5n9Kqr24e7liROgHXMZau2ZmI",
-            authDomain: "artis-stanbic-holdings.firebaseapp.com",
-            projectId: "artis-stanbic-holdings",
-            storageBucket: "artis-stanbic-holdings.appspot.com",
-            messagingSenderId: "124094989669",
-            appId: "1:124094989669:web:54e6306dc5747a80ec8d8c",
-            measurementId: "G-0WSC5YMY2C"
-        };
-    
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app); // Initialize Firestore
-    
-        // Check if the user is authenticated
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                console.log("User is logged in:", user.uid);
-                // Fetch user data from Firestore
-                const userDocRef = doc(db, 'users', user.uid); // Reference to user's document
-                const userDoc = await getDoc(userDocRef);
-    
-                if (userDoc.exists()) {
-                    // Populate the fields with the user data
-                    const userData = userDoc.data();
-                    
-                    // Set the amounts directly from user data
-                    document.getElementById('Deposit-account').textContent = `${userData.deposit || '$0.00'}`;
-                    document.getElementById('history1').textContent = `${userData.history1 || 'No history available'}`;
-                    document.getElementById('history2').textContent = `${userData.history || ''}`;
-                    document.getElementById('history3').textContent = `${userData.history2 || ''}`;
-                    document.getElementById('wallet').textContent = `${userData.wallet || '$0.00'}`;
-                    document.getElementById('bonus-wallet').textContent = `${userData.bonus || '₦$0.00'}`;
-                    document.getElementById('pending1').textContent = `${userData.pending1 || 'No pending transactions'}`;
-                    document.getElementById('pending2').textContent = `${userData.pending2 || ''}`;
-                    document.getElementById('pending3').textContent = `${userData.pending3 || ''}`;
-                    
-                    // Set the welcome message
-                    const welcomeName = document.getElementById('welcome-name');
-                    if (userData.firstName) {
-                        welcomeName.textContent = `Welcome back, ${userData.firstName}`; // Set welcome message with user's name
-                    } else {
-                        welcomeName.textContent = 'Welcome User'; // Default if name is not found
-                        console.log('User data does not contain a name field.');
-                    }
-    
-                    // Fetch transaction history from Firestore
-                    const historyRef = collection(db, 'history'); // Reference to history collection
-                    const historyQuery = query(historyRef, where('userId', '==', user.uid)); // Query for the authenticated user
-                    const historySnapshot = await getDocs(historyQuery); // Fetch history for the authenticated user
-    
-                    const historyContainer = document.getElementById('history-container');
-                    historyContainer.innerHTML = ''; // Clear existing content
-    
-                    if (!historySnapshot.empty) {
-                        historySnapshot.forEach(doc => {
-                            const historyData = doc.data();
-                            // Create a new history card for each transaction
-                            const historyCard = document.createElement('div');
-                            historyCard.className = 'bg-white p-4 rounded-lg shadow-md text-center h-16';
-                            historyCard.innerHTML = `
-                                <h3 class="font-semibold text-gray-800">${historyData.description || 'No description'}</h3>
-                                <p class="text-gray-600">ID: ${doc.id}</p>
-                                <p class="text-gray-600">$${historyData.amount || ''}</p>
-                            `;
-                            historyContainer.appendChild(historyCard); // Append to the history section
-                        });
-                    } else {
-                        console.log('No transaction history found for this user.'); // Debugging log
-                        // If no history is found, display a message
-                        const noHistoryCard = document.createElement('div');
-                        noHistoryCard.className = 'bg-white p-4 rounded-lg shadow-md text-center h-16';
-                        noHistoryCard.innerHTML = `
-                            <h3 class="font-semibold text-gray-800">No history</h3>
-                            <p class="text-gray-600">You have no transaction history.</p>
-                        `;
-                        historyContainer.appendChild(noHistoryCard); // Append the no history message
-                    }
-    
-                    // Fetch pending transactions from Firestore
-                    const pendingRef = collection(db, 'pending'); // Reference to pending collection
-                    const pendingQuery = query(pendingRef, where('userId', '==', user.uid)); // Query for the authenticated user
-                    const pendingSnapshot = await getDocs(pendingQuery); // Fetch pending transactions for the authenticated user
-    
-                    const pendingContainer = document.getElementById('pending-container');
-                    pendingContainer.innerHTML = ''; // Clear existing content
-    
-                    if (!pendingSnapshot.empty) {
-                        pendingSnapshot.forEach(doc => {
-                            const pendingData = doc.data();
-                            // Create a new pending transaction card
-                            const pendingCard = document.createElement('div');
-                            pendingCard.className = 'bg-white p-4 rounded-lg shadow-md text-center h-16';
-                            pendingCard.innerHTML = `
-                                <h3 class="font-semibold text-gray-800">${pendingData.description || 'No description'}</h3>
-                                <p class="text-gray-600">ID: ${doc.id}</p>
-                                <p class="text-gray-600">$${pendingData.amount || ''}</p>
-                            `;
-                            pendingContainer.appendChild(pendingCard); // Append to the pending section
-                        });
-                    } else {
-                        console.log('No pending transactions found for this user.'); // Debugging log
-                        // If no pending transactions are found, display a message
-                        const noPendingCard = document.createElement('div');
-                        noPendingCard.className = 'bg-white p-4 rounded-lg shadow-md text-center h-16';
-                        noPendingCard.innerHTML = `
-                            <h3 class="font-semibold text-gray-800">No pending transactions</h3>
-                            <p class="text-gray-600">You have no pending transactions.</p>
-                        `;
-                        pendingContainer.appendChild(noPendingCard); // Append the no pending message
-                    }
-                } else {
-                    console.log('No user document found in Firestore.');
-                    alert('No user data found.');
-                }
-            } else {
-                // If user is not authenticated, redirect to the sign-in page
-                console.log('No user signed in, redirecting to sign-in page.');
-                window.location.href = 'sign-in.html';
-            }
-        });
-    
-        // Sign out function
-        window.signOut = function() {
-            signOut(auth).then(() => {
-                alert('Signed out successfully!');
-                window.location.href = 'sign-in.html'; // Redirect after sign-out
-            }).catch((error) => {
-                alert('Error signing out: ' + error.message);
-            });
-        };
-    </script>
-    
+  <script type="module" crossorigin src="/assets/statement-Da-cW8Md.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
 </head>
 <body class="font-sans antialiased bg-gray-100">
 
@@ -166,12 +28,12 @@
     <div class="container mx-auto flex items-center justify-between">
         <!-- Left Logo -->
         <a href="#" class="flex items-center">
-            <img src="ARTIS LOGO.png" alt="Gift Card Brand Logo" class="h-14">
+            <img src="/assets/LOGO-CCzuxV7h.png" alt="Gift Card Brand Logo" class="h-14">
         </a>
 
         <!-- Right Logo -->
         <a href="https://wa.me/message/YAZLKCAO5JF7E1" class="flex items-center">
-            <img src="chat.png" alt="Gift Card Brand Logo" class="h-8 w-8">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAF+SURBVHgB7Zg9TsNAEIVnnUBSUFiiMSKRtiIuOUK4ATcgN4AbJD4B3ADnJJgbUKa0oHGDFCQKp0iWGUMB0nrjFHg20XzS+m9mpfe89hYPQBCEvUa5ipGOx7A2U2y6NAAhtE+GEufF2yKta+jUFaLBxRQMpHipcfSBB43j+iQ8hc+P92dbg3UFomE8ATCP1Y1RSb9bPuR5voQW0VqHq01vYgzcVw866qrIF1mjydFw9ITDnJ2P7oCZaBDPSAtpstWDmnljOvSOVikwQ6tPZ/oPbfXANbntz8aloW4TCWDPEQPciAFuxAA3YoAbMcCNGOBGDHAjBrgRA9x4b4DiFVfdewOYDd18X6nMVu+Cp9CbLzfHtxhszX4ezW19OxvAvFRjXkohk4Z/pFz/ulEqKV7t+ehOBtoSTygFS2PUCwZCCYa7WV1fYwN/xCvIIaiyyhyYafQT+yqe2GrAZ/GE04Dv4gn3Cnguntj2CXktnnAb8Fw8Yd9GSTjhuXhBEA6AL7VSiL3vYTIcAAAAAElFTkSuQmCC" alt="Gift Card Brand Logo" class="h-8 w-8">
         </a>
     </div>
 </nav>
@@ -344,14 +206,14 @@ function closeSuccessModal() {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Request Bank Statement</title>
+    <title>Request  Statement</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen flex items-center justify-center">
     <!-- Card Container -->
     <div class="bg-white rounded-2xl p-8 w-full max-w-xl mx-auto mt-20 mb-12">
         <!-- Card Header -->
-        <h2 class="text-1xl font-bold text-gray-800 text-center mb-6">📄 Request Bank Statement</h2>
+        <h2 class="text-1xl font-bold text-gray-800 text-center mb-6">📄 Request Statement</h2>
         <p class="text-gray-500 text-center mb-8 text-sm">
             Fill out the details below to get your bank statement emailed to you.
         </p>
@@ -522,35 +384,35 @@ form.addEventListener('submit', (e) => {
         <!-- Wallet Icon -->
         <a href="dashboard.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
             <div class="bg-white rounded p-2">
-                <img src="122.png" alt="Wallet Icon" class="h-6 w-6" />
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAARbSURBVHgB7Vq9cttGEN470LGLFHQSy5KawEVm6NhSECmZccl0SWeVqSw/gZkniFWldNKlM/UEUZ5ATOfCoag/k12QmUxEy5wxXUn+uVvvgfg5/NEgAJos/M1wuHfYA3Z53y727gjwAbMFgynBtOrVS3BeVXKv88iGKaF0B26srG1KYHcAsB55VIsDbh8ftptQIkpzoGbdMpl4/TBueOyRLTQu3C1rVkpx4Ib1rSWF+INEM3J32/nGSD+AjcZH35XhBIeCuL66fg+F2AXdeITfzgx5uXvQvqY+aMhriLClDaPZevXP9dW1BhREoRkgAx6Qsb4RjMFQSr7RO3rcStRfWb8NDB/oM0Jj7j85aG9BTuRyIJHvRBfkkmjRscePtUwm+W6IVox1kF/YyEOpiSmk+E7TvxsOVtw+4/LrdxmvoHQukq4aEwxH557qh4EJYUyirPgOUjZJXPT6GHG7e7TXGPb751nv0yfdwWl/57OFJUYUqrvdVYaicWVx6cXg6cmjrPfK7IDL9/skXnIMJ74j8h+6R383IScGpyetK1eX94l+t6hZdbu/X1hcgmdPT/7Kco93xkARvmdFkbgYGwNF+Z4VReIilUJl8T0r8saFkWx8nO8C2I+9o/bvMGVMGhexGIi+nMrme1YkxQUH/uvx4eOfdL1QDKhKMvRmBdgpm+9ZkRQXEmTj5s1v6rpeRW8gY/coeByZjG8+OWzfhRmi0+kM6WuTShBl3R3VJxj+TF8tT8efgS8o4yBFvteWhsxdn5SNi4Zo0A86HLWwrujlXfMdqEhRD4bgn7OgTRrUTCCwjtc2BK97su8ACyKesk6gPC9gDP0MhEwPbK/TnyJHrsKcIc2mIAshswMZTZg3IPvKFzFgSDADhtBoEyjPCxgECYYbwg76NXy5svbcmyq1JLRHaWzmsCyr+lLw5167e9j27Q4Xcyyg0cdvKhbMCc4hsCWaYEIOIMh9TxZczo0DTAa2IMp/9WuRcjrknQkFoUoTpzwpDtMTxs5AOBMVC+TRDh08VJ/CTqRkIIUwhUKZCAtRSH/Z6HIepGUgp603VPkQ1BxQNSn6YcZQGUh7iQ2Pqa7Qr8eXlHOWifQMFIlRBzEH5i0T6RmIauQX0esJi/pyM1EJMH2JsVb0YtyBEjNRKdBsMCTPQKGSMpFEd2s9Ik8KPQNh5c0wfj0BZdVENTf/93KeykRqoCHVQJejOpXEkSoTuctLNxO1IAd6BY+TVAZitJR3jUpcZCXuzCEEqx/JRovpWYCL4NlEJTtRJ6kTJd/xZcDN2ur6e3fCOfmhZ3vttE2GxJ25wen/9sLVZUWdmmpToNymtvnp8uf7g/5/U10jqOPZpYVPfnF3BsF9frN7sLedpJ+6O+0EkOR7sQM6lj+jZELC89TmWloiGbu97mzvCSPD0em0wFpnhtgYlwUznZGpdMgSD6/Lx+jghM4GkG2lHRaG9GFC1GqTn2NNgl5ven9L+IBp4C127CiPC2xWGQAAAABJRU5ErkJggg==" alt="Wallet Icon" class="h-6 w-6" />
             </div>
             <span class="text-xs font-medium mt-2">Wallet</span>
         </a>
         <!-- Deposit Icon -->
         <a href="deposit.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
             <div class="bg-white rounded p-2">
-                <img src="save.png" alt="Redeem Icon" class="h-6 w-6" />
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAwCAYAAAC4wJK5AAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAASPSURBVHgB7VktVxtBFJ0ERB0JmMoNIJCpq2vq6tq6OoKrA1xdF1nV4uoAVwf8AhaHI38Asv0FCa4IoPfCm/AYJju7yZ5QenLP2ZP5eDv77ryZ995MjJliiin+O1TMGIiAarW6zvL19fV2CpgnwFgkGo3GKX6aUk1vbm7e5iGyvLzcAun3kP+AaiTNnUql0kH7VtHJGJfEjdPUh2U2z87Odn3yMFwN/V+h/IbJUqpS+SFk+iYHyiZhldh1Z5QE0H5k7i0XQkcsGyRSNeUhtQV8vA2FTxcXF3cGH4IFzEMCCZXEU+92uxWW0ban+pvyThAzZgzU6/XYlqHEKyheV4q+4Brv9XqHdACo/1KytNJav99P8fxhm5QPajUarNIS0deoH7MvS4/SLMGlgxltQ8E1I1aBMoe3H1EzyqUG0ThjHPYlAwWr1Q8mgDKXk1ViF2QatMzV1VWHbSgPlhH2yl5oDFpKld+H5GfNCODywIzuZMmATEdVm6o9MWHod6OQcGFLYLOuc9Oi2FLNac7XjeyPTOR1rRaFSIAAffwPFGu2jWtcPEumXkr+iF4riwyDoap2TAC5SQiBWA9O5c/Pz9dCERZy26oaiQvuIs4cLS0ttV157JtVW6aHMwHkCnaYtLbeA1CCm3OjiNllDHqpyNOdSoDcgzda1ZOFcoOThEn8PiyK5yKBGevaj+NjB5j9jyxjFlcxMJcX040Y6UbQ84BMC2O0UVwNydKCUHpDHEkXzxa+HbtyweUERXWSlkLpTduHcmzu9kckZIKgd5J40hBXmg4R5TKKb5WUOAP5daYvpgiJlZUVKqcDVeKsfz1gIY+S3iGWmMIAmdg+WkDnTShH9nszMzOPgp83Tki2uXN5efngBa5JXcfgm7LOazpAFQUDJH52h/Uz8mP8lnzzjSvrJSHp8gMCku+kRT5eFjB5CYhYPR5lwV4SdIGqmgiBxDwdUlWO3E6vd9LnBKbJ5h9Alk6lJ4BPgWdBwnGrj7zgsyAxOzurN3Pq9g8jMWCLcL/vy28mCXinAQlfLuUlAcFBwkZXi0F29Hl50mCktmXoduz2e8/YOBcn8/PzPC+/Vs1NtF2g78RMEEx7QOKzrWNC1+y53GLonkCitcH8xrHK1zyHmjIBpb/bspzPi21sRmiSMfebiVcR+2ZCYPptHiaf3tQml3eSBM2iOYn9QQL6plDS8tQnm+veifc+uP+5gBXeSRP3RzQ3N3fsrs9xweWK+yxa+5NtEwLxsHdyX55B2RPnYquJ8qeFhQVu9uARMi9AQF9S354iQeBz1juF8yJMVCzptwaPlwdlXO/rHImpPoYLHrZGSu4yzsu8BWyYMTBK8jnS5RnPESDCHD9GlYeUSLoiV1ZuSbhB3WNlny4T3m/TjIlS0uxhs+d6GK8CzuF/FEuUngDqjNM5XHmhUwrfJUAejLScPEjN/ZVOD7Pp9vcxq3XdAJmeuVtitSF/1uT2eKVYwrnh8/U/uo/S6YwPOOdn9muM9SeLhcSQ31AsQvWl7gKBb3AEX9x3VJK5gueF6uIfmFuw3E8zxRRTjIS/rx6WPjRsH6wAAAAASUVORK5CYII=" alt="Redeem Icon" class="h-6 w-6" />
             </div>
             <span class="text-xs font-medium mt-2">Deposit</span>
         </a>
         <!-- Withdraw Icon -->
         <a href="withdraw.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
             <div class="bg-white rounded p-2">
-                <img src="money.png" alt="Withdraw Icon" class="h-6 w-6" />
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAwCAYAAAC4wJK5AAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAANaSURBVHgB7VndcdpAEF5pUoBLED8PPDodkArsVACpwLgCyxUYVwDuwB2EVBCnAEAl+JEXIN8yOuVy1h17PzCZCd+MhhM63e13+3O7J6ILLrhARybtWBTFVZ7nd/v9fsy3FIcqy7L5brd7rqrqnSIhIsEEMOl3NK8pLd6wKF9iieSiTtAApSfAuMbYE4rEJ0mn2oRU+xErV3K70+ns1f/r9bpVq219oNkSmn2oxxvhp6QIiDRBmg8oAjEwxigoElISH9Dtdh+028rRtbK8kwwic9KhzANm0PyH9outP8zmBc+V6ZR4v6TECNaEhjdcU9tDhNFp3edkiCFRsZMfC5H8jPtwX7KYXayZifYJSRTyhT7mQZAsK1er1SMFIIU5JQH7S6hG/hkSjFAi3tFJin6/P4RT36DJKcuP7Xa7gH9UbX3ZX7TNj4mQj2kl8QlhcshJ3zOEm7aNqe/iB8E8fCTanHq93ggTrnkFyb37FujzZDMX3sXrCHaAj2lFkcAkdzCZOZpXbc9B7hXXPWmh1SVcKJFgElB/Ua9+IwPuv2n37zCHr2w+MJcOm5IunG3cECLBJOADPLDSABP4jN9XrcsVE1U3IDPRhXOhjYg+1gdZKBAYuKkvQOied+Z6516o/7H6M3II50Kd6S60Oax1R4xPNCSWy2WjAUPIIUzhiQzhTCLoM2ubwNDGDVmQZLPjEKvaEHJhTD45RoRDs4WInjgWZEFUAqi1/ypdW4ScmEJaiJhkRbV3MAmuE7T2TNeGEtKISGOBRoLq7WASdZ2gVqqAwD+x8d0ebkCI0w7TjtuE1IlInd5EVNoBYcdmBDoG31ReUgZEOTZWcY7V4x3ZZbvRh2PHEB2dQGRab3TsI3o0UZVfh7QgMBgMCkqMJKl4nWKPbc9hEo02NptNQe7TEW+cqyj61UyY50NKjLOQgEkttPbIDMexOJcmOC1pwjG0MXMldL7wJsEhr77WnCJ7rGrj9NDGLRdSPE6KU8EYTRzqCT7ydxHRPgsM2567agspUpiT83j+hJ8F/sxBnuBdky8j5xnZ+pufBdT7lBDBmvA4ni8s7ySDlESlGikc0eOzgAiiHVtyPG+erbbB97OAFCJNnPB43vlZQAoRCcnxvCdEnwUYsbXGBRf8j/gNGiU8mh1gvK8AAAAASUVORK5CYII=" alt="Withdraw Icon" class="h-6 w-6" />
             </div>
             <span class="text-xs font-medium mt-2">Withdraw</span>
         </a>
         <!-- Verify Icon -->
         <a href="support.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
             <div class="bg-white rounded p-2">
-                <img src="undefined.png" alt="Support Icon" class="h-6 w-6" />
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAQYSURBVHgB7Zo7VttAFIavbBcuFaqUMociHUqXUqwAsoJAl1TACoAuHbACTJkKKFMhOrp4A2DRpbPSpeCR/8LYZzyRFM1LCUTfOTq2ZkaPX3PvzJ0HUUtLS8szIiDPRFEUdjqddfxdfnh4SPAbioPJcWRBEPBxdnd3l2aAPOJN8NLSUgIBO/ibkB4pPtDx1dXVkDzgXLCFUJUMFrHiusa75JDFxcWd+/v7If5GJUXYhL/jGOHIxPnrkrIhzHxrYWGBJpPJBTnCWQ1D7BFqZL0gK0f6IX7ZP9Oia+HnMfs5yq1SwceC8OH19fUGOcCJ4BKxOURs6/oixK9DILtEJKe7Em1t0hC7D7Ef5TS83Cn733g8viRN8jwfhWF4ho8V4fSNlBXDvEOY91eywEow1wZ+PstpELoHoZ/w4j/JEFybQ9gXCMe3CxIp6x1E/0Ce9oecYmzSEBvhZc5JMj32VfjpFjkEFnSA+25KSdwmDPCcnAzokCEwOdXPMtdiGfgt33MkJXEgY/wcI8Fcu2ojxT5LnsC9N5TzTY7gyADTGk7kE25BfYaEuDXX8LGUNA1XtTESDIEf5HMEG4fkGdTqUDlfJQO0Gy02JQieSEkZWuUBNcBgMBjTfCP5Srfx0q7hXq8Xy+c8yqGGKHhWTJpoC769vY2UpIwaAq4jt9bU7XYj0kRbsIiASl/CJxA4Z74w6Yg0Me6H/wYwaaNgQ+ZZCXbBfye4R5ZwPI3uoix7BD97XzcoEfH5EZXMlmAmhWzxXcOxEFALlD0h+6mhSpow6USjrHa/qou1SdPTSEZtPfnFjYJ7iZzmR0kk7mn1UawFw0e31bkq+DSPkxOyY4SQdW4EJmZEz8mCtlt66bSCXzqt4H+ZgqGpNi5Cy310Q0X9sC2x6N6m/NYHY2iakiYuAg9f0RELTCrys7K1qiqaMGmdCYK0ZrnMdFrYt+CUR0t1C4v556oPxEL3cLw1nRZ2EVqumJhWEULEW/KISQ3PNVCYZ7IdJDSKdg3zBhTU6uxcbFQ5rXs9DwDQuibiXiOsH9e+1gUuJuLzOj4lRjo8GRApWZkYcTUiXNukxUx/KiXxBzipWtxC3poY1kVF2eL6NWoAo1ZatKayL/NUzjeuRbWssIh9+gM8FWS6IqiDzYL4VokQdaZCjZAeTfjx4U/XR7OXCYJtrAcfkEeMuyWY9oGovR0lqzJCYuuYdmO4Phe7CKYsk2esAg+8+K4w76zuNf1+Xy5rvZKgi/UuHt51g+MwDMMbrDtxEm8065eVR+MVo+wFDl6nYpOe7dRBbR/bbFipQyObS5VurBSxWSUjj3gfPHA3Nm2kquAY2bdYxuleyzJg8pcFe65mCLG71ADeTVqG1454yxEELoulzxuEmaeuBh8tLS0tLc+dX3zd0aoo/ZR3AAAAAElFTkSuQmCC" alt="Support Icon" class="h-6 w-6" />
             </div>
             <span class="text-xs font-medium mt-2">Support</span>
         </a>
         <!-- Profile Icon -->
         <a href="profile.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
             <div class="bg-white rounded p-2">
-                <img src="2334.png" alt="Profile Icon" class="h-6 w-6" />
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAwCAYAAAC4wJK5AAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAOPSURBVHgB7Vm9chMxEF7/FFTJkeQBzkmKdJguXcwTYDq6mJIqyRP4XEFH8gQ4HR2ho8MpqXA6F/ZYdNDYR8d4xjbfZiRHODYnnWSn4L4ZzenO0t1+0mr1rUyUIUMGHTnyjDAMg0KhUJlOp8coZX4kf2rncjmB8qnX6zXJI7ySAIEqjHyPapDQVOTz+YYvMgXyhN3d3Xe4nKM8MmgeYJaqW1tbNBwOr8kRefIAEKjDqFPtUYz7Bkqp3+/nuKD+FLN0ht+EaoRnkSTvBGd3ggvVpAvdAoZd4nIqhIiXtA/gShHanWh9XqD9FaWEM4lSqdQnuXhhzAWMOTXpBzJNkD+WtzxzpWXEk+DkTjwLdBd9BEpE5mCyymiOaFVKCScScIvnWr1hM5LcFjNxoe4nk8nDkIALhKo+Ho/bZAkY3tRun1BKuEansqpgZK1JoI/QbkNKCS8h9qHhSkKoysHBQUiWQGAoL3qXLZxIYGHOXGg0GtXIHjqJG0oJ15mYSQbevHgjM+3IbTEI9Zkh+Xzqzc6JhIwus1gPQ+qmfWXbUN4KFzHoJADjOP4dBMFPjKiK8YcQdcHm5uZX/m1RH54BtHmjay0QOoMQtI5uCs4qFsa2YdRjVA/lo0OQerm9vf1rZ2eHBoPBD37IC39jY4P10geUiurPUgUC8S05wFs+ATV6ros6E9horX/BWz4Bd/gM1/qOWeCIk7TAY7jQa9cZUPCenjJYGLKuwkhX6I6QkCH5mgNCWsWaIUOGZBgvbJkbn2Cx1shBNhuCg8AVAoBRomVEQuqcL/S3YFsH2hi0Z0lEjLQTzwCtnwCjjG8nboZFMoB0IVXnKY5ohcDMR0rh8nEoJRxAGLkTjmWmqs4HYbQG2Hzzv0pPZwvLJvFJi7lvJEYnUxIzrY+FVqPVo7ro28tgRIL/U1B1LLQ6RiqkFYHfPZe2Xib1MSIh01Ahb2/3jFUQkQR4PwrlI6O01YgEbzZ8cq1/jz+2t7dXI0/Y39+v4J3fSFMDc99cCqtwOX+ML9HCYXCj2+22KAXYeByBsvtU9Ocg8AqD1zR5h3XM5wMvEPlI9/UT650Wrjfw43axWBSdTkfoDTjPhsEB3LMMI4/43yK6nwUK+X+F8cFBqo1L+m6E6jF5BOfcuES2WZ/T7quROaL0yjaWxjfnDpiN4U1CgE8FbsQikd2EXSSkBS6HEstc+wZu1YbdLcqQIYNX/AFXkoDECHnC/AAAAABJRU5ErkJggg==" alt="Profile Icon" class="h-6 w-6" />
             </div>
             <span class="text-xs font-medium mt-2">Profile</span>
         </a>
