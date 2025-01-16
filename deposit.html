@@ -4,10 +4,10 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Online wallet</title>
+    <title>ASHB Deposit</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" sizes="180x180" href="Logo.png">
-    <link rel="icon" href="Logo.png" type="image/png">
+    <link rel="apple-touch-icon" sizes="180x180" href="logo 2.png">
+    <link rel="icon" href="logo 2.png" type="image/png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js Library -->
@@ -25,13 +25,13 @@
 
         // Firebase configuration
         const firebaseConfig = {
-            apiKey: "AIzaSyDyZiL4-h5n9Kqr24e7liROgHXMZau2ZmI",
-            authDomain: "artis-stanbic-holdings.firebaseapp.com",
-            projectId: "artis-stanbic-holdings",
-            storageBucket: "artis-stanbic-holdings.appspot.com",
-            messagingSenderId: "124094989669",
-            appId: "1:124094989669:web:54e6306dc5747a80ec8d8c",
-            measurementId: "G-0WSC5YMY2C"
+        apiKey: "AIzaSyCJdMdkW5NZF83PLBLYZk3yBAFsUxqautY",
+        authDomain: "atpib-82d72.firebaseapp.com",
+        projectId: "atpib-82d72",
+        storageBucket: "atpib-82d72.firebasestorage.app",
+        messagingSenderId: "938927546204",
+        appId: "1:938927546204:web:ea096f1dfe3b3754dd6b99",
+        measurementId: "G-G3BRPK5B9T"
         };
 
         // Initialize Firebase
@@ -346,9 +346,9 @@ function closeSuccessModal() {
         
 <!-- Card to display user's balance -->
 <div id="balance-card" class="bg-white p-6 rounded-lg text-center">
-    <h2 class="text-xl font-semibold text-gray-700">Your Balance</h2>
-    <p id="balance" class="text-4xl font-bold text-green-500 mt-4">
-        $0.00 <!-- Default value -->
+    <h2 class="text-xl font-semibold text-gray-700">Account Deposit</h2>
+    <!-- <p id="balance" class="text-4xl font-bold text-green-500 mt-4"> -->
+ <!-- Default value -->
     </p>
 </div>
 
@@ -381,18 +381,18 @@ function closeSuccessModal() {
             </div>
 
             <!-- Bank Name -->
-            <div class="mb-4 flex items-center justify-between">
+            <!-- <div class="mb-4 flex items-center justify-between">
                 <div>
                     <p class="text-sm text-gray-600">
                         <strong>Bank Name:</strong>
                     </p>
-                    <p id="bank-name" class="text-gray-800 font-medium text-xs">ATB</p>
+                    <p id="bank-name" class="text-gray-800 font-medium text-xs">ATPIB</p>
                 </div>
                 <button onclick="copyToClipboard('bank-name')" class="text-green-500 hover:text-green-700">
                     <img src="copy.png" alt="Copy Icon" class="h-5 w-5" />
                 </button>
                 
-            </div>
+            </div> -->
         </div>
 
     </div>
@@ -466,7 +466,7 @@ function closeSuccessModal() {
                     document.getElementById('account-name').textContent = userData.name || "Not Available";
                     document.getElementById('account-number').textContent = userData.accountNumber || "Not Available";
                     document.getElementById('bank-name').textContent = userData.bankName || "Not Available";
-                    document.querySelector('.account-balance').textContent = `$${userData.balance || 0.00}`;
+                    // document.querySelector('.account-balance').textContent = `$${userData.balance || 0.00}`;
                 } else {
                     console.error('No user document found!');
                 }

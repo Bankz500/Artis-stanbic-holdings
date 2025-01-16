@@ -4,17 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Financial institution</title>
-    <link rel="manifest" href="/assets/manifest-CwjE1--k.json">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/LOGO-CCzuxV7h.png">
-    <link rel="icon" href="/assets/LOGO-CCzuxV7h.png" type="image/png">
+    <title>ASHB Sign up</title>
+    <link rel="manifest" href="/assets/manifest-B0fCP1N4.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/Logo%202-B2S9_QGl.png">
+    <link rel="icon" href="/assets/Logo%202-B2S9_QGl.png" type="image/png">
     <!-- Include Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Include Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js"></script>
-  <script type="module" crossorigin src="/assets/account-BH57zYdA.js"></script>
+    <!-- Add Firebase SDK -->
+  <script type="module" crossorigin src="/assets/account-D8uYiTdx.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
+  <link rel="modulepreload" crossorigin href="/assets/index.esm-BeIn6wDe.js">
 </head>
 <body class="font-sans antialiased">
 
@@ -23,7 +25,7 @@
   <div class="container mx-auto flex items-center justify-between">
       <div class="flex items-center justify-center w-full md:w-auto">
           <a href="index.html">
-              <img src="/assets/LOGO-CCzuxV7h.png" alt="Cleaning Services Logo" class="h-14 w-68">
+              <img src="/assets/LOGO-DaWAb3qB.png" alt="Cleaning Services Logo" class="h-14 w-68">
           </a>
 
           <!-- Mobile Menu Button -->
@@ -45,15 +47,12 @@
     <div class="relative">
         <!-- Dropdown Button -->
         <button id="personalBankingDropdownButton" class="text-blue text-sm hover:text-green-600 focus:outline-none">
-            PERSONAL FINANCE
+            PERSONAL
         </button>
 
         <!-- Dropdown Menu -->
         <div id="personalBankingDropdownMenu" class="absolute hidden bg-green-600 shadow-lg mt-2 w-48">
-            <a href="cards.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">CARDS</a>
-            <a href="sign-up.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">CURRENT</a>
-            <a href="sign-up.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">SAVINGS</a>
-            <a href="loans.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">LOANS</a>
+            <a href="personal.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">Personal</a>
         </div>
     </div>
 
@@ -61,14 +60,12 @@
     <div class="relative">
         <!-- Dropdown Button -->
         <button id="businessBankingDropdownButton" class="text-blue text-sm hover:text-green-600 focus:outline-none">
-            BUSINESS FINANCE
+            BUSINESS
         </button>
 
         <!-- Dropdown Menu -->
         <div id="businessBankingDropdownMenu" class="absolute hidden bg-green-600 shadow-lg mt-2 w-48">
-            <a href="cards.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">CARDS</a>
-            <a href="sign-up.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">BUSINESS</a>
-            <a href="loans.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">LOANS</a>
+            <a href="personal.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">Business</a>
         </div>
     </div>
 
@@ -130,10 +127,10 @@
                     HOME
                 </a>
                 <a href="personal.html" class="w-4/5 py-3 text-center border text-black text-xs-2 font-medium bg-white rounded hover:bg-green-600 transition">
-                    PERSONAL FINANCE
+                    PERSONAL
                 </a>
                 <a href="personal.html" class="w-4/5 py-3 text-center border text-black text-xs-2 font-medium bg-white rounded hover:bg-green-600 transition">
-                    BUSINESS FINANCE
+                    BUSINESS
                 </a>
                 <a href="about-us.html" class="w-4/5 py-3 text-center border text-black text-xs-2 font-medium bg-white rounded hover:bg-green-600 transition">
                     ABOUT US
@@ -184,19 +181,12 @@
     // Close menu when clicking the overlay
     overlay.onclick = closeMenu;
     </script>
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open Account</title>
+</body>
     
 
 <!-- Open Account Section -->
-<div class="flex items-center justify-center min-h-screen bg-gray-100 mt-24">
-    <div class="flex bg-white shadow-lg rounded-lg overflow-hidden max-w-5xl w-full">
+<div class="flex items-center justify-center min-h-screen bg-gray-100 mt-18">
+    <div class="flex bg-white rounded-lg overflow-hidden max-w-5xl w-full">
         <!-- Form Section -->
         <div class="w-full md:w-3/5 p-8">
             <h2 class="text-2xl font-bold text-gray-800 mb-6">Open an Account</h2>
@@ -223,9 +213,9 @@
                     <select id="account-type" name="account-type" required 
                         class="mt-1 block w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" style="appearance: none;">
                         <option value="">Select Account Type</option>
-                        <option value="checking">Checking</option>
+                        <option value="checking">Fixed deposit</option>
                         <option value="savings">Savings</option>
-                        <option value="fixed-deposit">Fixed Deposit</option>
+                        <option value="savings">Current</option>
                     </select>
                 </div>
                 <!-- Password Field -->
@@ -256,14 +246,18 @@
 
 <!-- Success Modal -->
 <div id="success-modal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-    <div class="bg-white rounded-lg shadow-lg p-8 w-96 text-center">
-        <h2 class="text-2xl font-bold text-green-600 mb-4">Account Opening Successful!</h2>
-        <p class="text-gray-700">Your account has been successfully created. You can now proceed to sign in.</p>
-        <button onclick="window.location.href='login.html'" class="mt-6 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-800 transition duration-200">
-            Proceed to Sign In
+    <div class="bg-white rounded-lg p-8 w-96 text-center">
+        <h2 class="text-sm font-bold text-green-600 mb-4">Account Opening in progress!</h2>
+        <p class="text-gray-700 text-sm">Your account has been successfully registered. Please hold while we process your informations we would get back to you via your registered emails on its progress</p>
+        <button onclick="window.location.href='index.html'" class="mt-6 bg-black text-white py-2 px-4 rounded hover:bg-green-900 transition duration-200">
+            Continue
         </button>
     </div>
 </div>
+
+
+
+
 
 
     <!-- Footer -->
@@ -271,10 +265,10 @@
         <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
                 <div class="flex items-center mb-4">
-                    <img src="/assets/LOGO-CCzuxV7h.png" alt="Company Logo" class="w-15 h-12 mr-3" />
+                    <img src="/assets/LOGO-DaWAb3qB.png" alt="Company Logo" class="w-15 h-12 mr-3" />
                 </div>
                 <p class="text-sm text-gray-400 leading-relaxed">
-                    Being a member of ATPIB ltd is not like opening an account at the usual bank.
+                    Being a member of ASHB ltd is not like opening an account at the usual bank.
                 </p>
             </div>
 
@@ -282,17 +276,16 @@
                 <h2 class="text-lg font-semibold mb-4">Quick Links</h2>
                 <ul class="text-sm text-gray-400 space-y-2">
                     <li><a href="about-us.html" class="hover:text-white">About</a></li>
-                    <li><a href="personal.html" class="hover:text-white">Personal Financing</a></li>
-                    <li><a href="business.html" class="hover:text-white">Business Financing</a></li>
+                    <li><a href="personal.html" class="hover:text-white">Personal</a></li>
+                    <li><a href="business.html" class="hover:text-white">Business</a></li>
                 </ul>
             </div>
 
             <div>
                 <h2 class="text-lg font-semibold mb-4">Services</h2>
                 <ul class="text-sm text-gray-400 space-y-2">
-                    <li>Personal Financing</li>
-                    <li>Business Financing</li>
-                    <li>Personal loans</li>
+                    <li>Personal</li>
+                    <li>Business</li>
                 </ul>
             </div>
 
@@ -300,7 +293,6 @@
                 <h2 class="text-lg font-semibold mb-4">HEAD OFFICE</h2>
                 <ul class="text-sm text-gray-400 space-y-2">
                     <li>Address: Beştepe, Dumlupınar Blv. No:6, 06560 Yenimahalle/Ankara, Türkiye</li>
-                    <li>Email: Info@artisstanbicholdings.com</li>
                 </ul>
                 <div class="mt-6 max-w-7xl">
                     <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
@@ -313,13 +305,11 @@
         </div>
     </footer>
 
-      <!-- Telegram Chat Button -->
-<a href="https://wa.me/message/YAZLKCAO5JF7E1" target="_blank" class="fixed bottom-16 right-6">
-    <img src="/assets/chat%20bot-B2cKaCXR.png" alt="Chat with us on Telegram" class="w-16 h-18">
+<!-- Email Button -->
+<a href="mailto:support@artisstanbicholdings.com?subject=Hi%20thanks%20for%20contacting%20us" target="_blank" class="fixed bottom-16 right-6">
+    <img src="/assets/chat%20bot-B2cKaCXR.png" alt="Send us an email" class="w-16 h-18">
 </a>
 </body>
-</body>
-
 </body>
 </html>
 <!-- Include Font Awesome -->

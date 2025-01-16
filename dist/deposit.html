@@ -4,10 +4,10 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Online wallet</title>
-    <link rel="manifest" href="/assets/manifest-CwjE1--k.json">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/LOGO-CCzuxV7h.png">
-    <link rel="icon" href="/assets/LOGO-CCzuxV7h.png" type="image/png">
+    <title>ASHB Deposit</title>
+    <link rel="manifest" href="/assets/manifest-B0fCP1N4.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/Logo%202-B2S9_QGl.png">
+    <link rel="icon" href="/assets/Logo%202-B2S9_QGl.png" type="image/png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js Library -->
@@ -18,7 +18,7 @@
         }
     </style>
     
-  <script type="module" crossorigin src="/assets/deposit-mpJ4G5cH.js"></script>
+  <script type="module" crossorigin src="/assets/deposit-D3IWGyi9.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
 </head>
 <body class="font-sans antialiased bg-gray-100">
@@ -28,7 +28,7 @@
     <div class="container mx-auto flex items-center justify-between">
         <!-- Left Logo -->
         <a href="#" class="flex items-center">
-            <img src="/assets/LOGO-CCzuxV7h.png" alt="Gift Card Brand Logo" class="h-14">
+            <img src="/assets/LOGO-DaWAb3qB.png" alt="Gift Card Brand Logo" class="h-14">
         </a>
 
         <!-- Right Logo -->
@@ -220,9 +220,9 @@ function closeSuccessModal() {
         
 <!-- Card to display user's balance -->
 <div id="balance-card" class="bg-white p-6 rounded-lg text-center">
-    <h2 class="text-xl font-semibold text-gray-700">Your Balance</h2>
-    <p id="balance" class="text-4xl font-bold text-green-500 mt-4">
-        $0.00 <!-- Default value -->
+    <h2 class="text-xl font-semibold text-gray-700">Account Deposit</h2>
+    <!-- <p id="balance" class="text-4xl font-bold text-green-500 mt-4"> -->
+ <!-- Default value -->
     </p>
 </div>
 
@@ -255,18 +255,18 @@ function closeSuccessModal() {
             </div>
 
             <!-- Bank Name -->
-            <div class="mb-4 flex items-center justify-between">
+            <!-- <div class="mb-4 flex items-center justify-between">
                 <div>
                     <p class="text-sm text-gray-600">
                         <strong>Bank Name:</strong>
                     </p>
-                    <p id="bank-name" class="text-gray-800 font-medium text-xs">ATB</p>
+                    <p id="bank-name" class="text-gray-800 font-medium text-xs">ATPIB</p>
                 </div>
                 <button onclick="copyToClipboard('bank-name')" class="text-green-500 hover:text-green-700">
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADESURBVHgB7dhRDoIwEATQ0XhAbyA3LzfAG1Ri9MfAUrftjsi8pF8k0EnpNl1ARLxu85jmkTuP9PpWcwnoPvn3mNYmcYJfRqzFuZ6xcxe0U7OaS4pWePcroABsVoAr7Dr/qbZUNpdQP6maAEUBrcrBrvN54/nToc4BSp3fojLKpgBsCsCmAGwKwKYAbArApr5QQ677gX6hICMcerc9vulMD2sv+aU94Lpzaw+wHeociO7UFfnrX+iOOCM6GBDToTbrvIjYHolwoMbjyh+tAAAAAElFTkSuQmCC" alt="Copy Icon" class="h-5 w-5" />
+                    <img src="copy.png" alt="Copy Icon" class="h-5 w-5" />
                 </button>
                 
-            </div>
+            </div> -->
         </div>
 
     </div>
@@ -340,7 +340,7 @@ function closeSuccessModal() {
                     document.getElementById('account-name').textContent = userData.name || "Not Available";
                     document.getElementById('account-number').textContent = userData.accountNumber || "Not Available";
                     document.getElementById('bank-name').textContent = userData.bankName || "Not Available";
-                    document.querySelector('.account-balance').textContent = `$${userData.balance || 0.00}`;
+                    // document.querySelector('.account-balance').textContent = `$${userData.balance || 0.00}`;
                 } else {
                     console.error('No user document found!');
                 }

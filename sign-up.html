@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Financial institution</title>
+    <title>ASHB Sign up</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" sizes="180x180" href="Logo.png">
-    <link rel="icon" href="Logo.png" type="image/png">
+    <link rel="apple-touch-icon" sizes="180x180" href="logo 2.png">
+    <link rel="icon" href="logo 2.png" type="image/png">
     <!-- Include Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Include Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js"></script>
+    <!-- Add Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'firebase/app';
+        import firebaseConfig from './firebase-config.js';
+    </script>
 </head>
 <body class="font-sans antialiased">
 
@@ -43,15 +48,12 @@
     <div class="relative">
         <!-- Dropdown Button -->
         <button id="personalBankingDropdownButton" class="text-blue text-sm hover:text-green-600 focus:outline-none">
-            PERSONAL FINANCE
+            PERSONAL
         </button>
 
         <!-- Dropdown Menu -->
         <div id="personalBankingDropdownMenu" class="absolute hidden bg-green-600 shadow-lg mt-2 w-48">
-            <a href="cards.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">CARDS</a>
-            <a href="sign-up.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">CURRENT</a>
-            <a href="sign-up.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">SAVINGS</a>
-            <a href="loans.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">LOANS</a>
+            <a href="personal.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">Personal</a>
         </div>
     </div>
 
@@ -59,14 +61,12 @@
     <div class="relative">
         <!-- Dropdown Button -->
         <button id="businessBankingDropdownButton" class="text-blue text-sm hover:text-green-600 focus:outline-none">
-            BUSINESS FINANCE
+            BUSINESS
         </button>
 
         <!-- Dropdown Menu -->
         <div id="businessBankingDropdownMenu" class="absolute hidden bg-green-600 shadow-lg mt-2 w-48">
-            <a href="cards.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">CARDS</a>
-            <a href="sign-up.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">BUSINESS</a>
-            <a href="loans.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">LOANS</a>
+            <a href="personal.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">Business</a>
         </div>
     </div>
 
@@ -128,10 +128,10 @@
                     HOME
                 </a>
                 <a href="personal.html" class="w-4/5 py-3 text-center border text-black text-xs-2 font-medium bg-white rounded hover:bg-green-600 transition">
-                    PERSONAL FINANCE
+                    PERSONAL
                 </a>
                 <a href="personal.html" class="w-4/5 py-3 text-center border text-black text-xs-2 font-medium bg-white rounded hover:bg-green-600 transition">
-                    BUSINESS FINANCE
+                    BUSINESS
                 </a>
                 <a href="about-us.html" class="w-4/5 py-3 text-center border text-black text-xs-2 font-medium bg-white rounded hover:bg-green-600 transition">
                     ABOUT US
@@ -182,122 +182,12 @@
     // Close menu when clicking the overlay
     overlay.onclick = closeMenu;
     </script>
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open Account</title>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
-    
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyDyZiL4-h5n9Kqr24e7liROgHXMZau2ZmI",
-            authDomain: "artis-stanbic-holdings.firebaseapp.com",
-            projectId: "artis-stanbic-holdings",
-            storageBucket: "artis-stanbic-holdings.appspot.com",
-            messagingSenderId: "124094989669",
-            appId: "1:124094989669:web:54e6306dc5747a80ec8d8c",
-            measurementId: "G-0WSC5YMY2C"
-        };
-    
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-    
-        // Show success prompt
-        const showSuccessPrompt = () => {
-            const successModal = document.getElementById("success-modal");
-            successModal.classList.remove("hidden");
-        };
-    
-        // Customize error messages
-        const getCustomErrorMessage = (errorCode) => {
-            switch (errorCode) {
-                case "auth/email-already-in-use":
-                    return "This email is already registered. Please use a different email.";
-                case "auth/weak-password":
-                    return "The password is too weak. Please choose a stronger password.";
-                case "auth/invalid-email":
-                    return "The email address is invalid. Please enter a valid email.";
-                default:
-                    return "An error occurred during sign-up. Please try again.";
-            }
-        };
-    
-        // Sign-Up Function
-        const signUp = async (formData) => {
-            const createAccountBtn = document.getElementById("create-account-btn");
-    
-            // Change button text and show loading state
-            createAccountBtn.disabled = true;
-            createAccountBtn.textContent = "Opening Account...";
-    
-            try {
-                // Create user in Firebase Authentication
-                const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-                const user = userCredential.user;
-    
-                // Save user data to Firestore
-                await setDoc(doc(db, "users", user.uid), {
-                    firstName: formData.firstName,
-                    lastName: formData.lastName,
-                    email: formData.email,
-                    phone: formData.phone,
-                    address: formData.address,
-                    city: formData.city,
-                    state: formData.state,
-                    accountType: formData.accountType,
-                    createdAt: new Date().toISOString(),
-                });
-    
-                // Show success prompt
-                showSuccessPrompt();
-            } catch (error) {
-                console.error("Error during sign-up:", error.code, error.message);
-    
-                // Show custom error message to the user
-                const errorMessage = getCustomErrorMessage(error.code);
-                alert(errorMessage);
-            } finally {
-                // Reset the button text and re-enable it
-                createAccountBtn.disabled = false;
-                createAccountBtn.textContent = "Create Account";
-            }
-        };
-    
-        // Attach sign-up function to the form
-        document.querySelector("form").addEventListener("submit", (event) => {
-            event.preventDefault(); // Prevent default form submission
-    
-            // Collect form data
-            const formData = {
-                firstName: document.getElementById("first-name").value,
-                lastName: document.getElementById("last-name").value,
-                email: document.getElementById("email").value,
-                phone: document.getElementById("phone").value,
-                address: document.getElementById("address").value,
-                city: document.getElementById("city").value,
-                state: document.getElementById("state").value,
-                accountType: document.getElementById("account-type").value,
-                password: document.getElementById("password").value,
-            };
-    
-            // Call sign-up function
-            signUp(formData);
-        });
-    </script>
+</body>
     
 
 <!-- Open Account Section -->
-<div class="flex items-center justify-center min-h-screen bg-gray-100 mt-24">
-    <div class="flex bg-white shadow-lg rounded-lg overflow-hidden max-w-5xl w-full">
+<div class="flex items-center justify-center min-h-screen bg-gray-100 mt-18">
+    <div class="flex bg-white rounded-lg overflow-hidden max-w-5xl w-full">
         <!-- Form Section -->
         <div class="w-full md:w-3/5 p-8">
             <h2 class="text-2xl font-bold text-gray-800 mb-6">Open an Account</h2>
@@ -324,9 +214,9 @@
                     <select id="account-type" name="account-type" required 
                         class="mt-1 block w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" style="appearance: none;">
                         <option value="">Select Account Type</option>
-                        <option value="checking">Checking</option>
+                        <option value="checking">Fixed deposit</option>
                         <option value="savings">Savings</option>
-                        <option value="fixed-deposit">Fixed Deposit</option>
+                        <option value="savings">Current</option>
                     </select>
                 </div>
                 <!-- Password Field -->
@@ -357,14 +247,122 @@
 
 <!-- Success Modal -->
 <div id="success-modal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-    <div class="bg-white rounded-lg shadow-lg p-8 w-96 text-center">
-        <h2 class="text-2xl font-bold text-green-600 mb-4">Account Opening Successful!</h2>
-        <p class="text-gray-700">Your account has been successfully created. You can now proceed to sign in.</p>
-        <button onclick="window.location.href='login.html'" class="mt-6 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-800 transition duration-200">
-            Proceed to Sign In
+    <div class="bg-white rounded-lg p-8 w-96 text-center">
+        <h2 class="text-sm font-bold text-green-600 mb-4">Account Opening in progress!</h2>
+        <p class="text-gray-700 text-sm">Your account has been successfully registered. Please hold while we process your informations we would get back to you via your registered emails on its progress</p>
+        <button onclick="window.location.href='index.html'" class="mt-6 bg-black text-white py-2 px-4 rounded hover:bg-green-900 transition duration-200">
+            Continue
         </button>
     </div>
 </div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyCJdMdkW5NZF83PLBLYZk3yBAFsUxqautY",
+        authDomain: "atpib-82d72.firebaseapp.com",
+        projectId: "atpib-82d72",
+        storageBucket: "atpib-82d72.firebasestorage.app",
+        messagingSenderId: "938927546204",
+        appId: "1:938927546204:web:ea096f1dfe3b3754dd6b99",
+        measurementId: "G-G3BRPK5B9T"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Sign-Up Function
+    const signUp = async (formData) => {
+        const createAccountBtn = document.getElementById("create-account-btn");
+
+        // Show loading state
+        createAccountBtn.disabled = true;
+        createAccountBtn.textContent = "Creating Account...";
+
+        try {
+            // Create user in Firebase Authentication
+            const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+            const user = userCredential.user;
+
+            // Save user data to Firestore
+            await setDoc(doc(db, "users", user.uid), {
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                email: formData.email,
+                accountType: formData.accountType,
+                createdAt: new Date().toISOString(),
+            });
+
+            // Show success modal
+            document.getElementById("success-modal").classList.remove("hidden");
+        } catch (error) {
+            console.error("Error during sign-up:", error.message, error.code, error);
+
+            // Handle errors and show an alert
+            const errorMessage = getCustomErrorMessage(error.code);
+            alert(errorMessage);
+        } finally {
+            // Reset the button text and re-enable it
+            createAccountBtn.disabled = false;
+            createAccountBtn.textContent = "Create Account";
+        }
+    };
+
+    // Customize error messages
+    const getCustomErrorMessage = (errorCode) => {
+        switch (errorCode) {
+            case "auth/email-already-in-use":
+                return "This email is already registered. Please use a different email.";
+            case "auth/weak-password":
+                return "The password is too weak. Please choose a stronger password.";
+            case "auth/invalid-email":
+                return "The email address is invalid. Please enter a valid email.";
+            default:
+                return "An error occurred during sign-up. Please try again.";
+        }
+    };
+
+    // Attach sign-up function to the form
+    document.querySelector("form").addEventListener("submit", (event) => {
+        event.preventDefault(); // Prevent default form submission
+
+        // Collect form data
+        const formData = {
+            firstName: document.getElementById("first-name").value.trim(),
+            lastName: document.getElementById("last-name").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            accountType: document.getElementById("account-type").value,
+            password: document.getElementById("password").value,
+            confirmPassword: document.getElementById("confirm-password").value,
+        };
+
+        // Validate form data
+        if (!formData.firstName || !formData.lastName || !formData.email || !formData.password || !formData.accountType) {
+            alert("All fields are required.");
+            return;
+        }
+        if (formData.password !== formData.confirmPassword) {
+            alert("Passwords do not match.");
+            return;
+        }
+        if (formData.password.length < 8) {
+            alert("Password must be at least 8 characters long.");
+            return;
+        }
+
+        // Call sign-up function
+        signUp(formData);
+    });
+</script>
+
+
+
 
 
     <!-- Footer -->
@@ -375,7 +373,7 @@
                     <img src="Logo.png" alt="Company Logo" class="w-15 h-12 mr-3" />
                 </div>
                 <p class="text-sm text-gray-400 leading-relaxed">
-                    Being a member of ATPIB ltd is not like opening an account at the usual bank.
+                    Being a member of ASHB ltd is not like opening an account at the usual bank.
                 </p>
             </div>
 
@@ -383,17 +381,16 @@
                 <h2 class="text-lg font-semibold mb-4">Quick Links</h2>
                 <ul class="text-sm text-gray-400 space-y-2">
                     <li><a href="about-us.html" class="hover:text-white">About</a></li>
-                    <li><a href="personal.html" class="hover:text-white">Personal Financing</a></li>
-                    <li><a href="business.html" class="hover:text-white">Business Financing</a></li>
+                    <li><a href="personal.html" class="hover:text-white">Personal</a></li>
+                    <li><a href="business.html" class="hover:text-white">Business</a></li>
                 </ul>
             </div>
 
             <div>
                 <h2 class="text-lg font-semibold mb-4">Services</h2>
                 <ul class="text-sm text-gray-400 space-y-2">
-                    <li>Personal Financing</li>
-                    <li>Business Financing</li>
-                    <li>Personal loans</li>
+                    <li>Personal</li>
+                    <li>Business</li>
                 </ul>
             </div>
 
@@ -401,7 +398,6 @@
                 <h2 class="text-lg font-semibold mb-4">HEAD OFFICE</h2>
                 <ul class="text-sm text-gray-400 space-y-2">
                     <li>Address: Beştepe, Dumlupınar Blv. No:6, 06560 Yenimahalle/Ankara, Türkiye</li>
-                    <li>Email: Info@artisstanbicholdings.com</li>
                 </ul>
                 <div class="mt-6 max-w-7xl">
                     <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
@@ -414,13 +410,11 @@
         </div>
     </footer>
 
-      <!-- Telegram Chat Button -->
-<a href="https://wa.me/message/YAZLKCAO5JF7E1" target="_blank" class="fixed bottom-16 right-6">
-    <img src="chat bot.png" alt="Chat with us on Telegram" class="w-16 h-18">
+<!-- Email Button -->
+<a href="mailto:support@artisstanbicholdings.com?subject=Hi%20thanks%20for%20contacting%20us" target="_blank" class="fixed bottom-16 right-6">
+    <img src="chat bot.png" alt="Send us an email" class="w-16 h-18">
 </a>
 </body>
-</body>
-
 </body>
 </html>
 <!-- Include Font Awesome -->

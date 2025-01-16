@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Online Wallet</title>
+    <title>ASHB Profile</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" sizes="180x180" href="Logo.png">
-    <link rel="icon" href="Logo.png" type="image/png">
+    <link rel="apple-touch-icon" sizes="180x180" href="logo 2.png">
+    <link rel="icon" href="logo 2.png" type="image/png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js Library -->
@@ -16,122 +16,109 @@
             overflow: auto; /* Ensures scrolling is enabled */
         }
     </style>
-    <script type="module">
-        // Import Firebase SDK
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-analytics.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js";
-    
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyDyZiL4-h5n9Kqr24e7liROgHXMZau2ZmI",
-            authDomain: "artis-stanbic-holdings.firebaseapp.com",
-            projectId: "artis-stanbic-holdings",
-            storageBucket: "artis-stanbic-holdings.appspot.com",
-            messagingSenderId: "124094989669",
-            appId: "1:124094989669:web:54e6306dc5747a80ec8d8c",
-            measurementId: "G-0WSC5YMY2C"
-        };
-    
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const auth = getAuth(app); // Ensure auth is properly initialized here
-        const db = getFirestore(app);
-    
-        // Check if the user is authenticated
-        onAuthStateChanged(auth, async (user) => {
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyCJdMdkW5NZF83PLBLYZk3yBAFsUxqautY",
+        authDomain: "atpib-82d72.firebaseapp.com",
+        projectId: "atpib-82d72",
+        storageBucket: "atpib-82d72.firebasestorage.app",
+        messagingSenderId: "938927546204",
+        appId: "1:938927546204:web:ea096f1dfe3b3754dd6b99",
+        measurementId: "G-G3BRPK5B9T"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Show the profile information card on page load
+    window.onload = function () {
+        // Remove the 'hidden' class to show the profile info card
+        document.getElementById('profileInfoCard').classList.remove('hidden');
+
+        // Load the stored full name and username from localStorage
+        const storedFullName = localStorage.getItem('fullName');
+        // const storedUsername = localStorage.getItem('username');
+
+        if (storedFullName) {
+            // Populate the full name field and the profile display with the stored value
+            const fullNameField = document.getElementById('firstName');
+            fullNameField.value = storedFullName;
+            fullNameField.placeholder = storedFullName;
+        }
+
+        // if (storedUsername) {
+            // Populate the username field with the stored value
+            // const usernameField = document.getElementById('lastName');
+            // usernameField.value = storedUsername;
+            // usernameField.placeholder = storedUsername;
+        // }
+
+        // Fetch the current user from Firebase
+        onAuthStateChanged(auth, (user) => {
             if (user) {
-                const userDocRef = doc(db, 'users', user.uid);
-                const userDoc = await getDoc(userDocRef);
-    
-                if (userDoc.exists()) {
-                    const userData = userDoc.data();
-    
-                    document.getElementById('profileUsername').textContent = userData.name || '@syndicate';
-                    document.getElementById('Deposit-account').textContent = userData.deposit || '0.00';
-                    document.getElementById('Profit-wallet').textContent = userData.profit || '0.00';
-                    document.getElementById('wallet').textContent = userData.wallet || '0.00';
-                    document.getElementById('welcome-message').textContent = `Welcome ${userData.name}`;
-                    document.getElementById('displayEmail').textContent = user.email;
-                } else {
-                    console.log('No user document found.');
-                    alert('No user data found.');
+                const emailField = document.getElementById('email');
+                emailField.placeholder = user.email; // Email is read-only and cannot be changed
+                emailField.value = user.email; // Set email as the value directly
+
+                const fullNameField = document.getElementById('firstName');
+                if (!storedFullName && user.displayName) {
+                    // Populate first name from Firebase if not already stored locally
+                    const firstName = user.displayName.split(' ')[0]; // Extract first name
+                    fullNameField.value = firstName;
+                    fullNameField.placeholder = firstName;
                 }
-            } else {
-                console.log('No user signed in. Redirecting to sign-in page.');
-                window.location.href = 'online-banking.html';
             }
         });
-    
-        // Sign out function
-        window.signOut = function() {
-            signOut(auth).then(() => {
-                alert('Signed out successfully!');
-                window.location.href = 'online-banking.html';
-            }).catch((error) => {
-                alert('Error signing out: ' + error.message);
-            });
-        };
-    
-        // Function to update user profile
-        async function updateProfile() {
-            const user = auth.currentUser;
-            if (user) {
-                const userDocRef = doc(db, 'users', user.uid);
-    
-                const updatedData = {
-                    firstName: document.getElementById('firstName').value,
-                    lastName: document.getElementById('lastName').value,
-                };
-    
-                const saveButton = document.querySelector('button[type="submit"]');
-                saveButton.disabled = true;
-                saveButton.textContent = 'Saving changes...';
-    
-                try {
-                    await setDoc(userDocRef, updatedData, { merge: true });
-                    alert('Profile updated successfully!');
-                } catch (error) {
-                    console.error('Error updating profile:', error);
-                    alert('Error updating profile: ' + error.message);
-                } finally {
-                    saveButton.disabled = false;
-                    saveButton.textContent = 'Save Changes';
+    };
+
+    // Function to update the full name and username locally
+    function updateProfile() {
+        const saveButton = document.getElementById("saveChangesButton");
+        const originalButtonText = saveButton.textContent;
+
+        // Show processing state
+        saveButton.disabled = true;
+        saveButton.textContent = "Processing...";
+
+        // Delay the actual update by 2 seconds
+        setTimeout(function () {
+            try {
+                const newFullName = document.getElementById('firstName').value.trim();
+                // const newUsername = document.getElementById('lastName').value.trim();
+
+                if (!newFullName) {
+                    alert('Please enter valid information for full name and username.');
+                    return;
                 }
-            } else {
-                alert('No user is currently signed in.');
+
+                // Store the full name and username in localStorage
+                localStorage.setItem('fullName', newFullName);
+                // localStorage.setItem('username', newUsername);
+
+                // Update the displayed username (or other UI parts as needed)
+                // document.getElementById('profileUsername').textContent = newUsername;
+
+                // Show success message
+                alert('Profile updated successfully!');
+            } catch (error) {
+                console.error('Error updating profile:', error);
+                alert('An error occurred while updating your profile. Please try again.');
+            } finally {
+                // Revert button to original state after the operation
+                saveButton.disabled = false;
+                saveButton.textContent = originalButtonText;
             }
-        }
-    
-        // Function to show user info
-        async function showUserInfo() {
-            const user = auth.currentUser; // Ensure this references the global `auth`
-            if (user) {
-                const userDocRef = doc(db, 'users', user.uid);
-                const userDoc = await getDoc(userDocRef);
-    
-                if (userDoc.exists()) {
-                    const userData = userDoc.data();
-                    // Populate the profile form fields with user data
-                    document.getElementById('firstName').value = userData.name || '';
-                    document.getElementById('lastName').value = '@syndicate'; // assuming static or fetched from Firestore
-                    document.getElementById('email').value = user.email;
-                    document.getElementById('phone').value = userData.phone || ''; // assuming phone is stored in Firestore
-    
-                    // Make the profile info div visible
-                    const userInfoDiv = document.getElementById('profileInfoCard');
-                    userInfoDiv.classList.remove('hidden');
-                } else {
-                    console.log('No user document found.');
-                    alert('No user data found.');
-                }
-            } else {
-                alert('No user is currently signed in.');
-            }
-        }
-    </script>
+        }, 2000); // Delay for 2 seconds
+    }
+</script>
+
+
+
     
 </head>
 <body class="font-sans antialiased bg-gray-100">
@@ -167,10 +154,6 @@
                 <label for="firstName" class="block text-xs font-medium text-gray-700">Full Name</label>
                 <input type="text" id="firstName" name="firstName" class="mt-1 block w-full border border-gray-300 px-4 py-3 rounded shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 text-xs">
             </div>
-            <div>
-                <label for="lastName" class="block text-xs font-medium text-gray-700">Username</label>
-                <input type="text" id="lastName" name="lastName" class="mt-1 block w-full border border-gray-300 px-4 py-3 rounded shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 text-xs">
-            </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -198,7 +181,7 @@
         
         // Load the stored full name and username
         const storedFullName = localStorage.getItem('fullName');
-        const storedUsername = localStorage.getItem('username');
+        // const storedUsername = localStorage.getItem('username');
 
         if (storedFullName) {
             // Populate the full name field and the profile display with the stored value
@@ -210,8 +193,8 @@
         if (storedUsername) {
             // Populate the username field with the stored value
             const usernameField = document.getElementById('lastName');
-            usernameField.value = storedUsername;
-            usernameField.placeholder = storedUsername;
+            // usernameField.value = storedUsername;
+            // usernameField.placeholder = storedUsername;
         }
 
         // Fetch the current user from Firebase
@@ -240,17 +223,17 @@
                 const newFullName = document.getElementById('firstName').value.trim();
                 const newUsername = document.getElementById('lastName').value.trim();
 
-                if (!newFullName || !newUsername) {
+                if (!newFullName) {
                     alert('Please enter valid information for full name and username.');
                     return;
                 }
 
                 // Store the full name and username in localStorage
                 localStorage.setItem('fullName', newFullName);
-                localStorage.setItem('username', newUsername);
+                // localStorage.setItem('username', newUsername);
 
                 // Update the displayed full name and username (You can also update other parts of the UI if needed)
-                document.getElementById('profileUsername').textContent = newUsername;
+                // document.getElementById('profileUsername').textContent = newUsername;
 
                 // Show success message
                 alert('Profile updated successfully! my Chief');
@@ -293,79 +276,7 @@
     </form>
 </div>
 
-<script>
-    // Show the profile information card on page load
-    window.onload = function () {
-        // Remove the 'hidden' class to show the profile info card
-        document.getElementById('profileInfoCard').classList.remove('hidden');
-        
-        // Load the stored full name and username
-        const storedFullName = localStorage.getItem('fullName');
-        const storedUsername = localStorage.getItem('username');
 
-        if (storedFullName) {
-            // Populate the full name field and the profile display with the stored value
-            const fullNameField = document.getElementById('firstName');
-            fullNameField.value = storedFullName;
-            fullNameField.placeholder = storedFullName;
-        }
-
-        if (storedUsername) {
-            // Populate the username field with the stored value
-            const usernameField = document.getElementById('lastName');
-            usernameField.value = storedUsername;
-            usernameField.placeholder = storedUsername;
-        }
-
-        // Fetch the current user from Firebase
-        const user = getAuth().currentUser; // Get the current user
-        if (user) {
-            const emailField = document.getElementById('email');
-            emailField.placeholder = user.email; // Email is read-only and cannot be changed
-            emailField.value = user.email; // Set email as the value directly
-        }
-    };
-
-    // Function to update the full name and username locally with a delay for processing state
-    function updateProfile() {
-        const saveButton = document.getElementById("saveChangesButton");
-        const originalButtonText = saveButton.textContent;
-
-        // Show processing state
-        saveButton.disabled = true;
-        saveButton.textContent = "Processing...";
-
-        // Delay the actual update by 2 seconds (you can adjust this duration)
-        setTimeout(function() {
-            try {
-                const newFullName = document.getElementById('firstName').value.trim();
-                const newUsername = document.getElementById('lastName').value.trim();
-
-                if (!newFullName || !newUsername) {
-                    alert('Please enter valid information for full name and username.');
-                    return;
-                }
-
-                // Store the full name and username in localStorage
-                localStorage.setItem('fullName', newFullName);
-                localStorage.setItem('username', newUsername);
-
-                // Update the displayed full name and username (You can also update other parts of the UI if needed)
-                document.getElementById('profileUsername').textContent = newUsername;
-
-                // Show success message
-                alert('Profile updated successfully! my Chief');
-            } catch (error) {
-                console.error('Ehhh... my Chief there was an error updating profile:', error);
-                alert('An error occurred while updating your profile. Please try again.');
-            } finally {
-                // Revert button to original state after the operation
-                saveButton.disabled = false;
-                saveButton.textContent = originalButtonText;
-            }
-        }, 2000);  // This is where we delay the actual change, 2000ms = 2 seconds
-    }
-</script>
 
 
 

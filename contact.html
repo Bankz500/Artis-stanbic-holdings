@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Financial institution</title>
+    <title>ASHB Contact</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" sizes="180x180" href="Logo.png">
-    <link rel="icon" href="Logo.png" type="image/png">
+    <link rel="apple-touch-icon" sizes="180x180" href="logo 2.png">
+    <link rel="icon" href="logo 2.png" type="image/png">
     <!-- Include Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Include Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js"></script>
+    <!-- Add Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'firebase/app';
+        import firebaseConfig from './firebase-config.js';
+    </script>
 </head>
 <body class="font-sans antialiased">
 
@@ -43,15 +48,12 @@
     <div class="relative">
         <!-- Dropdown Button -->
         <button id="personalBankingDropdownButton" class="text-blue text-sm hover:text-green-600 focus:outline-none">
-            PERSONAL FINANCE
+            PERSONAL
         </button>
 
         <!-- Dropdown Menu -->
         <div id="personalBankingDropdownMenu" class="absolute hidden bg-green-600 shadow-lg mt-2 w-48">
-            <a href="cards.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">CARDS</a>
-            <a href="current.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">CURRENT</a>
-            <a href="savings.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">SAVINGS</a>
-            <a href="loans.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">LOANS</a>
+            <a href="personal.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">Personal</a>
         </div>
     </div>
 
@@ -59,14 +61,12 @@
     <div class="relative">
         <!-- Dropdown Button -->
         <button id="businessBankingDropdownButton" class="text-blue text-sm hover:text-green-600 focus:outline-none">
-            BUSINESS FINANCE
+            BUSINESS
         </button>
 
         <!-- Dropdown Menu -->
         <div id="businessBankingDropdownMenu" class="absolute hidden bg-green-600 shadow-lg mt-2 w-48">
-            <a href="cards.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">CARDS</a>
-            <a href="business.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">BUSINESS</a>
-            <a href="loans.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">LOANS</a>
+            <a href="personal.html" class="block px-4 py-2 text-xs font-semibold text-white hover:bg-black">Business</a>
         </div>
     </div>
 
@@ -128,10 +128,10 @@
                     HOME
                 </a>
                 <a href="personal.html" class="w-4/5 py-3 text-center border text-black text-xs-2 font-medium bg-white rounded hover:bg-green-600 transition">
-                    PERSONAL FINANCE
+                    PERSONAL
                 </a>
                 <a href="personal.html" class="w-4/5 py-3 text-center border text-black text-xs-2 font-medium bg-white rounded hover:bg-green-600 transition">
-                    BUSINESS FINANCE
+                    BUSINESS
                 </a>
                 <a href="about-us.html" class="w-4/5 py-3 text-center border text-black text-xs-2 font-medium bg-white rounded hover:bg-green-600 transition">
                     ABOUT US
@@ -183,7 +183,6 @@
     overlay.onclick = closeMenu;
     </script>
 </body>
-</html>
 
 <section class="py-8 bg-gray-100" id="spacing"></section>
     <div class="container mx-auto text-center">
@@ -195,7 +194,7 @@
     <div class="container mx-auto text-center">
         <h2 class="text-xl font-medium text-black mb-4">
             CONTACT</h2>
-        <h2 class="px-4 text-bold text-gray-500 text-xs mb-8">ATPIB ltd' team of professionals is available and on call whenever you need us, offering exceptional commercial cleaning and office cleaning services in Toronto and the Greater Toronto Area (GTA).</h2>
+        <h2 class="px-4 text-bold text-gray-500 text-xs mb-8">ASHB ltd' team of professionals is available and on call whenever you need us, offering exceptional commercial cleaning and office cleaning services in Toronto and the Greater Toronto Area (GTA).</h2>
 
         <!-- Get in Touch Section (Centered) -->
         <div class="mb-12">
@@ -207,7 +206,7 @@
             <!-- Contact Form (Centered) -->
             <div class="w-full max-w-md mb-12">
                 <div class="flex justify-center">
-                    <form id="contactForm" class="bg-white shadow-lg rounded-lg p-8 w-full transition-transform transform hover:scale-105" onsubmit="handleSubmit(event)">
+                    <form id="contactForm" class="bg-white rounded-lg p-8 w-full transition-transform transform hover:scale-105" onsubmit="handleSubmit(event)">
                         <div class="mb-4">
                             <label for="name" class="block text-sm font-medium text-gray-700 text-left">Name</label>
                             <input type="text" id="name" required class="mt-1 block w-full border border-gray-300 rounded p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your name">
@@ -259,14 +258,14 @@
           <!-- Company Info -->
           <div>
             <div class="flex items-center mb-4">
-              <img src="Logo.png" alt="Company Logo" class="w-40 h-30 mr-3" />
+              <img src="Logo.png" alt="Company Logo" class="w-15 h-12 mr-3" />
               <div>
                 <h1 class="text-lg font-semibold"></h1>
                 <p class="text-sm text-gray-400">The Service You Deserve</p>
               </div>
             </div>
             <p class="text-sm text-gray-400 leading-relaxed">
-                Being a member of a ATPIB ltd is not like opening an account at the usual financing. You have a voice in what and how the organization is run. 
+                Being a member of a ASHB ltd is not like opening an account at the usual financing. You have a voice in what and how the organization is run. 
             </p>
           </div>
       
@@ -275,8 +274,8 @@
             <h2 class="text-lg font-semibold mb-4">Quick Links</h2>
             <ul class="text-sm text-gray-400 space-y-2">
               <li><a href="about-us.html" class="hover:text-white">About</a></li>
-              <li><a href="personal.html" class="hover:text-white">Personal finance</a></li>
-              <li><a href="business.html" class="hover:text-white">Business finance</a></li>
+              <li><a href="personal.html" class="hover:text-white">Personal</a></li>
+              <li><a href="business.html" class="hover:text-white">Business</a></li>
             </ul>
           </div>
       
@@ -284,9 +283,8 @@
           <div>
             <h2 class="text-lg font-semibold mb-4">Services</h2>
             <ul class="text-sm text-gray-400 space-y-2">
-              <li>Personal finance</li>
-              <li>Business finance</li>
-              <li>loans</li>
+              <li>Personal</li>
+              <li>Business</li>
             </ul>
           </div>
       
@@ -295,20 +293,18 @@
             <h2 class="text-lg font-semibold mb-4">HEAD OFFICE</h2>
             <ul class="text-sm text-gray-400 space-y-2">
               <li>Address: 480 Springpark Place Suite 1000 Herndon, VA 20170</li>
-              <li>Email: Info@artisstanbicholdings.com</li>
             </ul>
             <div class="mt-6 max-w-7xl">
               <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
                 <p class="text-sm text-gray-400">
-                    This year, we’ve been recognized as one of the top financing institutions, offering unparalleled financial solutions to our clients. This achievement is a testament to our dedicated team and the trust our clients place in us to manage their financial needs. We sincerely thank everyone for their continued support and partnership.
-                </p>
+                    This year, we’ve been recognized as one of the top financing institutions, offering unparalleled financial solutions.</p>
               </div>
             </div>
           </div>
         </div>
       
         <div class="mt-10 border-t border-gray-700 pt-6 px-4 text-center text-xs text-gray-500">
-          © 2022 ATPIB ltd. Powered by Menta Digital Marketing Inc.
+          © 2022 ASHB ltd. Powered by Menta Digital Marketing Inc.
           <div class="flex justify-center mt-4 space-x-4">
             <a href="#facebook" class="hover:text-white"><i class="fab fa-facebook"></i></a>
             <a href="https://www.instagram.com/canadian_cleaning_company/" class="hover:text-white" target="_blank" rel="noopener noreferrer">
@@ -318,25 +314,33 @@
         </div>
       </footer>
     </body>
+
+    <!-- Email Button -->
+<a href="mailto:support@artisstanbicholdings.com?subject=Hi%20thanks%20for%20contacting%20us" target="_blank" class="fixed bottom-16 right-6">
+    <img src="chat bot.png" alt="Send us an email" class="w-16 h-18">
+</a>
+</body>
+</body>
+</html>
     
     <!-- Firebase Configuration -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
     <script>
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    const firebaseConfig = {
-      apiKey: "AIzaSyDyZiL4-h5n9Kqr24e7liROgHXMZau2ZmI",
-      authDomain: "artis-stanbic-holdings.firebaseapp.com",
-      projectId: "artis-stanbic-holdings",
-      storageBucket: "artis-stanbic-holdings.firebasestorage.app",
-      messagingSenderId: "124094989669",
-      appId: "1:124094989669:web:54e6306dc5747a80ec8d8c",
-      measurementId: "G-0WSC5YMY2C"
-    };
-    
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
+            const firebaseConfig = {
+        apiKey: "AIzaSyCJdMdkW5NZF83PLBLYZk3yBAFsUxqautY",
+        authDomain: "atpib-82d72.firebaseapp.com",
+        projectId: "atpib-82d72",
+        storageBucket: "atpib-82d72.firebasestorage.app",
+        messagingSenderId: "938927546204",
+        appId: "1:938927546204:web:ea096f1dfe3b3754dd6b99",
+        measurementId: "G-G3BRPK5B9T"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
     
         // Function to sign up a user
         function signUp(email, password) {

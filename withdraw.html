@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Online wallet</title>
+    <title>ASHB Withdraw</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" sizes="180x180" href="Logo.png">
-    <link rel="icon" href="Logo.png" type="image/png">
+    <link rel="apple-touch-icon" sizes="180x180" href="logo 2.png">
+    <link rel="icon" href="logo 2.png" type="image/png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js Library -->
@@ -28,13 +28,13 @@
         import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js';
 
         const firebaseConfig = {
-            apiKey: "AIzaSyDyZiL4-h5n9Kqr24e7liROgHXMZau2ZmI",
-            authDomain: "artis-stanbic-holdings.firebaseapp.com",
-            projectId: "artis-stanbic-holdings",
-            storageBucket: "artis-stanbic-holdings.firebasestorage.app",
-            messagingSenderId: "124094989669",
-            appId: "1:124094989669:web:54e6306dc5747a80ec8d8c",
-            measurementId: "G-0WSC5YMY2C"
+        apiKey: "AIzaSyCJdMdkW5NZF83PLBLYZk3yBAFsUxqautY",
+        authDomain: "atpib-82d72.firebaseapp.com",
+        projectId: "atpib-82d72",
+        storageBucket: "atpib-82d72.firebasestorage.app",
+        messagingSenderId: "938927546204",
+        appId: "1:938927546204:web:ea096f1dfe3b3754dd6b99",
+        measurementId: "G-G3BRPK5B9T"
         };
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
@@ -124,74 +124,81 @@
             </button>
         </div>
 
-       <!-- Cash Withdrawal Form -->
+<!-- Cash Withdrawal Form -->
 <div id="cashWithdrawal" class="block">
-    <p class="mb-12 text-black text-xs text-center">Enter your details to complete your withdrawal.</p>
+    <p class="mb-12 text-black text-xs text-center">
+        Enter your details to complete your withdrawal.
+    </p>
     <form id="withdrawalForm">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Bank Name -->
             <div class="relative">
-                <label for="bankName" class="block text-xs text-black mb-2">Bank Name</label>
+                <label for="bankName" class="block text-xs text-black mb-2">
+                    Bank Name
+                </label>
                 <input 
                     type="text" 
                     id="bankName" 
                     class="w-full bg-white border border-gray-300 rounded px-4 py-3 text-gray-400 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-300 text-xs"
                     placeholder="Enter your bank name"
                 />
-                <p id="bankNameError" class="text-red-500 text-xs hidden mt-2">Bank Name is required</p>
+                <p id="bankNameError" class="text-red-500 text-xs hidden mt-2">
+                    Bank Name is required
+                </p>
             </div>
 
             <!-- Account Number -->
             <div class="relative">
-                <label for="accountNumber" class="block text-xs text-black mb-2">Account Number</label>
+                <label for="accountNumber" class="block text-xs text-black mb-2">
+                    Account Number
+                </label>
                 <input 
                     type="text" 
                     id="accountNumber" 
                     class="w-full bg-white border border-gray-300 rounded px-4 py-3 text-gray-400 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-300 text-xs" 
                     placeholder="Enter account number"
-                >
-                <p id="accountNumberError" class="text-red-500 text-xs hidden mt-2">Account Number is required</p>
+                />
+                <p id="accountNumberError" class="text-red-500 text-xs hidden mt-2">
+                    Account Number is required
+                </p>
             </div>
 
             <!-- Account Name -->
             <div class="relative">
-                <label for="accountName" class="block text-xs text-black mb-2">Account Name</label>
+                <label for="accountName" class="block text-xs text-black mb-2">
+                    Account Name
+                </label>
                 <input 
                     type="text" 
                     id="accountName" 
                     class="w-full bg-white border border-gray-300 rounded px-4 py-3 text-gray-400 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-300 text-xs" 
                     placeholder="Enter account name"
-                >
-                <p id="accountNameError" class="text-red-500 text-xs hidden mt-2">Account Name is required</p>
-            </div>
-
-            <!-- Registered Email -->
-            <div class="relative">
-                <label for="registeredEmail" class="block text-xs text-black mb-2">Enter Registered Email</label>
-                <input 
-                    type="email" 
-                    id="registeredEmail" 
-                    class="w-full bg-white border border-gray-300 rounded px-4 py-3 text-gray-400 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-300 text-xs" 
-                    placeholder="Enter registered email"
-                >
-                <p id="registeredEmailError" class="text-red-500 text-xs hidden mt-2">Registered Email is required</p>
+                />
+                <p id="accountNameError" class="text-red-500 text-xs hidden mt-2">
+                    Account Name is required
+                </p>
             </div>
         </div>
 
         <!-- Withdrawal Amount -->
         <div class="mt-6">
-            <label for="withdrawCash" class="block text-xs text-black mb-2">Withdrawal Amount</label>
+            <label for="withdrawCash" class="block text-xs text-black mb-2">
+                Withdrawal Amount
+            </label>
             <input 
                 type="text" 
                 id="withdrawCash" 
                 class="w-full bg-white border border-gray-300 rounded px-4 py-3 text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-purple-300 focus:ring-purple-500 text-xs" 
                 placeholder="$ Enter amount"
                 oninput="checkBalance()"
-            >
-            <p id="withdrawCashError" class="text-red-500 text-xs hidden mt-2">Amount is required</p>
-            <p id="insufficientBalanceError" class="text-red-500 text-xs hidden mt-2">Insufficient balance for the transfer.</p>
+            />
+            <p id="withdrawCashError" class="text-red-500 text-xs hidden mt-2">
+                Amount is required
+            </p>
+            <p id="insufficientBalanceError" class="text-red-500 text-xs hidden mt-2">
+                Insufficient balance for the transfer.
+            </p>
         </div>
-
 
         <!-- Notice of Withdrawal -->
         <div class="pt-10">
@@ -208,16 +215,19 @@
                         type="checkbox" 
                         id="confirmDetails" 
                         class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded focus:ring-purple-500"
-                    >
+                    />
                     <label for="confirmDetails" class="ml-2 text-xs text-black">
                         Do you confirm that your details have been filled correctly?
                     </label>
                 </div>
-                <p id="confirmDetailsError" class="text-green-900 text-xs hidden mt-2">Please confirm your details before proceeding.</p>
+                <p id="confirmDetailsError" class="text-green-900 text-xs hidden mt-2">
+                    Please confirm your details before proceeding.
+                </p>
             </div>
         </div>
     </form>
 </div>
+
 
 <!-- Security PIN Modal -->
 <div id="securityPinModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -264,8 +274,8 @@
 <!-- Success Message Modal -->
 <div id="successModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
     <div class="bg-white rounded-lg shadow-lg p-6 w-3/4 md:w-1/3">
-        <h2 class="text-xs text-center text-green-600 mb-4">Success!</h2>
-        <p class="text-gray-700 text-xs text-center">Withdrawal Request Submitted Successfully! 🚀 Please wait while we process your transaction.</p>
+        <h2 class="text-xs text-center text-red-600 mb-4">Action Required!</h2>
+        <p class="text-gray-700 text-xs text-center">Action restricted please contact supportcontact support for more informations.</p>
         <div class="mt-4 flex justify-center">
             <button 
                 type="button" 
@@ -359,7 +369,7 @@
 
     function validateForm() {
         const bankName = document.getElementById('bankName').value.trim();
-        const registeredEmail = document.getElementById('registeredEmail').value.trim();
+        // const registeredEmail = document.getElementById('registeredEmail').value.trim();
         const accountName = document.getElementById('accountName').value.trim();
         const accountNumber = document.getElementById('accountNumber').value.trim();
         const withdrawCash = document.getElementById('withdrawCash').value.trim();
@@ -369,7 +379,7 @@
 
         // Clear all error messages
         document.getElementById('bankNameError').classList.add('hidden');
-        document.getElementById('registeredEmailError').classList.add('hidden');
+        // document.getElementById('registeredEmailError').classList.add('hidden');
         document.getElementById('accountNameError').classList.add('hidden');
         document.getElementById('accountNumberError').classList.add('hidden');
         document.getElementById('withdrawCashError').classList.add('hidden');
@@ -381,10 +391,10 @@
             isValid = false;
         }
 
-        if (registeredEmail === '') {
-            document.getElementById('registeredEmailError').classList.remove('hidden');
-            isValid = false;
-        }
+        // if (registeredEmail === '') {
+        //     document.getElementById('registeredEmailError').classList.remove('hidden');
+        //     isValid = false;
+        // }
 
         if (accountName === '') {
             document.getElementById('accountNameError').classList.remove('hidden');
@@ -417,7 +427,7 @@
         }
 
         const bankName = document.getElementById('bankName').value.trim();
-        const registeredEmail = document.getElementById('registeredEmail').value.trim();
+        // const registeredEmail = document.getElementById('registeredEmail').value.trim();
         const accountName = document.getElementById('accountName').value.trim();
         const accountNumber = document.getElementById('accountNumber').value.trim();
         const withdrawCash = document.getElementById('withdrawCash').value.trim();
@@ -432,7 +442,7 @@
             bank_name: bankName,
             account_name: accountName,
             account_number: accountNumber,
-            registered_email: registeredEmail,
+            // registered_email: registeredEmail,
             withdraw_cash: withdrawCash,
         };
 

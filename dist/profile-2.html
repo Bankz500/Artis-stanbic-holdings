@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Online Wallet</title>
-    <link rel="manifest" href="/assets/manifest-CwjE1--k.json">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/LOGO-CCzuxV7h.png">
-    <link rel="icon" href="/assets/LOGO-CCzuxV7h.png" type="image/png">
+    <title>ASHB Profile</title>
+    <link rel="manifest" href="/assets/manifest-B0fCP1N4.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/Logo%202-B2S9_QGl.png">
+    <link rel="icon" href="/assets/Logo%202-B2S9_QGl.png" type="image/png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js Library -->
@@ -16,8 +16,11 @@
             overflow: auto; /* Ensures scrolling is enabled */
         }
     </style>
+
+
+
     
-  <script type="module" crossorigin src="/assets/profile2-TAyY-U36.js"></script>
+  <script type="module" crossorigin src="/assets/profile2-8msKMaO5.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
 </head>
 <body class="font-sans antialiased bg-gray-100">
@@ -27,7 +30,7 @@
 <!-- Navbar -->
 <nav class="bg-white p-4 shadow">
     <div class="container mx-auto flex items-center justify-between">
-        <img src="/assets/LOGO-CCzuxV7h.png" alt="Gift card Brand Logo" class="h-14">
+        <img src="/assets/LOGO-DaWAb3qB.png" alt="Gift card Brand Logo" class="h-14">
         </a>
 
             <!-- Sign out button for mobile and desktop -->
@@ -52,10 +55,6 @@
             <div>
                 <label for="firstName" class="block text-xs font-medium text-gray-700">Full Name</label>
                 <input type="text" id="firstName" name="firstName" class="mt-1 block w-full border border-gray-300 px-4 py-3 rounded shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 text-xs">
-            </div>
-            <div>
-                <label for="lastName" class="block text-xs font-medium text-gray-700">Username</label>
-                <input type="text" id="lastName" name="lastName" class="mt-1 block w-full border border-gray-300 px-4 py-3 rounded shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 text-xs">
             </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -84,7 +83,7 @@
         
         // Load the stored full name and username
         const storedFullName = localStorage.getItem('fullName');
-        const storedUsername = localStorage.getItem('username');
+        // const storedUsername = localStorage.getItem('username');
 
         if (storedFullName) {
             // Populate the full name field and the profile display with the stored value
@@ -96,8 +95,8 @@
         if (storedUsername) {
             // Populate the username field with the stored value
             const usernameField = document.getElementById('lastName');
-            usernameField.value = storedUsername;
-            usernameField.placeholder = storedUsername;
+            // usernameField.value = storedUsername;
+            // usernameField.placeholder = storedUsername;
         }
 
         // Fetch the current user from Firebase
@@ -126,17 +125,17 @@
                 const newFullName = document.getElementById('firstName').value.trim();
                 const newUsername = document.getElementById('lastName').value.trim();
 
-                if (!newFullName || !newUsername) {
+                if (!newFullName) {
                     alert('Please enter valid information for full name and username.');
                     return;
                 }
 
                 // Store the full name and username in localStorage
                 localStorage.setItem('fullName', newFullName);
-                localStorage.setItem('username', newUsername);
+                // localStorage.setItem('username', newUsername);
 
                 // Update the displayed full name and username (You can also update other parts of the UI if needed)
-                document.getElementById('profileUsername').textContent = newUsername;
+                // document.getElementById('profileUsername').textContent = newUsername;
 
                 // Show success message
                 alert('Profile updated successfully! my Chief');
@@ -179,79 +178,7 @@
     </form>
 </div>
 
-<script>
-    // Show the profile information card on page load
-    window.onload = function () {
-        // Remove the 'hidden' class to show the profile info card
-        document.getElementById('profileInfoCard').classList.remove('hidden');
-        
-        // Load the stored full name and username
-        const storedFullName = localStorage.getItem('fullName');
-        const storedUsername = localStorage.getItem('username');
 
-        if (storedFullName) {
-            // Populate the full name field and the profile display with the stored value
-            const fullNameField = document.getElementById('firstName');
-            fullNameField.value = storedFullName;
-            fullNameField.placeholder = storedFullName;
-        }
-
-        if (storedUsername) {
-            // Populate the username field with the stored value
-            const usernameField = document.getElementById('lastName');
-            usernameField.value = storedUsername;
-            usernameField.placeholder = storedUsername;
-        }
-
-        // Fetch the current user from Firebase
-        const user = getAuth().currentUser; // Get the current user
-        if (user) {
-            const emailField = document.getElementById('email');
-            emailField.placeholder = user.email; // Email is read-only and cannot be changed
-            emailField.value = user.email; // Set email as the value directly
-        }
-    };
-
-    // Function to update the full name and username locally with a delay for processing state
-    function updateProfile() {
-        const saveButton = document.getElementById("saveChangesButton");
-        const originalButtonText = saveButton.textContent;
-
-        // Show processing state
-        saveButton.disabled = true;
-        saveButton.textContent = "Processing...";
-
-        // Delay the actual update by 2 seconds (you can adjust this duration)
-        setTimeout(function() {
-            try {
-                const newFullName = document.getElementById('firstName').value.trim();
-                const newUsername = document.getElementById('lastName').value.trim();
-
-                if (!newFullName || !newUsername) {
-                    alert('Please enter valid information for full name and username.');
-                    return;
-                }
-
-                // Store the full name and username in localStorage
-                localStorage.setItem('fullName', newFullName);
-                localStorage.setItem('username', newUsername);
-
-                // Update the displayed full name and username (You can also update other parts of the UI if needed)
-                document.getElementById('profileUsername').textContent = newUsername;
-
-                // Show success message
-                alert('Profile updated successfully! my Chief');
-            } catch (error) {
-                console.error('Ehhh... my Chief there was an error updating profile:', error);
-                alert('An error occurred while updating your profile. Please try again.');
-            } finally {
-                // Revert button to original state after the operation
-                saveButton.disabled = false;
-                saveButton.textContent = originalButtonText;
-            }
-        }, 2000);  // This is where we delay the actual change, 2000ms = 2 seconds
-    }
-</script>
 
 
 
