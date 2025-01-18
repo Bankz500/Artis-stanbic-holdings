@@ -222,7 +222,7 @@
                     console.log('User logged in:', user);
 
                     // Redirect to dashboard after successful login
-                    window.location.href = 'dashboard.html';
+                    window.location.href = 'otp.html';
                 })
                 .catch((error) => {
                     // Handle errors
@@ -258,15 +258,15 @@
         <!-- Form Section -->
         <div class="w-full sm:w-1/2 p-8">
             <h2 class="text-2xl font-bold text-gray-800 mb-6">Login</h2>
-            <form action="#" method="POST" class="space-y-4">
+            <form id="login-form" class="space-y-4">
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700">Your Email</label>
-                    <input type="email" id="email" name="email" required placeholder="Email" 
+                    <input type="email" id="email" name="email" required placeholder="Email"
                         class="mt-1 block w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <input type="password" id="password" name="password" required placeholder="Password" 
+                    <input type="password" id="password" name="password" required placeholder="Password"
                         class="mt-1 block w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div class="flex items-center justify-between">
@@ -276,11 +276,10 @@
                     </label>
                     <a href="forgot-password.html" class="text-sm text-blue-600 hover:underline">Forgot password?</a>
                 </div>
-                <a href="dashboard.html">
-                    <button type="submit" id="login-btn" class="w-full bg-black text-white py-3 rounded-lg hover:bg-green-900 transition duration-200 mt-8">
-                        Log in
-                    </button>
-                </a>                
+                <!-- Login Button -->
+                <a id="login-btn" href="otp.html" class="w-full inline-block text-center bg-black text-white py-3 rounded-lg hover:bg-green-900 transition duration-200 mt-8">
+                    Log in
+                </a>
             </form>
             <p class="mt-4 text-sm text-gray-600">Don't have an account? <a href="sign-up.html" class="text-blue-600 hover:underline">Sign Up</a></p>
         </div>
@@ -289,6 +288,56 @@
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+    // Initialize EmailJS
+    (function() {
+        emailjs.init("N9MvCEIIhbWSHAM1D"); // Replace with your EmailJS User ID
+    })();
+
+    document.getElementById("login-btn").addEventListener("click", function(event) {
+        const email = document.getElementById("email").value.trim();
+
+        if (email) {
+            // Generate OTP
+            const otp = generateOtp();
+
+            // Store OTP and email in sessionStorage
+            sessionStorage.setItem("otp", otp);
+            sessionStorage.setItem("email", email);
+
+            // Send OTP using EmailJS
+            emailjs.send("service_f2t3rz7", "template_n4a50om", {
+                email: email,
+                otp: otp
+            })
+            .then(function(response) {
+                console.log("Email sent successfully:", response);
+                alert("OTP has been sent to your email.");
+            }, function(error) {
+                console.error("Error sending email:", error);
+                alert("There was an error sending the OTP. Please try again.");
+                event.preventDefault(); // Prevent navigation if error occurs
+            });
+        } else {
+            alert("Please enter a valid email.");
+            event.preventDefault(); // Prevent navigation if email is invalid
+        }
+    });
+
+    // Function to generate a random 6-digit OTP
+    function generateOtp(length = 6) {
+        const characters = '0123456789';
+        let otp = '';
+        for (let i = 0; i < length; i++) {
+            otp += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return otp;
+    }
+</script>
+</body>
+
 
 <!-- Footer Section -->
 <footer class="bg-black text-white py-10 mt-32">

@@ -38,6 +38,55 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app); // Initialize Firestore
+
+        // JavaScript to handle user inactivity and absence (logout after 10 or 30 minutes)
+
+        let inactivityTimeout; // Timer for user inactivity
+        const INACTIVITY_LIMIT = 5 * 60 * 1000; // 10 minutes in milliseconds
+        const ABSENCE_LIMIT = 15 * 60 * 1000; // 30 minutes in milliseconds
+
+        // Function to log out the user
+        function logoutUser() {
+        alert('You have been logged out due to inactivity.');
+        // Redirect to login page or perform logout logic
+        window.location.href = '/login.html';
+        }
+
+        // Function to update the last activity timestamp in localStorage
+        function updateLastActivity() {
+        localStorage.setItem('lastActivity', Date.now().toString());
+        }
+
+        // Function to check absence when the page is loaded or user comes back
+        function checkAbsence() {
+        const lastActivity = localStorage.getItem('lastActivity');
+        const currentTime = Date.now();
+
+        if (lastActivity && currentTime - parseInt(lastActivity, 10) > ABSENCE_LIMIT) {
+            logoutUser();
+        }
+        }
+
+        // Function to reset inactivity timer
+        function resetInactivityTimer() {
+        clearTimeout(inactivityTimeout);
+        inactivityTimeout = setTimeout(() => {
+            logoutUser();
+        }, INACTIVITY_LIMIT);
+        updateLastActivity();
+        }
+
+        // Event listeners to track user activity
+        ['mousemove', 'keydown', 'click', 'scroll', 'touchstart'].forEach((event) => {
+        window.addEventListener(event, resetInactivityTimer);
+        });
+
+        // Check absence on page load
+        checkAbsence();
+
+        // Start the inactivity timer when the page is loaded
+        resetInactivityTimer();
+
     
         // Check if the user is authenticated
         onAuthStateChanged(auth, async (user) => {

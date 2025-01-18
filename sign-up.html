@@ -258,7 +258,12 @@
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+    import { 
+        getAuth, 
+        createUserWithEmailAndPassword, 
+        sendEmailVerification, 
+        onAuthStateChanged 
+    } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
     import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
     // Firebase configuration
@@ -299,10 +304,25 @@
                 createdAt: new Date().toISOString(),
             });
 
+            // Send email verification
+            await sendEmailVerification(user);
+            alert("Account created! A verification email has been sent. Please check your inbox to verify your account.");
+
+            // Add listener to check email verification state
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    if (user.emailVerified) {
+                        console.log("Email verified. Access granted.");
+                    } else {
+                        console.log("Email not verified. Please verify your email.");
+                    }
+                }
+            });
+
             // Show success modal
             document.getElementById("success-modal").classList.remove("hidden");
         } catch (error) {
-            console.error("Error during sign-up:", error.message, error.code, error);
+            console.error("Error during sign-up:", error.message, error.code);
 
             // Handle errors and show an alert
             const errorMessage = getCustomErrorMessage(error.code);
@@ -360,8 +380,6 @@
         signUp(formData);
     });
 </script>
-
-
 
 
 
