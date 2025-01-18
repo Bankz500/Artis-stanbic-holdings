@@ -362,7 +362,8 @@
     async function sendOtp(email, otp) {
         try {
             await emailjs.send("service_f2t3rz7", "template_n4a50om", {
-                email: email,
+                to_email: email,  // Add this line to send to user's email
+                email: email,     // Keep this for template compatibility
                 otp: otp
             });
             return true;
@@ -419,24 +420,36 @@
         }
     });
 
-    // Handle OTP Form Submit
-    otpForm.addEventListener('submit', async (e) => {
+       // Handle OTP Form Submit
+       otpForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        const verifyOtpBtn = document.getElementById('verify-otp-btn');
         const enteredOtp = document.getElementById('otp').value;
         const storedOtp = sessionStorage.getItem('loginOtp');
 
-        if (!storedOtp) {
-            alert('OTP session expired. Please login again.');
-            window.location.reload();
-            return;
-        }
+        // Disable button and show processing state
+        verifyOtpBtn.disabled = true;
+        verifyOtpBtn.textContent = 'Processing...';
 
-        if (enteredOtp === storedOtp) {
-            sessionStorage.removeItem('loginOtp');
-            window.location.href = 'dashboard.html';
-        } else {
-            alert('Invalid OTP. Please try again.');
+        try {
+            if (!storedOtp) {
+                throw new Error('OTP session expired');
+            }
+
+            if (enteredOtp === storedOtp) {
+                sessionStorage.removeItem('loginOtp');
+                // Add a small delay to show the processing state
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                window.location.href = 'dashboard.html';
+            } else {
+                throw new Error('Invalid OTP');
+            }
+        } catch (error) {
+            alert(error.message + '. Please try again.');
+            // Reset button state if there's an error
+            verifyOtpBtn.disabled = false;
+            verifyOtpBtn.textContent = 'Proceed';
         }
     });
 

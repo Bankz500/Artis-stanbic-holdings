@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>ASHB Forgot password</title>
-    <link rel="manifest" href="/assets/manifest-B0fCP1N4.json">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/Logo%202-B2S9_QGl.png">
-    <link rel="icon" href="/assets/Logo%202-B2S9_QGl.png" type="image/png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="logo 2.png">
+    <link rel="icon" href="logo 2.png" type="image/png">
     <!-- Include Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Include Firebase SDK -->
@@ -21,7 +21,7 @@
   <div class="container mx-auto flex items-center justify-between">
       <div class="flex items-center justify-center w-full md:w-auto">
           <a href="index.html">
-              <img src="/assets/LOGO-DaWAb3qB.png" alt="Cleaning Services Logo" class="h-14 w-68">
+              <img src="Logo.png" alt="Cleaning Services Logo" class="h-14 w-68">
           </a>
 
           <!-- Mobile Menu Button -->
@@ -185,49 +185,82 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ASHB Forgot password</title>
+        <title>ASHB Reset Password</title>
         
         <!-- Include Tailwind CSS -->
         <script src="https://cdn.tailwindcss.com"></script>
         
-        <!-- Firebase SDKs - Updated versions -->
+        <!-- Firebase SDKs -->
         <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     </head>
     <body class="flex items-center justify-center min-h-screen bg-gray-100">
-        <!-- Password Reset Card -->
-        <div id="forgot-password-card" class="bg-white rounded-lg p-8 max-w-sm w-full">
-            <h2 class="text-2xl font-semibold text-center mb-4">Reset Password</h2>
-            <p class="text-gray-600 text-center mb-6">Enter your email address and we'll send you a link to reset your password.</p>
+        <!-- New Password Card -->
+        <div class="bg-white rounded-lg p-8 max-w-md w-full shadow-lg">
+            <!-- Logo -->
+            <div class="flex justify-center mb-6">
+                <img src="/Logo.png" alt="ASHB Logo" class="h-16">
+            </div>
+    
+            <h2 class="text-2xl font-semibold text-center mb-2">Set New Password</h2>
+            <p class="text-gray-600 text-center mb-6">Please enter your new password below</p>
             
-            <form id="reset-password-form">
-                <input 
-                    type="email" 
-                    id="reset-email" 
-                    placeholder="Your registered email" 
-                    required 
-                    class="border border-gray-300 rounded-lg p-2 w-full mb-4"
-                />
+            <form id="new-password-form" class="space-y-4">
+                <!-- Password Field -->
+                <div class="relative">
+                    <input 
+                        type="password" 
+                        id="new-password" 
+                        placeholder="New Password" 
+                        required 
+                        class="border border-gray-300 rounded-lg p-3 w-full mb-2"
+                        minlength="8"
+                    />
+                    <button 
+                        type="button" 
+                        id="toggle-password" 
+                        class="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                    >
+                        👁️
+                    </button>
+                </div>
+    
+                <!-- Password Requirements -->
+                <div class="text-sm text-gray-600 space-y-1 mb-4">
+                    <p id="length-check" class="flex items-center">
+                        <span class="mr-2">❌</span> At least 8 characters
+                    </p>
+                    <p id="uppercase-check" class="flex items-center">
+                        <span class="mr-2">❌</span> One uppercase letter
+                    </p>
+                    <p id="lowercase-check" class="flex items-center">
+                        <span class="mr-2">❌</span> One lowercase letter
+                    </p>
+                    <p id="number-check" class="flex items-center">
+                        <span class="mr-2">❌</span> One number
+                    </p>
+                    <p id="special-check" class="flex items-center">
+                        <span class="mr-2">❌</span> One special character
+                    </p>
+                </div>
+    
+                <!-- Submit Button -->
                 <button 
                     type="submit" 
                     id="reset-button"
-                    class="bg-green-600 text-white rounded-lg py-2 w-full hover:bg-green-700 transition"
+                    class="bg-green-600 text-white rounded-lg py-3 w-full hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled
                 >
-                    Send Reset Link
+                    Reset Password
                 </button>
             </form>
     
             <!-- Status Message -->
             <p id="status-message" class="mt-4 text-center hidden"></p>
-    
-            <!-- Back to Login Link -->
-            <div class="text-center mt-4">
-                <a href="login.html" class="text-green-600 hover:text-green-700">Back to Login</a>
-            </div>
         </div>
     
         <script>
-            // Initialize Firebase with your config
+            // Initialize Firebase
             const firebaseConfig = {
                 apiKey: "AIzaSyCJdMdkW5NZF83PLBLYZk3yBAFsUxqautY",
                 authDomain: "atpib-82d72.firebaseapp.com",
@@ -238,54 +271,99 @@
                 measurementId: "G-G3BRPK5B9T"
             };
     
-            // Initialize Firebase
             firebase.initializeApp(firebaseConfig);
     
-            // Get DOM elements
-            const resetForm = document.getElementById('reset-password-form');
-            const resetButton = document.getElementById('reset-button');
-            const statusMessage = document.getElementById('status-message');
+            // Get the action code from the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const mode = urlParams.get('mode');
+            const actionCode = urlParams.get('oobCode');
     
-            // Function to show status message
-            function showMessage(message, isError = false) {
-                statusMessage.textContent = message;
-                statusMessage.classList.remove('hidden');
-                statusMessage.className = `mt-4 text-center ${isError ? 'text-red-600' : 'text-green-600'}`;
+            // Password visibility toggle
+            document.getElementById('toggle-password').addEventListener('click', function() {
+                const passwordInput = document.getElementById('new-password');
+                passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+                this.textContent = passwordInput.type === 'password' ? '👁️' : '👁️‍🗨️';
+            });
+    
+            // Password validation
+            const newPassword = document.getElementById('new-password');
+            const resetButton = document.getElementById('reset-button');
+    
+            function updateRequirementCheck(requirement, isValid) {
+                const element = document.getElementById(`${requirement}-check`);
+                element.querySelector('span').textContent = isValid ? '✅' : '❌';
             }
     
+            function validatePassword() {
+                const password = newPassword.value;
+                
+                // Check requirements
+                const isLengthValid = password.length >= 8;
+                const isUppercaseValid = /[A-Z]/.test(password);
+                const isLowercaseValid = /[a-z]/.test(password);
+                const isNumberValid = /[0-9]/.test(password);
+                const isSpecialValid = /[!@#$%^&*]/.test(password);
+    
+                updateRequirementCheck('length', isLengthValid);
+                updateRequirementCheck('uppercase', isUppercaseValid);
+                updateRequirementCheck('lowercase', isLowercaseValid);
+                updateRequirementCheck('number', isNumberValid);
+                updateRequirementCheck('special', isSpecialValid);
+    
+                // Enable/disable submit button
+                resetButton.disabled = !(isLengthValid && isUppercaseValid && 
+                                      isLowercaseValid && isNumberValid && isSpecialValid);
+            }
+    
+            newPassword.addEventListener('input', validatePassword);
+    
             // Handle form submission
-            resetForm.addEventListener('submit', async (e) => {
+            document.getElementById('new-password-form').addEventListener('submit', async (e) => {
                 e.preventDefault();
                 
-                const email = document.getElementById('reset-email').value;
-                
-                // Update button state
+                if (mode !== 'resetPassword') {
+                    showMessage('Invalid reset link', true);
+                    return;
+                }
+    
                 resetButton.disabled = true;
-                resetButton.textContent = 'Sending...';
+                resetButton.textContent = 'Updating...';
     
                 try {
-                    // Add actionCodeSettings for custom reset page
-                    const actionCodeSettings = {
-                        url: 'https://atpib-82d72.firebaseapp.com/auth/action.html',
-                        handleCodeInApp: true
-                    };
-
-                    // Send reset email with custom settings
-                    await firebase.auth().sendPasswordResetEmail(email, actionCodeSettings);
+                    // Verify the password reset code is valid
+                    await firebase.auth().verifyPasswordResetCode(actionCode);
                     
-                    showMessage('Password reset link sent! Please check your email.');
-                    resetButton.textContent = 'Link Sent';
+                    // Confirm the password reset
+                    await firebase.auth().confirmPasswordReset(actionCode, newPassword.value);
                     
-                    // Optional: Redirect to login page after 3 seconds
+                    // Show success message
+                    showMessage('Password updated successfully! Redirecting to login...', false);
+    
+                    // Redirect to login page after 3 seconds
                     setTimeout(() => {
-                        window.location.href = 'login.html';
+                        window.location.href = '/login.html';
                     }, 3000);
-                    
+    
                 } catch (error) {
-                    // ... existing error handling code ...
+                    console.error(error);
+                    let errorMessage = 'Error updating password. Please try again.';
+                    
+                    if (error.code === 'auth/expired-action-code') {
+                        errorMessage = 'Reset link has expired. Please request a new one.';
+                    }
+                    
+                    showMessage(errorMessage, true);
+                    resetButton.disabled = false;
+                    resetButton.textContent = 'Reset Password';
                 }
             });
-            
+    
+            function showMessage(message, isError = false) {
+                const statusMessage = document.getElementById('status-message');
+                statusMessage.textContent = message;
+                statusMessage.className = `mt-4 text-center ${isError ? 'text-red-600' : 'text-green-600'}`;
+                statusMessage.classList.remove('hidden');
+            }
         </script>
     </body>
 </body>

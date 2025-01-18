@@ -38,10 +38,10 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app); // Initialize Firestore
-        
+
             // Add these at the top of your script section
             let inactivityTimeout;
-                const TIMEOUT_DURATION = 600000; // 10 minutes in milliseconds
+                const TIMEOUT_DURATION = 200000; // 10 minutes in milliseconds
 
                 // Function to reset timer
                 function resetInactivityTimer() {
@@ -83,7 +83,7 @@
                     // Set the amounts directly from user data
                     document.getElementById('Deposit-account').textContent = `${userData.deposit || '$0.00'}`;
                     document.getElementById('history1').textContent = `${userData.history1 || 'No history available'}`;
-                    document.getElementById('history2').textContent = `${userData.history2 || 'No history available'}`;
+                    document.getElementById('history2').textContent = `${userData.history2 || ''}`;
                     document.getElementById('history3').textContent = `${userData.history3 || ''}`;
                     document.getElementById('wallet').textContent = `${userData.wallet || '$0.00'}`;
                     document.getElementById('bonus-wallet').textContent = `${userData.bonus || '$0.00'}`;

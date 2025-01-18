@@ -22,6 +22,7 @@ export default defineConfig({
         profile2: './profile-2.html',
         login: './login.html',
         otp: './otp.html',
+        action: './action.html',
       },
     },
   },
