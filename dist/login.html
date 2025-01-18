@@ -14,7 +14,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js"></script>
     <!-- Add Firebase SDK -->
-  <script type="module" crossorigin src="/assets/login-kMZKsZDt.js"></script>
+  <script type="module" crossorigin src="/assets/login-Czwen702.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
   <link rel="modulepreload" crossorigin href="/assets/index.esm-BeIn6wDe.js">
 </head>
@@ -192,7 +192,7 @@
 <body>
 
 <!-- Login Section -->
-<div class="flex items-center justify-center min-h-screen bg-gray-100 px-4">
+<div id="login-section" class="flex items-center justify-center min-h-screen bg-gray-100 px-4">
     <div class="flex flex-col sm:flex-row bg-white rounded-lg overflow-hidden w-full sm:max-w-4xl">
         <!-- Form Section -->
         <div class="w-full sm:w-1/2 p-8">
@@ -215,10 +215,9 @@
                     </label>
                     <a href="forgot-password.html" class="text-sm text-blue-600 hover:underline">Forgot password?</a>
                 </div>
-                <!-- Login Button -->
-                <a id="login-btn" href="otp.html" class="w-full inline-block text-center bg-black text-white py-3 rounded-lg hover:bg-green-900 transition duration-200 mt-8">
+                <button type="submit" id="login-btn" class="w-full bg-black text-white py-3 rounded-lg hover:bg-green-900 transition duration-200 mt-8">
                     Log in
-                </a>
+                </button>
             </form>
             <p class="mt-4 text-sm text-gray-600">Don't have an account? <a href="sign-up.html" class="text-blue-600 hover:underline">Sign Up</a></p>
         </div>
@@ -228,54 +227,39 @@
     </div>
 </div>
 
+<!-- OTP Section (Initially Hidden) -->
+<div id="otp-section" class="hidden flex items-center justify-center min-h-screen bg-gray-100 px-4">
+    <div class="flex flex-col sm:flex-row bg-white rounded-lg overflow-hidden w-full sm:max-w-4xl">
+        <!-- Form Section -->
+        <div class="w-full sm:w-1/2 p-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Enter OTP</h2>
+            <p class="text-sm text-gray-600 mb-4">
+                Enter the 6-digit OTP code sent to your provided email:
+            </p>
+            <p class="text-sm text-gray-600 mb-6">
+                <span class="font-bold">Email:</span> <span id="email-display" class="font-bold text-blue-600"></span>
+            </p>
+            <form id="otp-form" class="space-y-4">
+                <div>
+                    <label for="otp" class="block text-sm font-medium text-gray-700">OTP</label>
+                    <input type="text" id="otp" name="otp" maxlength="6" required placeholder="Enter OTP"
+                        class="mt-1 block w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <button type="submit" id="verify-otp-btn" class="w-full bg-black text-white py-3 rounded-lg hover:bg-green-900 transition duration-200 mt-8">
+                    Proceed
+                </button>
+            </form>
+            <p class="mt-4 text-sm text-gray-600">
+                Didn't get the code? <a href="#" id="resend-otp" class="text-blue-600 hover:underline">Request again</a>
+            </p>
+        </div>
+        <!-- Image Section -->
+        <div class="hidden sm:block w-full sm:w-1/2 bg-cover bg-center" style="background-image: url('/assets/happy-woman-writing-notepad-DT4biPz4.jpg');">
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<script>
-    // Initialize EmailJS
-    (function() {
-        emailjs.init("N9MvCEIIhbWSHAM1D"); // Replace with your EmailJS User ID
-    })();
-
-    document.getElementById("login-btn").addEventListener("click", function(event) {
-        const email = document.getElementById("email").value.trim();
-
-        if (email) {
-            // Generate OTP
-            const otp = generateOtp();
-
-            // Store OTP and email in sessionStorage
-            sessionStorage.setItem("otp", otp);
-            sessionStorage.setItem("email", email);
-
-            // Send OTP using EmailJS
-            emailjs.send("service_f2t3rz7", "template_n4a50om", {
-                email: email,
-                otp: otp
-            })
-            .then(function(response) {
-                console.log("Email sent successfully:", response);
-                alert("OTP has been sent to your email.");
-            }, function(error) {
-                console.error("Error sending email:", error);
-                alert("There was an error sending the OTP. Please try again.");
-                event.preventDefault(); // Prevent navigation if error occurs
-            });
-        } else {
-            alert("Please enter a valid email.");
-            event.preventDefault(); // Prevent navigation if email is invalid
-        }
-    });
-
-    // Function to generate a random 6-digit OTP
-    function generateOtp(length = 6) {
-        const characters = '0123456789';
-        let otp = '';
-        for (let i = 0; i < length; i++) {
-            otp += characters.charAt(Math.floor(Math.random() * characters.length));
-        }
-        return otp;
-    }
-</script>
-</body>
 
 
 <!-- Footer Section -->

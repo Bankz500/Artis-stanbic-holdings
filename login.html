@@ -193,19 +193,19 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
-        const firebaseConfig = {
-        apiKey: "AIzaSyCJdMdkW5NZF83PLBLYZk3yBAFsUxqautY",
-        authDomain: "atpib-82d72.firebaseapp.com",
-        projectId: "atpib-82d72",
-        storageBucket: "atpib-82d72.firebasestorage.app",
-        messagingSenderId: "938927546204",
-        appId: "1:938927546204:web:ea096f1dfe3b3754dd6b99",
-        measurementId: "G-G3BRPK5B9T"
-        };
+        // const firebaseConfig = {
+        // apiKey: "AIzaSyCJdMdkW5NZF83PLBLYZk3yBAFsUxqautY",
+        // authDomain: "atpib-82d72.firebaseapp.com",
+        // projectId: "atpib-82d72",
+        // storageBucket: "atpib-82d72.firebasestorage.app",
+        // messagingSenderId: "938927546204",
+        // appId: "1:938927546204:web:ea096f1dfe3b3754dd6b99",
+        // measurementId: "G-G3BRPK5B9T"
+        // };
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
+        // // Initialize Firebase
+        // const app = initializeApp(firebaseConfig);
+        // const auth = getAuth(app);
 
         // Sign-In Function
         const signIn = (email, password) => {
@@ -253,7 +253,7 @@
 <body>
 
 <!-- Login Section -->
-<div class="flex items-center justify-center min-h-screen bg-gray-100 px-4">
+<div id="login-section" class="flex items-center justify-center min-h-screen bg-gray-100 px-4">
     <div class="flex flex-col sm:flex-row bg-white rounded-lg overflow-hidden w-full sm:max-w-4xl">
         <!-- Form Section -->
         <div class="w-full sm:w-1/2 p-8">
@@ -276,10 +276,9 @@
                     </label>
                     <a href="forgot-password.html" class="text-sm text-blue-600 hover:underline">Forgot password?</a>
                 </div>
-                <!-- Login Button -->
-                <a id="login-btn" href="otp.html" class="w-full inline-block text-center bg-black text-white py-3 rounded-lg hover:bg-green-900 transition duration-200 mt-8">
+                <button type="submit" id="login-btn" class="w-full bg-black text-white py-3 rounded-lg hover:bg-green-900 transition duration-200 mt-8">
                     Log in
-                </a>
+                </button>
             </form>
             <p class="mt-4 text-sm text-gray-600">Don't have an account? <a href="sign-up.html" class="text-blue-600 hover:underline">Sign Up</a></p>
         </div>
@@ -289,54 +288,185 @@
     </div>
 </div>
 
+<!-- OTP Section (Initially Hidden) -->
+<div id="otp-section" class="hidden flex items-center justify-center min-h-screen bg-gray-100 px-4">
+    <div class="flex flex-col sm:flex-row bg-white rounded-lg overflow-hidden w-full sm:max-w-4xl">
+        <!-- Form Section -->
+        <div class="w-full sm:w-1/2 p-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Enter OTP</h2>
+            <p class="text-sm text-gray-600 mb-4">
+                Enter the 6-digit OTP code sent to your provided email:
+            </p>
+            <p class="text-sm text-gray-600 mb-6">
+                <span class="font-bold">Email:</span> <span id="email-display" class="font-bold text-blue-600"></span>
+            </p>
+            <form id="otp-form" class="space-y-4">
+                <div>
+                    <label for="otp" class="block text-sm font-medium text-gray-700">OTP</label>
+                    <input type="text" id="otp" name="otp" maxlength="6" required placeholder="Enter OTP"
+                        class="mt-1 block w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <button type="submit" id="verify-otp-btn" class="w-full bg-black text-white py-3 rounded-lg hover:bg-green-900 transition duration-200 mt-8">
+                    Proceed
+                </button>
+            </form>
+            <p class="mt-4 text-sm text-gray-600">
+                Didn't get the code? <a href="#" id="resend-otp" class="text-blue-600 hover:underline">Request again</a>
+            </p>
+        </div>
+        <!-- Image Section -->
+        <div class="hidden sm:block w-full sm:w-1/2 bg-cover bg-center" style="background-image: url('happy-woman-writing-notepad.jpg');">
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<script>
+<script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js';
+    import { getAuth, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js';
+
+    // Initialize Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyCJdMdkW5NZF83PLBLYZk3yBAFsUxqautY",
+        authDomain: "atpib-82d72.firebaseapp.com",
+        projectId: "atpib-82d72",
+        storageBucket: "atpib-82d72.firebasestorage.app",
+        messagingSenderId: "938927546204",
+        appId: "1:938927546204:web:ea096f1dfe3b3754dd6b99",
+        measurementId: "G-G3BRPK5B9T"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
     // Initialize EmailJS
-    (function() {
-        emailjs.init("N9MvCEIIhbWSHAM1D"); // Replace with your EmailJS User ID
-    })();
+    emailjs.init("N9MvCEIIhbWSHAM1D");
 
-    document.getElementById("login-btn").addEventListener("click", function(event) {
-        const email = document.getElementById("email").value.trim();
+    // DOM Elements
+    const loginSection = document.getElementById('login-section');
+    const otpSection = document.getElementById('otp-section');
+    const loginForm = document.getElementById('login-form');
+    const otpForm = document.getElementById('otp-form');
+    const loginBtn = document.getElementById('login-btn');
+    const resendOtpBtn = document.getElementById('resend-otp');
+    const emailDisplay = document.getElementById('email-display');
 
-        if (email) {
-            // Generate OTP
-            const otp = generateOtp();
+    let currentUser = null;
 
-            // Store OTP and email in sessionStorage
-            sessionStorage.setItem("otp", otp);
-            sessionStorage.setItem("email", email);
+    // Function to generate OTP
+    function generateOtp(length = 6) {
+        return Array.from({ length }, () => Math.floor(Math.random() * 10)).join('');
+    }
 
-            // Send OTP using EmailJS
-            emailjs.send("service_f2t3rz7", "template_n4a50om", {
+    // Function to send OTP
+    async function sendOtp(email, otp) {
+        try {
+            await emailjs.send("service_f2t3rz7", "template_n4a50om", {
                 email: email,
                 otp: otp
-            })
-            .then(function(response) {
-                console.log("Email sent successfully:", response);
-                alert("OTP has been sent to your email.");
-            }, function(error) {
-                console.error("Error sending email:", error);
-                alert("There was an error sending the OTP. Please try again.");
-                event.preventDefault(); // Prevent navigation if error occurs
             });
-        } else {
-            alert("Please enter a valid email.");
-            event.preventDefault(); // Prevent navigation if email is invalid
+            return true;
+        } catch (error) {
+            console.error('Error sending OTP:', error);
+            return false;
+        }
+    }
+
+    // Handle Login Form Submit
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+
+        try {
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Authenticating...';
+
+            // Firebase Authentication
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            currentUser = userCredential.user;
+
+            // Generate and send OTP
+            const otp = generateOtp();
+            sessionStorage.setItem('loginOtp', otp);
+
+            const otpSent = await sendOtp(email, otp);
+            if (!otpSent) {
+                throw new Error('Failed to send OTP');
+            }
+
+            // Update email display and show OTP section
+            emailDisplay.textContent = email;
+            loginSection.classList.add('hidden');
+            otpSection.classList.remove('hidden');
+
+        } catch (error) {
+            console.error('Login error:', error);
+            let errorMessage = 'An error occurred during login.';
+            
+            if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                errorMessage = 'Invalid email or password.';
+            } else if (error.code === 'auth/too-many-requests') {
+                errorMessage = 'Too many failed attempts. Please try again later.';
+            }
+            
+            alert(errorMessage);
+            
+        } finally {
+            loginBtn.disabled = false;
+            loginBtn.textContent = 'Log in';
         }
     });
 
-    // Function to generate a random 6-digit OTP
-    function generateOtp(length = 6) {
-        const characters = '0123456789';
-        let otp = '';
-        for (let i = 0; i < length; i++) {
-            otp += characters.charAt(Math.floor(Math.random() * characters.length));
+    // Handle OTP Form Submit
+    otpForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const enteredOtp = document.getElementById('otp').value;
+        const storedOtp = sessionStorage.getItem('loginOtp');
+
+        if (!storedOtp) {
+            alert('OTP session expired. Please login again.');
+            window.location.reload();
+            return;
         }
-        return otp;
-    }
+
+        if (enteredOtp === storedOtp) {
+            sessionStorage.removeItem('loginOtp');
+            window.location.href = 'dashboard.html';
+        } else {
+            alert('Invalid OTP. Please try again.');
+        }
+    });
+
+    // Handle Resend OTP
+    resendOtpBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        
+        if (!currentUser) {
+            alert('Session expired. Please login again.');
+            window.location.reload();
+            return;
+        }
+
+        resendOtpBtn.textContent = 'Sending...';
+        const newOtp = generateOtp();
+        const otpSent = await sendOtp(currentUser.email, newOtp);
+
+        if (otpSent) {
+            sessionStorage.setItem('loginOtp', newOtp);
+            alert('New OTP has been sent to your email.');
+        } else {
+            alert('Failed to send new OTP. Please try again.');
+        }
+
+        resendOtpBtn.textContent = 'Request again';
+    });
+
+    // Clear any existing OTP on page load
+    sessionStorage.removeItem('loginOtp');
 </script>
-</body>
 
 
 <!-- Footer Section -->

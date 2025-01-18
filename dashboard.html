@@ -38,63 +38,43 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app); // Initialize Firestore
+        
+            // Add these at the top of your script section
+            let inactivityTimeout;
+                const TIMEOUT_DURATION = 600000; // 10 minutes in milliseconds
 
-        // JavaScript to handle user inactivity and absence (logout after 10 or 30 minutes)
+                // Function to reset timer
+                function resetInactivityTimer() {
+                    clearTimeout(inactivityTimeout);
+                    inactivityTimeout = setTimeout(() => {
+                        // Sign out the user and redirect to login
+                        const auth = getAuth();
+                        signOut(auth).then(() => {
+                            window.location.href = 'login.html';
+                        }).catch((error) => {
+                            console.error('Error signing out:', error);
+                            window.location.href = 'login.html';
+                        });
+                    }, TIMEOUT_DURATION);
+                }
 
-        let inactivityTimeout; // Timer for user inactivity
-        const INACTIVITY_LIMIT = 5 * 60 * 1000; // 10 minutes in milliseconds
-        const ABSENCE_LIMIT = 15 * 60 * 1000; // 30 minutes in milliseconds
+                // Add event listeners for user activity
+                document.addEventListener('mousemove', resetInactivityTimer);
+                document.addEventListener('keypress', resetInactivityTimer);
+                document.addEventListener('click', resetInactivityTimer);
+                document.addEventListener('scroll', resetInactivityTimer);
+                document.addEventListener('touchstart', resetInactivityTimer);
 
-        // Function to log out the user
-        function logoutUser() {
-        alert('You have been logged out due to inactivity.');
-        // Redirect to login page or perform logout logic
-        window.location.href = '/login.html';
-        }
-
-        // Function to update the last activity timestamp in localStorage
-        function updateLastActivity() {
-        localStorage.setItem('lastActivity', Date.now().toString());
-        }
-
-        // Function to check absence when the page is loaded or user comes back
-        function checkAbsence() {
-        const lastActivity = localStorage.getItem('lastActivity');
-        const currentTime = Date.now();
-
-        if (lastActivity && currentTime - parseInt(lastActivity, 10) > ABSENCE_LIMIT) {
-            logoutUser();
-        }
-        }
-
-        // Function to reset inactivity timer
-        function resetInactivityTimer() {
-        clearTimeout(inactivityTimeout);
-        inactivityTimeout = setTimeout(() => {
-            logoutUser();
-        }, INACTIVITY_LIMIT);
-        updateLastActivity();
-        }
-
-        // Event listeners to track user activity
-        ['mousemove', 'keydown', 'click', 'scroll', 'touchstart'].forEach((event) => {
-        window.addEventListener(event, resetInactivityTimer);
-        });
-
-        // Check absence on page load
-        checkAbsence();
-
-        // Start the inactivity timer when the page is loaded
-        resetInactivityTimer();
-
+                // Initialize timer when page loads
+                resetInactivityTimer();
     
         // Check if the user is authenticated
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                console.log("User is logged in:", user.uid);
-                // Fetch user data from Firestore
-                const userDocRef = doc(db, 'users', user.uid); // Reference to user's document
-                const userDoc = await getDoc(userDocRef);
+                    onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    console.log("User is logged in:", user.uid);
+                    // Fetch user data from Firestore
+                    const userDocRef = doc(db, 'users', user.uid);
+                    const userDoc = await getDoc(userDocRef);
     
                 if (userDoc.exists()) {
                     // Populate the fields with the user data
@@ -111,13 +91,13 @@
                     document.getElementById('pending2').textContent = `${userData.pending2 || ''}`;
                     document.getElementById('pending3').textContent = `${userData.pending3 || ''}`;
                     
-                    // Set the welcome message
+                    // Update welcome message first to ensure it's visible immediately
                     const welcomeName = document.getElementById('welcome-name');
                     if (userData.firstName) {
-                        welcomeName.textContent = `Welcome back, ${userData.firstName}`; // Set welcome message with user's name
+                        welcomeName.textContent = `Welcome back, ${userData.firstName}`;
                     } else {
-                        welcomeName.textContent = 'Welcome User'; // Default if name is not found
-                        console.log('User data does not contain a name field.');
+                        welcomeName.textContent = 'Welcome back, User';
+                        console.log('User data does not contain a firstName field.');
                     }
     
                     // Fetch transaction history from Firestore
@@ -192,7 +172,7 @@
             } else {
                 // If user is not authenticated, redirect to the sign-in page
                 console.log('No user signed in, redirecting to sign-in page.');
-                window.location.href = 'sign-in.html';
+                window.location.href = 'login..html';
             }
         });
     
@@ -200,7 +180,7 @@
         window.signOut = function() {
             signOut(auth).then(() => {
                 alert('Signed out successfully!');
-                window.location.href = 'sign-in.html'; // Redirect after sign-out
+                window.location.href = 'login.html'; // Redirect after sign-out
             }).catch((error) => {
                 alert('Error signing out: ' + error.message);
             });

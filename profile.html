@@ -63,7 +63,7 @@
                 }
             } else {
                 console.log('No user signed in. Redirecting to sign-in page.');
-                window.location.href = 'online-banking.html';
+                window.location.href = 'login.html';
             }
         });
     
@@ -71,7 +71,7 @@
         window.signOut = function () {
             signOut(auth).then(() => {
                 alert('Signed out successfully!');
-                window.location.href = 'online-banking.html';
+                window.location.href = 'login.html';
             }).catch((error) => {
                 alert('Error signing out: ' + error.message);
             });
