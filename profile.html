@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASHB Profile</title>
+    <title>ATPIB Profile</title>
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" sizes="180x180" href="logo 2.png">
     <link rel="icon" href="logo 2.png" type="image/png">
@@ -188,61 +188,95 @@
         </ul>
         </div>
 
-<script>
-// Function to upload the profile picture
-function uploadProfilePicture(event) {
-    const file = event.target.files[0];
-    if (file) {
-        // Create a file reader to read the file
-        const reader = new FileReader();
-
-        reader.onloadend = function () {
-            const imageUrl = reader.result; // The image URL after reading the file
-            document.getElementById('profilePic').src = imageUrl; // Set the image source to the uploaded file
-
-            // Store the image URL in localStorage so it persists even after page reload
-            localStorage.setItem('profilePic', imageUrl);
-        };
-
-        // Read the file as a data URL
-        reader.readAsDataURL(file);
-    }
-}
-
-// Check if a profile picture is stored in localStorage when the page loads
-document.addEventListener('DOMContentLoaded', function () {
-    const storedImage = localStorage.getItem('profilePic');
-    if (storedImage) {
-        document.getElementById('profilePic').src = storedImage; // Use the stored image if available
-    }
-});
-
-// Function to show user information from Firebase
-async function showUserInfo() {
-    const user = getAuth().currentUser; // Get the current user
-    if (user) {
-        const userDocRef = doc(db, 'users', user.uid); // Reference to user's document
-        const userDoc = await getDoc(userDocRef);
-
-        if (userDoc.exists()) {
-            const userData = userDoc.data();
-            // Populate the form fields with user data
-            document.getElementById('fullName').value = userData.name || '';
-            document.getElementById('username').value = '@syndicate'; // Assuming this is static or fetched from userData
-            document.getElementById('email').value = user.email;
-            document.getElementById('phone').value = userData.phone || ''; // Assuming phone is stored in Firestore
-
-            // Make the div visible
-            const userInfoDiv = document.getElementById('userInfo');
-            userInfoDiv.classList.remove('hidden');
-        } else {
-            alert('No user document found in Firestore.');
-        }
-    } else {
-        alert('No user is currently signed in.');
-    }
-}
-</script>
+        <script>
+            // Cloudinary configuration
+            const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dmgcagkqa/image/upload';
+            const CLOUDINARY_UPLOAD_PRESET = 'ASHB_profile';
+        
+            // Function to upload the profile picture to Cloudinary
+            async function uploadProfilePicture(event) {
+                const file = event.target.files[0];
+                const MAX_FILE_SIZE_MB = 2;
+        
+                if (!file) {
+                    alert('Please select an image file.');
+                    return;
+                }
+        
+                if (!file.type.startsWith('image/') || file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+                    alert('Please upload a valid image file smaller than 2MB.');
+                    return;
+                }
+        
+                // Authenticate the user
+                const user = auth.currentUser;
+                if (!user) {
+                    alert('You must be signed in to upload a profile picture.');
+                    return;
+                }
+        
+                // Prepare the file for Cloudinary upload
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+        
+                try {
+                    // Upload the image to Cloudinary
+                    const response = await fetch(CLOUDINARY_URL, {
+                        method: 'POST',
+                        body: formData,
+                    });
+        
+                    if (response.ok) {
+                        const data = await response.json();
+                        const imageUrl = data.secure_url;
+        
+                        // Update the profile picture on the page
+                        document.getElementById('profilePic').src = imageUrl;
+        
+                        // Save the profile picture URL to Firestore
+                        const userDocRef = doc(db, 'users', user.uid);
+                        await setDoc(
+                            userDocRef,
+                            { profilePicture: imageUrl },
+                            { merge: true }
+                        );
+        
+                        alert('Profile picture updated successfully!');
+                    } else {
+                        alert('Error uploading the image to Cloudinary. Please try again.');
+                    }
+                } catch (error) {
+                    console.error('Error uploading the profile picture:', error);
+                    alert('An error occurred while uploading the profile picture. Please try again.');
+                }
+            }
+        
+            // Load the user's profile picture on authentication state change
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    const userDocRef = doc(db, 'users', user.uid);
+                    const userDoc = await getDoc(userDocRef);
+        
+                    if (userDoc.exists()) {
+                        const userData = userDoc.data();
+        
+                        // Set the profile picture if it exists
+                        if (userData.profilePicture) {
+                            document.getElementById('profilePic').src = userData.profilePicture;
+                        }
+                    }
+                }
+            });
+        
+            // Add the event listener for the file input
+            document.addEventListener('DOMContentLoaded', () => {
+                const fileInput = document.getElementById('profileImageInput');
+                fileInput.addEventListener('change', uploadProfilePicture);
+            });
+        </script>
+        
+            
 
 
 <div id="profileInfoCard" class="max-w-full bg-white rounded p-6 mt-8 hidden">
