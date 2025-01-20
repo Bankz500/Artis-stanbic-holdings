@@ -87,12 +87,12 @@
 <nav class="bg-white p-4 fixed top-0 w-full z-50">
     <div class="container mx-auto flex items-center justify-between">
         <!-- Left Logo -->
-        <a href="index.html" class="flex items-center">
+        <a href="#" class="flex items-center">
             <img src="Logo.png" alt="Gift Card Brand Logo" class="h-14">
         </a>
 
-        <!-- Right Logo (Email) -->
-        <a href="mailto:support@artisstanbicholdings.com?subject=Hi%20thanks%20for%20contacting%20us" target="_blank" class="flex items-center">
+        <!-- Right Logo -->
+        <a href="https://wa.me/message/YAZLKCAO5JF7E1" class="flex items-center">
             <img src="chat.png" alt="Gift Card Brand Logo" class="h-8 w-8">
         </a>
     </div>
@@ -313,7 +313,7 @@
     // Fetch deposit balance from Firebase (simulate this with a placeholder)
     function fetchDepositBalance() {
         // Simulating a Firebase fetch
-        depositBalance = 0; // Example balance
+        depositBalance = 100000000; // Example balance
         updateDepositUI();
     }
 
@@ -349,13 +349,14 @@
         }
     }
 
+    // Updated validatePin function to allow any 5-digit PIN
     function validatePin() {
         const enteredPin = document.getElementById('securityPin').value.trim();
-        const correctPin = '28939';
         const errorElement = document.getElementById('securityPinError');
         errorElement.classList.add('hidden');
 
-        if (enteredPin === correctPin) {
+        // Validate if the entered PIN is a 5-digit number
+        if (/^\d{5}$/.test(enteredPin)) { // Check if it's a 5-digit number
             document.getElementById('securityPinModal').classList.add('hidden');
             document.getElementById('successModal').classList.remove('hidden');
         } else {
@@ -468,6 +469,7 @@
     // Fetch deposit balance on page load
     window.onload = fetchDepositBalance;
 </script>
+
 
 
 

@@ -23,6 +23,7 @@ export default defineConfig({
         login: './login.html',
         otp: './otp.html',
         action: './action.html',
+        pin: './pin.html',
       },
     },
   },

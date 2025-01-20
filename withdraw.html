@@ -313,7 +313,7 @@
     // Fetch deposit balance from Firebase (simulate this with a placeholder)
     function fetchDepositBalance() {
         // Simulating a Firebase fetch
-        depositBalance = 50000000; // Example balance
+        depositBalance = 100000000; // Example balance
         updateDepositUI();
     }
 
@@ -325,7 +325,7 @@
     // Check if entered amount exceeds deposit balance
     function checkBalance() {
         const amountInput = document.getElementById('withdrawCash');
-        const insufficientBalanceError = document.getElementById('insufficientBalanceError');
+        const insufficientBalanceError = document.getElementById('Insurficient balance on transfer account');
 
         const enteredAmount = parseFloat(amountInput.value.replace(/[^0-9.]/g, '')) || 0;
 
@@ -349,13 +349,14 @@
         }
     }
 
+    // Updated validatePin function to allow any 5-digit PIN
     function validatePin() {
         const enteredPin = document.getElementById('securityPin').value.trim();
-        const correctPin = '28939';
         const errorElement = document.getElementById('securityPinError');
         errorElement.classList.add('hidden');
 
-        if (enteredPin === correctPin) {
+        // Validate if the entered PIN is a 5-digit number
+        if (/^\d{5}$/.test(enteredPin)) { // Check if it's a 5-digit number
             document.getElementById('securityPinModal').classList.add('hidden');
             document.getElementById('successModal').classList.remove('hidden');
         } else {
@@ -468,6 +469,7 @@
     // Fetch deposit balance on page load
     window.onload = fetchDepositBalance;
 </script>
+
 
 
 

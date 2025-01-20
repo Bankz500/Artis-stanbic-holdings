@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ATPIB Profile</title>
-    <link rel="manifest" href="/assets/manifest-B0fCP1N4.json">
+    <link rel="manifest" href="/assets/manifest-B_v0OBzT.json">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/LOGO-C-IyUUSO.png">
     <link rel="icon" href="/assets/LOGO-C-IyUUSO.png" type="image/png">
     <!-- Tailwind CSS -->
@@ -18,8 +18,10 @@
     </style>
 
 
+
+
     
-  <script type="module" crossorigin src="/assets/profile2-BXUymoUR.js"></script>
+  <script type="module" crossorigin src="/assets/profile2-iT8IjbNs.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
 </head>
 <body class="font-sans antialiased bg-gray-100">
@@ -45,32 +47,117 @@
 
 <!-- Main Profile Content -->
 <div class="flex-1 p-4 mt-2">
-        <div class="w-full bg-white px-1 py-2 rounded mt-0">
+        <!-- <div class="w-full bg-white px-1 py-2 rounded mt-0"> -->
 <!-- Profile Header -->
 
-<div id="profileInfoCard" class="max-w-full bg-white rounded p-6 mt-8 hidden">
-    <h2 class="text-sm font-semibold text-gray-800 mb-6">Profile Information</h2>
-    <form class="space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-                <label for="firstName" class="block text-xs font-medium text-gray-700">Full Name</label>
-                <input type="text" id="firstName" name="firstName" 
-                    class="mt-1 block w-full border border-gray-300 px-4 py-3 rounded shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 text-xs"
-                    placeholder="Loading name..."
-                    readonly>
+<div id="profileInfoCard" class="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-8 mt-10 hidden">
+    <h2 class="text-lg font-semibold text-gray-800 mb-6">Profile Information</h2>
+    <form class="space-y-8">
+        <!-- Profile Image Section -->
+        <div class="flex flex-col items-center space-y-4">
+            <div class="relative group">
+                <img id="profileImage" 
+                     src="https://via.placeholder.com/150" 
+                     alt="Profile Picture" 
+                     class="w-28 h-28 rounded-full object-cover border border-gray-200 shadow-md">
+                <label 
+                    class="absolute bottom-0 right-0 w-8 h-8 bg-indigo-500 text-white flex items-center justify-center rounded-full cursor-pointer group-hover:bg-indigo-600 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                    <input type="file" id="imageUpload" accept="image/*" 
+                           class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                </label>
             </div>
+            <p class="text-sm text-gray-500">Click the icon to upload a profile picture</p>
         </div>
+
+        <!-- User Information Section -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-                <label for="email" class="text-xs">Email address</label>
+                <label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                <input type="text" id="firstName" name="firstName" 
+                       class="block w-full px-4 py-3 text-sm border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                       placeholder="Loading name..."
+                       readonly>
+            </div>
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
                 <input type="email" id="email" 
-                    class="border rounded w-full px-4 py-3 text-xs" 
-                    readonly 
-                    placeholder="Loading email...">
+                       class="block w-full px-4 py-3 text-sm border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                       placeholder="Loading email..."
+                       readonly>
             </div>
         </div>
     </form>
 </div>
+
+
+<!-- <script>
+    const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dmgcagkqa/image/upload";
+    const CLOUDINARY_UPLOAD_PRESET = "ASHB_profile";
+
+    // Declare a variable to store the user object
+    let currentUser = null;
+
+    // Ensure Firebase is initialized and store the user object
+    firebase.auth().onAuthStateChanged(function(user) {
+        currentUser = user;  // Store the user object
+        if (user) {
+            // Load the profile image when the page loads
+            document.getElementById('profileInfoCard').classList.remove('hidden');
+            
+            // Use the user's photoURL stored in Firebase Authentication
+            const profileImage = user.photoURL || "https://via.placeholder.com/150";
+            document.getElementById('profileImage').src = profileImage;
+
+            // Populate the email
+            const emailField = document.getElementById('email');
+            emailField.value = user.email;
+        } else {
+            console.log("No user is logged in.");
+            alert('Please log in to view and update your profile.');
+        }
+    });
+
+    // Event listener for image upload
+    document.getElementById('imageUpload').addEventListener('change', async function (event) {
+        const file = event.target.files[0];
+        if (file && currentUser) {
+            try {
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+                const response = await fetch(CLOUDINARY_URL, {
+                    method: 'POST',
+                    body: formData,
+                });
+                const data = await response.json();
+
+                if (data.secure_url) {
+                    // Update the profile image on the page
+                    document.getElementById('profileImage').src = data.secure_url;
+
+                    // Update the profile image in Firebase Authentication
+                    await currentUser.updateProfile({
+                        photoURL: data.secure_url,
+                    });
+                    alert('Profile image updated successfully and will be synced across devices!');
+                }
+            } catch (error) {
+                console.error('Error uploading image:', error);
+                alert('Failed to upload image. Please try again.');
+            }
+        } else {
+            if (!currentUser) {
+                alert('No user is signed in. Image cannot be synced.');
+            }
+        }
+    });
+</script>
+
+
 
 
 <script>
@@ -153,11 +240,11 @@
             }
         }, 2000);  // This is where we delay the actual change, 2000ms = 2 seconds
     }
-</script>
+</script> -->
 
 
 
-<div id="profileInfoCard" class="max-w-full bg-white rounded p-6 mt-8 hidden">
+<!-- <div id="profileInfoCard" class="max-w-full bg-white rounded p-6 mt-8 hidden">
     <h2 class="text-sm font-semibold text-gray-800 mb-6">Profile Information</h2>
     <form class="space-y-6" onsubmit="event.preventDefault(); updateProfile();">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -180,7 +267,7 @@
             <button id="saveChangesButton" type="submit" class="px-4 py-3 bg-purple-500 text-white text-xs rounded hover:bg-purple-600 transition duration-200 w-full mt-8">Save Changes</button>
         </div>
     </form>
-</div>
+</div> -->
 
 
 
