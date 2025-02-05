@@ -184,53 +184,52 @@ passwordConfirmForm.addEventListener("submit", async (e) => {
 
 <body class="font-sans antialiased bg-gray-100 h-screen overflow-hidden">
 
-    <!-- Navbar -->
-    <nav class="bg-white p-4 shadow">
-        <div class="container mx-auto flex items-center justify-between">
-            <img src="Logo.png" alt="Gift card Brand Logo" class="h-14">
-            </a>
+   <!-- Navbar -->
+<nav class="bg-white p-4 shadow">
+    <div class="container mx-auto flex items-center justify-between">
+        <img src="Logo.png" alt="Gift card Brand Logo" class="h-14">
+        <button onclick="signOut()"
+            class="bg-white border-b-2 text-xs text-black px-6 py-2 rounded hover:bg-white border">Sign Out</button>
+    </div>
+</nav>
 
-            <!-- Sign out button for mobile and desktop -->
-            <button onclick="signOut()"
-                class="bg-white border-b-2 text-xs text-black px-6 py-2 rounded hover:bg-white border">Sign Out</button>
-        </div>
-        </div>
-    </nav>
+<!-- Main Content -->
+<div class="flex flex-col items-center justify-start mt-5"> 
+    <!-- Card Container -->
+    <div class="bg-white rounded-2xl p-6 w-full max-w-3xl mx-auto flex justify-between">
+        <!-- Form Section -->
+        <div class="w-full sm:w-1/2">
+            <!-- Card Header -->
+            <h2 class="text-xl font-bold text-gray-800 text-center mb-6 mt-2">🔒 Change PIN</h2>
+            <p class="text-gray-500 text-center mb-8 text-sm">
+                Update your PIN securely by following the steps below.
+            </p>
 
-    <div class="flex flex-col items-center justify-center h-screen">
-        <!-- Card Container -->
-        <div class="bg-white rounded-2xl p-6 w-full max-w-3xl mx-auto flex justify-between mb-32">
-            <!-- Form Section -->
-            <div class="w-full sm:w-1/2">
-                <!-- Card Header -->
-                <h2 class="text-xl font-bold text-gray-800 text-center mb-6">🔒 Change PIN</h2>
-                <p class="text-gray-500 text-center mb-8 text-sm">
-                    Update your PIN securely by following the steps below.
-                </p>
-    
-                <!-- Input Fields -->
-                <form id="changePinForm" class="space-y-6">
-                    <!-- New PIN -->
-                    <div>
-                        <label for="newPin" class="block text-sm font-medium text-gray-600 mb-2">Enter New PIN</label>
-                        <input type="password" id="newPin" maxlength="5" placeholder="5-digit PIN"
-                            class="w-full border border-gray-300 rounded-lg p-3 text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            required />
-                    </div>
-    
-                    <!-- Submit Button -->
-                    <button type="submit" id="submitButton"
-                        class="w-full bg-black text-white font-semibold text-sm py-3 rounded-lg shadow-md hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                        Change PIN
-                    </button>
-                </form>
-            </div>
-    
-            <!-- Image Section -->
-            <div class="hidden sm:block sm:w-1/2 bg-cover bg-center rounded-lg ml-4"
-                style="background-image: url('happy-woman-writing-notepad.jpg');">
-            </div>
+            <!-- Input Fields -->
+            <form id="changePinForm" class="space-y-6">
+                <!-- New PIN -->
+                <div>
+                    <label for="newPin" class="block text-sm font-medium text-gray-600 mb-2">Enter New PIN</label>
+                    <input type="password" id="newPin" maxlength="5" placeholder="5-digit PIN"
+                        class="w-full border border-gray-300 rounded-lg p-3 text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required />
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="submitButton"
+                    class="w-full bg-black text-white font-semibold text-sm py-3 rounded-lg shadow-md hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    Change PIN
+                </button>
+            </form>
         </div>
+
+        <!-- Image Section -->
+        <div class="hidden sm:block sm:w-1/2 bg-cover bg-center rounded-lg ml-4"
+            style="background-image: url('happy-woman-writing-notepad.jpg');">
+        </div>
+    </div>
+</div>
+
     
 <!-- Password Confirmation Modal -->
 <div id="passwordModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
