@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ATPIB Transfer</title>
+    <title>Beal Offshore Transfer</title>
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" sizes="180x180" href="logo 2.png">
     <link rel="icon" href="Logo 2.png" type="image/png">
@@ -19,6 +19,19 @@
     <style>
         html, body {
             overflow: auto; /* Ensures scrolling is enabled */
+        }
+        .loader {
+            border: 8px solid #f3f3f3; /* Light grey */
+            border-top: 8px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
     <script type="module">
@@ -119,7 +132,7 @@
             <button 
                 onclick="toggleWithdrawal('cash')" 
                 id="cashButton" 
-                class="flex-1 text-center text-xs md:text-lg text-white bg-green-900 rounded-lg px-3 py-4 border border-gray-300"
+                class="flex-1 text-center text-xs md:text-lg text-white bg-blue-900 rounded-lg px-3 py-4 border border-gray-300"
             >
                 Cash Transfer
             </button>
@@ -203,7 +216,7 @@
 
         <!-- Notice of Withdrawal -->
         <div class="pt-10">
-            <div class="bg-gray-100 border-l-4 border-green-900 text-green-900 p-5 rounded mb-4 text-xs text-center">
+            <div class="bg-gray-100 border-l-4 border-blue-900 text-blue-900 p-5 rounded mb-4 text-xs text-center">
                 <p>
                     Please double-check all your details before submitting your transfer request to ensure prompt processing. If you encounter any issues, contact support for assistance.
                 </p>
@@ -242,8 +255,8 @@
             &times;
         </button>
 
-        <h2 class="text-xs text-center text-black mb-4">Enter Security PIN</h2>
-        <p class="text-gray-500 text-xs text-center mb-4">Please enter your 5-digit security PIN to confirm the transfer.</p>
+        <h2 class="text-xs text-center text-black mb-4">Enter the one time password (otp) sent to your registered email</h2>
+        <p class="text-gray-500 text-xs text-center mb-4">Please enter your 5-digit security otp to confirm the transfer.</p>
         <input 
             type="password" 
             id="securityPin" 
@@ -251,12 +264,12 @@
             class="w-full bg-white border border-gray-300 rounded px-4 py-3 text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-purple-300 focus:ring-purple-500 text-xs"
             placeholder="Enter 5-digit PIN"
         >
-        <p id="securityPinError" class="text-red-500 text-xs hidden mt-2 text-center">Incorrect PIN. Please try again.</p>
+        <p id="securityPinError" class="text-red-500 text-xs hidden mt-2 text-center">Incorrect otp. Please try again.</p>
         <div class="mt-4 flex justify-center">
             <button 
                 type="button" 
                 onclick="validatePin()" 
-                class="bg-green-800 text-white text-xs border font-semibold rounded px-16 py-3 w-full md:w-auto hover:bg-green-900"
+                class="bg-blue-800 text-white text-xs border font-semibold rounded px-16 py-3 w-full md:w-auto hover:bg-blue-900"
             >
                 Confirm
             </button>
@@ -273,15 +286,15 @@
 
 
 <!-- Success Message Modal -->
-<div id="successModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-    <div class="bg-white rounded-lg shadow-lg p-6 w-3/4 md:w-1/3">
-        <h2 class="text-xs text-center text-red-600 mb-4">Action required!</h2>
-        <p class="text-gray-700 text-xs text-center">Action restricted please contact supportcontact support for more informations.</p>
+<div id="successModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300">
+    <div class="bg-white rounded-lg shadow-lg p-8 w-3/4 md:w-1/3 transform transition-transform duration-300 scale-95">
+        <h2 class="text-lg font-semibold text-center text-blue-900 mb-4">Transfer Successful!</h2>
+        <p class="text-gray-700 text-sm text-center mb-6">Your transfer is being processed and is on its way to your recipient.</p>
         <div class="mt-4 flex justify-center">
             <button 
                 type="button" 
                 onclick="closeSuccessModal()" 
-                class="bg-white border text-green-900 text-xs rounded px-6 py-2 hover:bg-purple-800"
+                class="bg-blue-900 text-white text-sm font-medium rounded px-8 py-3 hover:bg-blue-800 transition-colors duration-200"
             >
                 Close
             </button>
@@ -296,7 +309,7 @@
             type="button" 
             onclick="showSecurityPinModal()" 
             id="cashWithdrawButton"
-            class="bg-green-800 text-white text-xs border font-semibold rounded px-16 py-3 w-full md:w-auto hover:bg-green-900"
+            class="bg-blue-800 text-white text-xs border font-semibold rounded px-16 py-3 w-full md:w-auto hover:bg-blue-900"
         >
             Transfer
         </button>
@@ -345,7 +358,17 @@
             if (withdrawCash > depositBalance) {
                 document.getElementById('insufficientBalanceError').classList.remove('hidden');
             } else {
-                document.getElementById('securityPinModal').classList.remove('hidden');
+                // Show the spinner
+                document.getElementById('spinner').classList.remove('hidden');
+
+                // Simulate a delay for loading (e.g., 1 second)
+                setTimeout(() => {
+                    // Hide the spinner
+                    document.getElementById('spinner').classList.add('hidden');
+
+                    // Show the PIN modal
+                    document.getElementById('securityPinModal').classList.remove('hidden');
+                }, 1000); // Adjust the delay as needed
             }
         }
     }
@@ -531,7 +554,7 @@
         // Add active styles to the clicked item
         const icon = element.querySelector('div');
         const text = element.querySelector('span');
-        icon.classList.add('bg-green-300', 'text-white'); // Highlight background of active icon
+        icon.classList.add('bg-blue-400', 'text-white'); // Highlight background of active icon
         text.classList.add('text-black'); // Highlight text of active item
     }
 
@@ -544,4 +567,9 @@
         }
     });
 </script>
+
+<!-- Spinner -->
+<div id="spinner" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="loader"></div>
+</div>
 </html>

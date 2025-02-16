@@ -4,7 +4,7 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ATPIB Deposit</title>
+    <title>Beal Offshore Ltd Deposit</title>
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" sizes="180x180" href="logo 2.png">
     <link rel="icon" href="logo 2.png" type="image/png">
@@ -47,14 +47,17 @@
 
         // Check if the user is authenticated
         onAuthStateChanged(auth, async (user) => {
+            console.log("Current user:", user);
             if (user) {
                 console.log("User is logged in:", user.uid);
+                console.log("Current user:", user);
 
                 // Fetch user data from Firestore
                 const userDocRef = doc(db, 'users', user.uid);
                 const userDoc = await getDoc(userDocRef);
-
+                console.log("User document exists:", userDoc.exists());
                 if (userDoc.exists()) {
+                    console.log("User data:", userDoc.data());
                     const userData = userDoc.data();
 
                     // Display user's balance
@@ -144,6 +147,32 @@
                     alert('Error signing out: ' + error.message);
                 });
         };
+
+        // Fetch and display user information
+        auth.onAuthStateChanged(async (user) => {
+            console.log("Current user:", user);
+            if (user) {
+                try {
+                    const userDocRef = doc(db, "users", user.uid);
+                    const userDoc = await getDoc(userDocRef);
+
+                    if (userDoc.exists()) {
+                        const userData = userDoc.data();
+                        // Update the account name element with the user's name
+                        document.getElementById("account-name").textContent = userData.name || "Not Available";
+                    } else {
+                        console.error('No user document found!');
+                        document.getElementById("account-name").textContent = "Not Available";
+                    }
+                } catch (error) {
+                    console.error('Error fetching user data:', error);
+                    document.getElementById("account-name").textContent = "Error loading name";
+                }
+            } else {
+                console.error('User not signed in');
+                document.getElementById("account-name").textContent = "Not Available";
+            }
+        });
     </script>
     
 </head>
@@ -154,7 +183,7 @@
     <div class="container mx-auto flex items-center justify-between">
         <!-- Left Logo -->
         <a href="index.html" class="flex items-center">
-            <img src="Logo.png" alt="Gift Card Brand Logo" class="h-14">
+            <img src="Logo.png" alt="Beal Offshore Ltd Logo" class="h-14">
         </a>
 
         <!-- Right Logo (WhatsApp) -->
@@ -365,7 +394,7 @@ function closeSuccessModal() {
                 <p class="text-sm text-gray-600">
                     <strong>Account Name:</strong>
                 </p>
-                <p id="account-name" class="text-gray-800 font-medium text-xs">Maxwell Liam</p>
+                <p id="account-name" class="text-gray-800 font-medium text-xs">Loading</p>
             </div>
 
             <!-- Account Number -->
@@ -418,7 +447,7 @@ function closeSuccessModal() {
         const icon = element.querySelector('div');
         const text = element.querySelector('span');
         if (icon) {
-            icon.classList.add('bg-green-300', 'text-white'); // Highlight background of active icon
+            icon.classList.add('bg-blue-400', 'text-white'); // Highlight background of active icon
         }
         if (text) {
             text.classList.add('text-black'); // Highlight text of active item
@@ -453,31 +482,34 @@ function closeSuccessModal() {
         }
     }
 
-    // Fetch and Display User Information
-    auth.onAuthStateChanged(async (user) => {
-        if (user) {
-            try {
-                const userDocRef = db.collection('users').doc(user.uid);
-                const userDoc = await userDocRef.get();
+// Fetch and display user information
+auth.onAuthStateChanged(async (user) => {
+    console.log("Current user:", user);
+    if (user) {
+        try {
+            const userDocRef = doc(db, "users", user.uid);
+            const userDoc = await getDoc(userDocRef);
 
-                if (userDoc.exists) {
-                    const userData = userDoc.data();
-
-                    // Populate Fields
-                    document.getElementById('account-name').textContent = userData.name || "Not Available";
-                    document.getElementById('account-number').textContent = userData.accountNumber || "Not Available";
-                    document.getElementById('bank-name').textContent = userData.bankName || "Not Available";
-                    // document.querySelector('.account-balance').textContent = `$${userData.balance || 0.00}`;
-                } else {
-                    console.error('No user document found!');
-                }
-            } catch (error) {
-                console.error('Error fetching user data:', error);
+            if (userDoc.exists()) {
+                const userData = userDoc.data();
+                // Update the account name element with the user's first and last name
+                document.getElementById("account-name").textContent = userData.firstName && userData.lastName 
+                    ? `${userData.firstName} ${userData.lastName}` 
+                    : "Not Available";
+            } else {
+                console.error('No user document found!');
+                document.getElementById("account-name").textContent = "Not Available";
             }
-        } else {
-            console.error('User not signed in');
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+            document.getElementById("account-name").textContent = "Error loading name";
         }
-    });
+    } else {
+        console.error('User not signed in');
+        document.getElementById("account-name").textContent = "Not Available";
+    }
+});
+
 </script>
 
 

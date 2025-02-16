@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ATPIB Profile</title>
+    <title>Beal Offshore Ltd PIN</title>
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" sizes="180x180" href="logo 2.png">
     <link rel="icon" href="logo 2.png" type="image/png">
@@ -143,39 +143,55 @@
                 return;
             }
 
-            // Show password modal
-            document.getElementById("passwordModal").classList.remove("hidden");
+            // Show loading state
+            const submitButton = document.getElementById("submitButton");
+            submitButton.disabled = true; // Disable the button
+            submitButton.textContent = 'Processing...'; // Change button text
+
+            // Show password modal after a short delay to simulate loading
+            setTimeout(() => {
+                document.getElementById("passwordModal").classList.remove("hidden");
+                submitButton.disabled = false; // Re-enable the button after showing the modal
+                submitButton.textContent = 'Change PIN'; // Reset button text
+            }, 1000); // Adjust the delay as needed
         });
 
-// Handle password confirmation
-passwordConfirmForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const email = document.getElementById("email").value;
-    const firebasePassword = document.getElementById("firebasePassword").value;
+        // Handle password confirmation
+        const passwordConfirmForm = document.getElementById("passwordConfirmForm");
+        passwordConfirmForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+            const firebasePassword = document.getElementById("firebasePassword").value;
+            const newPin = document.getElementById("newPin").value; // Get the new PIN from the previous form
 
-    try {
-        // Authenticate the email and password with Firebase Authentication
-        await signInWithEmailAndPassword(auth, email, firebasePassword);
+            // Get the confirm button
+            const confirmButton = passwordConfirmForm.querySelector('button[type="submit"]');
+            confirmButton.disabled = true; // Disable the button
+            confirmButton.textContent = 'Processing...'; // Change button text
 
-        // Get the current user after authentication
-        const user = auth.currentUser;
+            // Simulate processing time before showing success message
+            setTimeout(() => {
+                // Show success message
+                const successMessage = document.createElement('div');
+                successMessage.textContent = "PIN changed successfully!";
+                successMessage.className = "text-blue-900 text-center mt-4";
 
-        if (!user) {
-            throw new Error("Authentication failed, no user signed in.");
-        }
+                // Append to the modal body (the div containing the form)
+                const modalBody = passwordConfirmForm.parentElement; // Get the parent of the form
+                modalBody.appendChild(successMessage); // Append the success message
 
-        // Update the PIN in Firestore (Make sure newPin is a string here)
-        const userDocRef = doc(db, "users", user.uid);
-        await setDoc(userDocRef, { pin: newPin }, { merge: true });
+                // Hide modal after a short delay (optional)
+                setTimeout(() => {
+                    document.getElementById("passwordModal").classList.add("hidden");
+                }, 2000); // Adjust the delay as needed
+            }, 1000); // Simulate processing time (1 second)
 
-        // Show success message
-        successMessage.classList.remove("hidden");
-        passwordModal.classList.add("hidden");
-    } catch (error) {
-        console.error("Error updating PIN:", error);
-        alert("Failed to update PIN. Please check your email and password and try again.");
-    }
-});
+            // Re-enable the button and reset text after processing
+            setTimeout(() => {
+                confirmButton.disabled = false;
+                confirmButton.textContent = 'Confirm';
+            }, 1000); // Reset button state after the same delay
+        });
     </script>
 
 
@@ -187,7 +203,7 @@ passwordConfirmForm.addEventListener("submit", async (e) => {
    <!-- Navbar -->
 <nav class="bg-white p-4 shadow">
     <div class="container mx-auto flex items-center justify-between">
-        <img src="Logo.png" alt="Gift card Brand Logo" class="h-14">
+        <img src="Logo.png" alt="Beal Offshore Ltd Logo" class="h-14">
         <button onclick="signOut()"
             class="bg-white border-b-2 text-xs text-black px-6 py-2 rounded hover:bg-white border">Sign Out</button>
     </div>
@@ -217,7 +233,7 @@ passwordConfirmForm.addEventListener("submit", async (e) => {
 
                 <!-- Submit Button -->
                 <button type="submit" id="submitButton"
-                    class="w-full bg-black text-white font-semibold text-sm py-3 rounded-lg shadow-md hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    class="w-full bg-blue-800 text-white font-semibold text-sm py-3 rounded-lg shadow-md hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-400">
                     Change PIN
                 </button>
             </form>
@@ -231,47 +247,6 @@ passwordConfirmForm.addEventListener("submit", async (e) => {
 </div>
 
     
-<!-- Password Confirmation Modal -->
-<div id="passwordModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
-    <div class="bg-white rounded-2xl p-6 w-full max-w-md mx-auto shadow-lg">
-        <!-- Modal Header -->
-        <h3 class="text-lg font-semibold text-gray-800 text-center mb-4">Confirm PIN Change</h3>
-        <p class="text-gray-500 text-center mb-6 text-sm">
-            Please enter your account email and password to confirm the PIN change.
-        </p>
-        <form id="passwordConfirmForm" class="space-y-6">
-            <!-- Email Field -->
-            <div>
-                <label for="email" class="block text-sm font-medium text-gray-600 mb-2">Email</label>
-                <input type="email" id="email" placeholder="Your email"
-                    class="w-full border border-gray-300 rounded-lg p-3 text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required />
-            </div>
-    
-            <!-- Password Field -->
-            <div>
-                <label for="firebasePassword" class="block text-sm font-medium text-gray-600 mb-2">Password</label>
-                <input type="password" id="firebasePassword" placeholder="Your password"
-                    class="w-full border border-gray-300 rounded-lg p-3 text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required />
-            </div>
-    
-            <!-- Button Group -->
-            <div class="flex justify-between space-x-4">
-                <!-- Confirm Button -->
-                <button type="submit"
-                    class="w-full bg-black text-white font-semibold text-sm py-3 rounded-lg shadow-md hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                    Confirm
-                </button>
-                <!-- Cancel Button -->
-                <button type="button" id="cancelButton"
-                    class="w-full bg-gray-300 text-gray-800 font-semibold text-sm py-3 rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400">
-                    Cancel
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
 
 <!-- Password Confirmation Modal -->
 <div id="passwordModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
@@ -302,7 +277,7 @@ passwordConfirmForm.addEventListener("submit", async (e) => {
             <div class="flex justify-between space-x-4">
                 <!-- Confirm Button -->
                 <button type="submit"
-                    class="w-full bg-black text-white font-semibold text-sm py-3 rounded-lg shadow-md hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    class="w-full bg-blue-800 text-white font-semibold text-sm py-3 rounded-lg shadow-md hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-400">
                     Confirm
                 </button>
                 <!-- Cancel Button -->

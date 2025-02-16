@@ -4,10 +4,10 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ATPIB Dashboard</title>
-    <link rel="manifest" href="/assets/manifest-B_v0OBzT.json">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/LOGO-C-IyUUSO.png">
-    <link rel="icon" href="/assets/LOGO-C-IyUUSO.png" type="image/png">
+    <title>Beal Offshore Ltd Dashboard</title>
+    <link rel="manifest" href="/assets/manifest-DzEk3rDY.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/Logo%202-C7iRS8u1.png">
+    <link rel="icon" href="/assets/Logo%202-C7iRS8u1.png" type="image/png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js Library -->
@@ -15,6 +15,19 @@
     <style>
         html, body {
             overflow: auto; /* Ensures scrolling is enabled */
+        }
+        .loader {
+            border: 8px solid #f3f3f3; /* Light grey */
+            border-top: 8px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
     
@@ -28,12 +41,12 @@
     <div class="container mx-auto flex items-center justify-between">
         <!-- Left Logo -->
         <a href="index.html" class="flex items-center">
-            <img src="/assets/LOGO-C-IyUUSO.png" alt="Gift Card Brand Logo" class="h-14">
+            <img src="/assets/LOGO-DP4bRQMr.png" alt="Beal Offshore Ltd Logo" class="h-14">
         </a>
 
         <!-- Right Logo (WhatsApp) -->
         <a href="https://wa.me/message/NG7YD6LENEJFO1" target="_blank" class="flex items-center">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAVRSURBVHgBzVq9U1tHEN97EKK4Ev9A8pjYM+kQHQWePBcGd4guroC/AFIF3EjMZAKpIrp0xl264CIZgwvEjAt3fuqT4ShTWSnMPMZjnX97d+jzfUpPgt+MeB+37273bndvdw9BOcCtlosUBGUSap4fSVEJ90Vcix0qIfFHkiCfVKtBNFWXB68kjQhBQ8IwfbWFLjwi5dEw0MKow1GEySxAm3FB270zPCrEEX57WQXJJIC7s1zJn/EBVOXB6V5a4lQCuDtPXBKtP7VuTwaSyHmUZjWcJAJ3d3kdzL+bIPN6WB4TY5eTCKdie2GVIarhV6DJg8f8obj0LTXf/HseRRQpgGW+SrcPL06IUAHs0v1Odwde8eED2XzzT6O/YcCIrcG+y9XTaH8vmtjcSgP9Cmqi7YV9WsWe4kb0ATpnod+wpwcpW2e5u0kxvSn3//b51n32uEStKTiEloeGb8D85g1TmLwahAyfPH7HnpBooafr7oex6D1mTu6fzkIt4YZFUa8GqXPMph/mJt2dx3AaYiumR2x2p9WbB6fzIVRnHEarhG+uVNYhh1K8EWImWxfuzkqNskLQlo4GLLr2AVWh8aCByfFCW4RatxOnYe7FKsWBVSm42m530fmwdUHjgJhaQ9+IUNVvERQSRHVtpKQ2Utkf0355b05Wj5t2BT55NC4oxTr/fQyFaxhX6WOsrlUwAohYoxkBQlpDdSl3CD0pYqzqQ+IlFa43KJh5T+NA4d7stFGfofOaQZhNiz3P/3g4pqAAtWjt4f28dqPDJj9hCD6UeSMbLcps76RgtlDw2bBCqKrdD8YrtTbw7epom6ZTggqtnKWaFQEGleJYxMVv3TBOh1jGWgTTibDqu4Hbip2IY/By2R4jmamXEGD5gmKNDMm401qTv7z2eweG/8shKY/qz7xTZ5GxkYFkARTFwuFY5YhuAVbVziIJsGqJGRn0+phuC4XAj22H/UxTEoKAjSxSx+1SP9d2pD2QsxalWllo08IxW3gMhIrPS3WIa52AzpuZwRxoGcEXiTmxg44SPIiqdAdcg839bjjGo2WgtYFdUoApHROfx0D7aQ59o4RAIBb7HNMmRPTYnBUmhiACAijtd5NRKESslNjsTAIziOfoATc7QuCqxBqNhgYbsZ+KNMKYrREupOnC0j5KonOrHqLNNDu08B0qfEznJpOMOU9cz3gpKeuOrNab8XproWiVJgWVIryH/fCK2o1MnSd+AI/h7q5sh7XwkiNpf2+LArFwn61sGdpwp4CkfiNVbKbEIV/EDQNYtot0kaEuutYHB16uEgdl+hBD+Cbwc6RuNIcd8x01RBl9/6Q22EeWmpQzxyugK3PNugxQvvsKt17id2Ci+PD+NUp9b7tf47leXHrAYfUlaL7D1Czi9RPb5yLesaq+QC67KX/+qx7CPHbntDUpcSQPTnQxrJ3JZFsF08kwBxL90CWS66sKxt1O/5WZfb5r10YzrYIBhwLl4tL9Ema+gbplppyAGS8ufv0Tffr4B5j3MnyKSTtpe87B2uju8pBnAbo0YqpuYlrSzIy8SXTsISCXBkvaFoY+V+Miwclcz5t+krEUd/NARHF3oLzOqgCV+I/Vg+4SBD3F7L/tfx16PgAhfNgDr45HdwNc0A09r4g8oTFu8U4I0VON7kdiQcie1jyfuE1onVc/yoPXR/FkKZCyQpAfMqSbWQ+6q2TChfHA1priVKYfU5QBnXBBzRLleG5s8vJfUSR7ijDjVbZPh4SNJjl+2Rr+EJzDeGx8I1T3cqnqtoUhxYKYf7npthdTNuRTSi78XnImxfWmYZnuxmc10F2bs4ZdbwAAAABJRU5ErkJggg==" alt="Gift Card Brand Logo" class="h-8 w-8">
+            <img src="data:image/png;base64,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" alt="Gift Card Brand Logo" class="h-8 w-8">
         </a>
     </div>
 </nav>
@@ -56,7 +69,7 @@
 
 <!-- Main Content -->
 <div class="flex-1 p-2 bg-gray-100 ">
-    <div class="flex-1 py-2 bg-green-900 rounded-lg text-black mt-6">
+    <div class="flex-1 py-2 bg-blue-900 rounded-lg text-black mt-6">
 
         <!-- Flex container to align Welcome Message and Generate Wallet Address -->
         <div class="flex justify-between items-center mb-6">
@@ -69,7 +82,7 @@
 
 <div class="flex justify-between items-stretch space-x-4 mt-6">
 <!-- Deposit Account Card -->
-<div class="relative bg-gradient-to-r from-green-700 to-green-900 shadow rounded-lg p-4 flex flex-col justify-between h-48 w-1/3">
+<div class="relative bg-gradient-to-r from-blue-700 to-blue-900 shadow rounded-lg p-4 flex flex-col justify-between h-48 w-1/3">
     <!-- Card label -->
     <label for="Deposit-account" class="block text-sm font-regular text-green-50 text-center">Savings</label>
     
@@ -133,31 +146,38 @@
     <!-- Card Grid Section -->
     <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
         <!-- BTC Exchange Card -->
-        <div onclick="window.location.href='deposit.html'" 
+        <div onclick="navigateWithSpinner('deposit.html')" 
              class="cursor-pointer bg-white text-black py-4 px-6 rounded-lg flex flex-col items-center space-y-2 hover:shadow-md transition duration-200">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAPISURBVHgB7VnNUhpBEO6Z1aSsSlU8pFKV23pDRbNBU+XN5Qk0x5yCT6A+AfAE0ScQ3oA3gNxSlQQ3/gRubk6xUjlQKVOmTHY6PcAuw7LILj+CFb4DzE/PTH8zPdA9DTDFeMF6CeiGOf8IrgwUwkCAebgDIGcWB26fWx+sXrJdCSwbLw3hiLcM8M4UD4DNAbLnp+VcN4FAAoura7uAeAATA1ZAbXa/ar23O3r8DbHVRJohZHxiJRK0geFXGCIQIe2twKCGAvKMQw2QPae1TOpXT96+1sQL27JqbZqplZixoTPn5kLpLqHm7FQty4YhI2asm8wRxaYWNnKRVNeJGYYOf3mKiKVVfSqnn5LqPLyt4vxp7QhAQQqPQvn6WkKY3loIJf86sl49K2fo/u20WtFcXFnbbpvHLRiGMY+AKbcuNLEPdwUGXU2zKi8wwqHStKv2ewR+w4yhzFga1c73g4czIkMW0bR9NOvm1YRHQHOE10hn+hkmCBZdXKRNdeuaw0237BFABrpbbrGdHDBlU1VdOdxzTAmMG/eewEwU4eWVREq9QGFAf1L2bc7YoAhNQCovAI7oTyUSsDEWBiXRzSMObUIO9I9BxnqQDp5bRObFCaFPQP6lx2gneUQTEmRC1QF3X3rIpLXp1q81p+SWI92B6ohsmXZ0c2k1kels54/p01CVl36R6lJHIjA61H1/s7NdtFcZs8hD3lOb7sXPaD3YQchecyfp75uQE6CIj+G7wB66Q7+4KNgnVqB/FpmAjNq4uEmFkRX8QS4ojvVDKv/lpJyBPhCZAIWcRfpN1kPKvqGvBRghot+Bni9Jfcr2icgnIINvLngqjKzgIgcjRmQCzVAzAxOCqTs9bkwJjBtTAuPGlMC4MSUwboRyJWSib865SgMT2xRcU94K871eGRppKtgmh26efHpLaLPZMK51VPQ8gThlUuacn8fkmu2RQroM/+TzytLK2lG3Mc0g/EDK0rch8w7SDY/H100YMm4lIBVxGmkg3d8nlQoiEZxjq0N3mCguSXJDROt5XXlSp7f4LUrlFFVFGnEpT8rYtCXXTqJTeczTyFcyB+a1UL+cGwXbgiHACzlk1oM5/KKLWFuyLxZPZNTkGwOWQ4aUXYQ9VfnK6XGqNbd2VDepAKAmFvrNCGlu4cflZe3J02eMFDPbZ4fDyln5tez3ZL9/K/lkZXpqI0h5d24akw+an04sWzk5LkCf6MwT027JiEuaFApuVc8+lroN9p9EkPJB8zPB65nGXvOHwcBRKz03pjiwTVkWyPKDKvTf4R8pRK9OFYkv4gAAAABJRU5ErkJggg==" alt="BTC Icon" class="h-8 w-8">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAACxLAAAsSwGlPZapAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAATtSURBVHgB7Z2/cxNHFMffu/MEFZCYCcw4GciIBijtLuXRkSrkPwh/geMylXGXLvwHoU1nunSWu3S4tCpugBlUwGAYF3IhLbsnLdi+0+2e7q12pX2fGc/I8vl02ve+3/1x7+4AGIZhGIZhGIZhGIZhmFhAcEy3210fjr/ZBoGZ+nX6EyyyQU4EwBFi8lwkYn+QH+fgEGcB2Oje78JI/CNfZrDUiGeQJnuuApGAA3746d42jsQLWPrGV+DvMpFeyu/0BzggBWI2bt3dlQf9l3zZgdXi4dX17+H04/tDIIQ0ACrzp42/omB2bf3GRxmE/4EIsj5g6vkvYcUpOukUt6j6BLo+YAS7EAFyhLQ+HVyQQKKAWLL/Aik+kCroQUvWgAKL7EcUR2Kc7HTWhkd5np9AoGzcup9BIjNcGOYrI6G+cw9a0loBVtmPkHeSs62QG/48avJ4Nr5yIARs1m5IoIL2fYCN9yf4eFkaX6GOVYxxx7jhRAWtaKUAO+/H3uD18QNYQjZu3zsA02SypQraKcAm+1PYg2VFoPnYW6pgbgWsevZrXKtgfgWsevZrHKtgLgXEkv0alyqYTwGxZL/GoQoaKyC27Ne4UkFzBcSW/RpHKmikgFizX+NCBc0UEGv2axyowFoBsWe/hloF9gqIPfs1xCqwUgBn/0UoVWCnAM7+ixCqwKgAzv5qqFRgVgBnfzVEKqhVAGd/PRQqqFcAZ389BCqYqQDOfjvaqmC2AmxqX2LOfk1LFVQGoCjNMBbWyuwnqItZdgZvijboGTbLpKNkVX+otCArWREiD2JfpLjjuhZfo0vn5eduClXpthikXfdLdl0KQJH9KA5gwVDXXM5CNb4qnV9gw3+loi8oWRCi2AYPUNdczmQkDrw0/uSzS31BKQDy4B6BPzJXF0IoJtcu+LtESlne5fecXCHTCgG7hUcTU+wT8Ql4pEp5wQXAmRWNFt+v2RCeAiaQWpFv66kj1ACQWVEI1lNH4+sD5Fh27nLG85jmGuesqN1Sh431IOSDV/07QID8XqLJ9v4UkOJjRDCVrLeyImvrSdDbepa3AEwnXOZ1lDmtyNp6EPcWNQOvwmsf8PZV/ykY1lHmHhVZW8/xE/AIzTVibVBWNJZLA6J2dpo19VYrPFrPl0MAz1hbETWerUcTxDDUxopICcB6NOHMA+xGRTQEYD2aYAKwMCsKxHo0Qc2EnVtRQNajCW8pwpEVFfsMyHo0wQVA2YNIcAsh2QcCJsHEntpnSNaj8T8PqGDaUL9BBIS7GhoJHADPcAA8wwHwDAfAMxwAz3AAPNM4AOp2XsCQUREAzOv+YQid+vuoRcyPt+/WVhWq+tfL71UEQORQhzw9yCooo9pkDPh33TYC8Ojye+UACDwEw2cNR1demKIdC6rhVe2/ahMwVGAgiuel96p2KHf2ARh6UrxzeUGwpIDp7SV7wBAjnlWtxlaPghZ5ejACirZMk8qzfZW3rz89eXdy7bsbZ/LlQ2Bag2P4c/C6/1/V32Y+P0DdI//qtzdR9hIZMPOjzkG/6c98pkLtAxxOP73rqQcWSAn9DKv3RAynKNspMr+m8RXGJ2gUSrh+8185PL0OADwJswJ7sh/9ZZbtXNgSGlBcYTjGR0KIX+WYdtNQThgRxepBLmdah5214dNlulE5wzAMwzAMwzAMwzAMszg+AwO7OHiQ02N6AAAAAElFTkSuQmCC" alt="BTC Icon" class="h-8 w-8">
             <span class="text-xs font-semibold">Deposit</span>
         </div>
 
         <!-- Zelle Payment Card -->
-        <div onclick="window.location.href='withdraw.html'" 
+        <div onclick="navigateWithSpinner('withdraw.html')" 
              class="cursor-pointer bg-white text-black py-4 px-6 rounded-lg flex flex-col items-center space-y-2 hover:shadow-md transition duration-200">
             <img src="data:image/png;base64,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" alt="Zelle Icon" class="h-8 w-8">
             <span class="text-xs font-semibold">Withdraw</span>
         </div>
 
         <!-- PayPal Payment Card -->
-        <div onclick="window.location.href='transfer.html'" 
+        <div onclick="navigateWithSpinner('transfer.html')" 
              class="cursor-pointer bg-white text-black py-4 px-6 rounded-lg flex flex-col items-center space-y-2 hover:shadow-md transition duration-200">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAFHSURBVHgB7dlNbsIwEAXgZ9oDdIe6Y4lUtQtO0huUnqT0Bu0JSi8EldIflu2qEmy4ADEeS9kEOxAbmEHMJyET4khvhKVxEkAppU7aze1gSB8wuUCG/t3gyQ0vFrjvdq//FvP/DxxZB4kovLEYVccr8LhEgnp4wL7PiukYDAxaCoX/KaZDMGlVgLTwZOcCJIYnOxUgNTzZWoDk8KSxAOnhSbSAenhjsHTDKxi4HL9fxWQcPBf6kbYGJfAGQVzHfQwVEezEXF21SSxTfAm5f6Fj0IMApVtCs8gSUkopdd6ijYy2E1ZII9O9kAQntReyFg9u6FXHbgk9f39ORqG5rZ9KHNrGfUhDeH8egrQN7+dAiJTwfh4ESA3v54JZTng/H4xyw/trwGQf4f11YFDv9KnhSfL7gRylwVX1PSc8K+r0fcZXU0optR9rFGCsoVT1ptoAAAAASUVORK5CYII=" alt="PayPal Icon" class="h-8 w-8">
+            <img src="data:image/png;base64,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" alt="PayPal Icon" class="h-8 w-8">
             <span class="text-xs font-semibold">Transfer</span>
         </div>
 
         <!-- USDT Exchange Card -->
-        <div onclick="window.location.href='statement.html'" 
+        <div onclick="navigateWithSpinner('statement.html')" 
              class="cursor-pointer bg-white text-black py-4 px-6 rounded-lg flex flex-col items-center space-y-2 hover:shadow-md transition duration-200">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAInSURBVHgB7ZmxTsMwEIbvKKgZCrQSoCABCgt0ZGTMmwBv0E6wNd3YgCegPAkdGRnTiUCRmgGJgBjaoTVnt0FVVZwE0xohf1ITJ7F9/u9sV/IBGAxKIChi7+zVkGGFARSztCPDEd0anXarCgrkQIHNnf0LYHhGRQuyw9scForr+PH20oQfohQBEvDKGHk+h7th4AdZ2tpO2YE+e+CRoCiU4IcsgAJi8ETWwY+3yTr1JllMU4m85ZK3auStA1WDU/vf3mcTr5o0OW7Ctt9IapsYAXtrr0aDv6WiO4vBf4NLsbnmG0RSRakAe7t8DIieeGBYt3K9UthuYfyDX2K8T24DEaojm56IvoSECLAjfsUBVMNn3wuCIBr/SobEs1iQGYnbjLbTL7iNzlPrkjtMvKCpK+snaQ24/JJf6jWmfWQDvAJkfIo90DyGTPRH057BzbTP1mL3stvPi3Un6ybVLjTp+RgeFWRwFUciC6INebnz3KrIbCatu1S7kIzRACqgCaX/gb+AEaAbI0A3RoBujADdGAG6MQJ0YwToxgjQjRGgGyNAN0aAbowA3fxvAfGZp+M488oLfJHWplQApZDu+b07sOZ+9tkb5I+GJWzK6kmzlIWV9Uc6wD+mortcXHtbKy37URR1YYZwz1srG6d0cn0+fIP1j/eX++/qJ2ZZ7K2yJ3IAOkCsh0++J6uSmCcm9c3CKkUCkM9JB2bMcN3hHUXgJE2Sz2BQ5BMA5rkHJpxkHgAAAABJRU5ErkJggg==" alt="USDT Icon" class="h-8 w-8">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAACxLAAAsSwGlPZapAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAQNSURBVHgB7Z0xT9tAFMffc6KSobQggURLqdIFKnWBrWPY2gn6EfgElLETZesG36Bdu9GtW8PWDRZUmGoJqDJQNVQMQcK+3pkgUZAc39m+dxe/n4QUFAcl9/N7Z/t/xAAMwzBMVUEokGazOdaL762CwJb6tf9DjvyQ26KGa53wIATHKETAVPN5EyLxUT5sgaPID9oN4vriycn+HjhEADl59HRuFSOxCw4PvkIAjMXB5bfp6Rfz4BC5KmDqyew6IL4Hj3CtEowFqD1fCNgCD3FJgpEA1fNV21FlDZ7iigSzOSCCdZ8HX+HKnKBdAf0jnp8wJFBXQh00wRiXhdp/UjeCEGJcadR7e2EYdsEiUzNzQmf7G5VAIkG7BQkRL6VuIAe/EVwsdI4P2rYH3xTKdqQtABFS32QggjVfBv4mVBIMKiB98v119GMbPIVCQu4z4WHDtoTKCZAtdGB7tCmhcgKCoL7okoTKCTgJ9/dcklDJOcAlCZWdhF2RUOmjIBckVP4wlFoCnwcArQQW0IdKAgu4AYUEFnAL2xK08wDfyZIXRNElZCVvnsAVUADXEpK0UBMWUBBJRn61OE0LFlAgMl/WngtI5oDrpYzqDWdZXaGztlNNnoNCo7IwWSlivQKu1xTJh62sb1hut6xek6XHysEnXeeji3UBciA3TfaUzD22hitZDiFdwboAtTeDIVl6rGpTIsAFhMCLbNr6HJCnR2etnP5c8QZKQHfd0SDsV0COHi0r4AsMGfYPQw17dFI5NXwLQ4Z1Abo9+koWttVrXPwXo7yQnAeU2aN9g8+EiWEBxLAAYlgAMSyAGBZADAsgxos8oGwov0vCizygbHTyhqLxJg8oG9NMNy9e5QFlY5Lp5sV+BTicVlFUpld5QNlQ5A3e5AFlQ5U3OJ8HlA113sB5ADF8JkwMCyCGBRDDAohhAcSwAGJYADGcBwDnAeRwHuAAnAc4AOcBxHAeQAznAYRwHkAE5wEVh8+EiWEBxLAAYlgAMSyAGBZADAsgpnAB6n6SwGTGQACGac/2oGH9iqItHs/Mpl7JVXdkAk0MBIgw9Wl5TX0Yq0B9phhwM20bAWjhWxMF7gzYotmLRnYH7S2+oAZeJmUt9ZlgwO15EYX21VTtG7kl9wyORv4Ac5caPtO9oKddAf1bVLWBuYX4ZHI11ewoyLPvZSubZCxqwQYYUAMDzrun3dGHExfy4StgAGN41zk6/AoGGAlQnJ/9/n7/wSTKWaQFVQZxo3N8+AEMMRagOP972h4dmziTJfhS/tqACqHaTrLn5xh8RS4BiqQSxic/y8PTcSBY1kEDtuU8+Nq07fz3l6BAklVv6na3QizJY+J5qq8QLp7k7D+UZ1o7jXpvy8eblTIMwzDu8Q/aiQiDu/WN4AAAAABJRU5ErkJggg==" alt="USDT Icon" class="h-8 w-8">
             <span class="text-xs font-semibold">Statement</span>
+        </div>
+
+        <!-- Change PIN Button -->
+        <div onclick="navigateWithSpinner('pin.html')" 
+             class="cursor-pointer bg-white text-black py-4 px-6 rounded-lg flex flex-col items-center space-y-2 hover:shadow-md transition duration-200">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAACxLAAAsSwGlPZapAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAeLSURBVHgB7Z0xcxQ3FMff2zW2mRjiJHjijEOyTRJnKDBduhxdqDCfgOMTYD5B7ColuEsXu0uH6ZLKly6lKTIxSbNgHFzAzJnxDDbcSnmS7yaE25O0Wu3e7p1+MwzYp93beX/p6enpaQHweDwez7iC4MnNfLQYQcJ/ImMucYBZ+nuLh3jnIN6Nddd6AXKyEF1aYklnWxj+7d+TYdskwhWdCAF4rBlkfIH8HY0K3T28AJaojN9DuCTdfbwAFpgYX6D7XOAFyIip8QU0Ah7o2kyAx5hMxkeahANc0bXzI8CQrMYPgomrPgx1hI3x9+M/dsAAL4CGIo0vrwHPQIo2vrwOPKmUYXyBn4RTyGJ8CTWEN2CFHwHvkNn4XUTuJ2A0Cva9C7LG1vg9bETwAnTJa/weWUXwAoA74/fIIsLYC5A12hF/c26UBzISYawFsAk1xb8Zo2sciTC2AuSJ8+W1jkQYSwFcLLJciTB2Arhc4WYVIW2PeKxWwq7TC+Iz0aY3OasYtEc8NgIUldvJIkLaHvFYCFBKYo0bNen7/pEXoGjj590jHuk94aKzmi72iEd2BNikF0RbFnS2FxYuLbm8v2qPeCTD0KKzmi7d2sgJUHRW0/WcMlICFJ3VLGJCHxkBis5qwhlKwhUQTRUuQBRFs6+TyQbHMOI8udz92ui/FjwGDB4HnO2wMGjTRNWCjJSR1ZRPWpe6oPlosYEJv04PvEw/RlmulTkTAHp43IQQWrrqsrKymkbPPsy6INHTT9jZJufsOv3YAGfwDQiDtTQhys5q2txfex04YP7iYpMM9T1k7O3Z+L8Qw8pq2txfeS3koHc2Cpz2eA3IV8PgzAPXE6KtCHmML68HSz757KvbNCutugr5iiCrcbKKkNf48h5gARn/Lj3kClQYW+OYiuDC+PI+kJH5i1+Sy8EmVJi8xtGJ4Mr48l5ZGtsaX2YCOW7Rtz0mtxXLP0SAbFasDyggjzgirRF4A3LiyjiDRHBpfHk/04ZZ3Y5cbTLY5IBbB0/NFlcilD1OpsXa4aaNGK6NI4IMTPAuB7bc7UQ7tDa5ZXLyxRQjAcSES8a/B6ZwXJueOL4Xx3EbLJn/dLEBAUVYPENoG+JVm5X0MAl1DWSoyeAXMACR74ThmWvPnvz5c7vdPoYcHL18Hh8dvlifOT+H1E0aJtcgh/bRyxe/Qo3Qb8gkfBuMwM2p4LWz4d+D3NdqGE5cIRFiXVsKiVdEGgRqhFKA0xWugQtAXDvY223mcTkqpKgBXjURweT1AFVCMwJkekEJDfv1gye7q1AwcuIjEQzKP6Jux6kFAwUw6v3UI589fVTagkyIQJHIHV075Pw21ATFCND3fukWSoZc3YZ4H4+qDUdYqstckCrAQvTFEmh9P99wGQ9nQbwMSeuKGLsJNSBVAMaCJuig1DAMCemKGK6r2iDHZbGwg4qT7oIYfAtKhtf7e4QTidoNUZb2GKaXoOL0CSB6jfChyqvCYBOGzH78t1hvtJSNWIn7FJb0CXDc0fQainwqs9zn+JvqY4qG6jcCMEDlQ1Pc/xCqQ0v1Ibmhy1BxUuYAFqkuoLSx01RDHijhp3uWCCpOvwAcPldewQ3SASVhkvqoeiTUJ4B2jzesjgCnYKz6lCKhegngKZf+SRjUK8wgwUr1KNqDUD7PNBwXkqF1Rb8LQjxUXcCAV0YAuWbRVC8UlSJ3RcoI4MoHrlJsrV2zQNXmq376RwBXh5m0Sq5MbK1bs+gm6CrQJ0AYJrrYulGV0K5bCDwQGq1VWjSm0ieAyLHoUr0nbKoJQ0YWC2hqUhGDFlSc1DCUJja1G+Kg7HllgIwv69pMhq9aUHFSBaCeo3vpdGOYO06i91Mn0Gw7YqvqEZAgVYCp4NWGdscpMdiyLIqO3O2KNK2GnjI3IbUwSxRVzZyf+xrU/wFBdG72wuHR4YvfoUSk7+fqPWGZMt97dAtqwOBUBIcN0EBu4K7JqXJXdA+EaAvFaDW/DjVhoADdgtoWaEiCzv1uRFIoIvTFDrsPBqUyU8HJBtQEdTIuxFsmhVCiVxYpgrj3SWdym9Ik+tHGca0Ok28PZXHuUft5e+bc3FmD4thZ2ilr0pxw4npOkNFWwu9TaLaob42tg71dbeFWldBWRx+9fN6aef9CA/RRxzT9+W7m/Y+imQ/nHgrxIAfC5Zw9//EPlP37EUzOoYm60RBv5P3esjE6H3Baok6TX5ZafcX5XhXykAabvI0cV7IcAAyA3/hn768tqBnGJ2Ssj3FyvsMDWtgF0KLc/M67/lkY/A28FzHGGtaHvEV1dgkFwkWQ8YyYPJDtovw77n75bO5jrjU2viDzKUnX71fIAzK482z/0T2oMVbnhO3mBHfIA3MMb5ge/qsy2igoDRFpXPjg3GbCJkSI+g2UCrYo2rlGbqcy9Ul5yP2yDqvTjBbIBWECa3V3Oe/i7HU1coJGypA6FqLrbtbzHnutKs5f2CRHBEITkV/P8/oXsTcdAFufDF/XIq9vSyFvzOpx6p6gQYuqyxSyiE2UAbkcjBFwBzh7TMK1Rt3obzOUl/b1EneiaGpcDO3xeDwej8fj8VSIfwHfYaZ2d6N+XAAAAABJRU5ErkJggg==" alt="Change PIN Icon" class="h-8 w-8">
+            <span class="text-xs font-semibold">Change PIN</span>
         </div>
     </div>
 </div>
@@ -294,7 +314,7 @@
         <!-- Deposit Icon -->
         <a href="deposit.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
             <div class="bg-white rounded p-2">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAPISURBVHgB7VnNUhpBEO6Z1aSsSlU8pFKV23pDRbNBU+XN5Qk0x5yCT6A+AfAE0ScQ3oA3gNxSlQQ3/gRubk6xUjlQKVOmTHY6PcAuw7LILj+CFb4DzE/PTH8zPdA9DTDFeMF6CeiGOf8IrgwUwkCAebgDIGcWB26fWx+sXrJdCSwbLw3hiLcM8M4UD4DNAbLnp+VcN4FAAoura7uAeAATA1ZAbXa/ar23O3r8DbHVRJohZHxiJRK0geFXGCIQIe2twKCGAvKMQw2QPae1TOpXT96+1sQL27JqbZqplZixoTPn5kLpLqHm7FQty4YhI2asm8wRxaYWNnKRVNeJGYYOf3mKiKVVfSqnn5LqPLyt4vxp7QhAQQqPQvn6WkKY3loIJf86sl49K2fo/u20WtFcXFnbbpvHLRiGMY+AKbcuNLEPdwUGXU2zKi8wwqHStKv2ewR+w4yhzFga1c73g4czIkMW0bR9NOvm1YRHQHOE10hn+hkmCBZdXKRNdeuaw0237BFABrpbbrGdHDBlU1VdOdxzTAmMG/eewEwU4eWVREq9QGFAf1L2bc7YoAhNQCovAI7oTyUSsDEWBiXRzSMObUIO9I9BxnqQDp5bRObFCaFPQP6lx2gneUQTEmRC1QF3X3rIpLXp1q81p+SWI92B6ohsmXZ0c2k1kels54/p01CVl36R6lJHIjA61H1/s7NdtFcZs8hD3lOb7sXPaD3YQchecyfp75uQE6CIj+G7wB66Q7+4KNgnVqB/FpmAjNq4uEmFkRX8QS4ojvVDKv/lpJyBPhCZAIWcRfpN1kPKvqGvBRghot+Bni9Jfcr2icgnIINvLngqjKzgIgcjRmQCzVAzAxOCqTs9bkwJjBtTAuPGlMC4MSUwboRyJWSib865SgMT2xRcU94K871eGRppKtgmh26efHpLaLPZMK51VPQ8gThlUuacn8fkmu2RQroM/+TzytLK2lG3Mc0g/EDK0rch8w7SDY/H100YMm4lIBVxGmkg3d8nlQoiEZxjq0N3mCguSXJDROt5XXlSp7f4LUrlFFVFGnEpT8rYtCXXTqJTeczTyFcyB+a1UL+cGwXbgiHACzlk1oM5/KKLWFuyLxZPZNTkGwOWQ4aUXYQ9VfnK6XGqNbd2VDepAKAmFvrNCGlu4cflZe3J02eMFDPbZ4fDyln5tez3ZL9/K/lkZXpqI0h5d24akw+an04sWzk5LkCf6MwT027JiEuaFApuVc8+lroN9p9EkPJB8zPB65nGXvOHwcBRKz03pjiwTVkWyPKDKvTf4R8pRK9OFYkv4gAAAABJRU5ErkJggg==" alt="Redeem Icon" class="h-6 w-6" />
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAACxLAAAsSwGlPZapAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAATtSURBVHgB7Z2/cxNHFMffu/MEFZCYCcw4GciIBijtLuXRkSrkPwh/geMylXGXLvwHoU1nunSWu3S4tCpugBlUwGAYF3IhLbsnLdi+0+2e7q12pX2fGc/I8vl02ve+3/1x7+4AGIZhGIZhGIZhGIZhmFhAcEy3210fjr/ZBoGZ+nX6EyyyQU4EwBFi8lwkYn+QH+fgEGcB2Oje78JI/CNfZrDUiGeQJnuuApGAA3746d42jsQLWPrGV+DvMpFeyu/0BzggBWI2bt3dlQf9l3zZgdXi4dX17+H04/tDIIQ0ACrzp42/omB2bf3GRxmE/4EIsj5g6vkvYcUpOukUt6j6BLo+YAS7EAFyhLQ+HVyQQKKAWLL/Aik+kCroQUvWgAKL7EcUR2Kc7HTWhkd5np9AoGzcup9BIjNcGOYrI6G+cw9a0loBVtmPkHeSs62QG/48avJ4Nr5yIARs1m5IoIL2fYCN9yf4eFkaX6GOVYxxx7jhRAWtaKUAO+/H3uD18QNYQjZu3zsA02SypQraKcAm+1PYg2VFoPnYW6pgbgWsevZrXKtgfgWsevZrHKtgLgXEkv0alyqYTwGxZL/GoQoaKyC27Ne4UkFzBcSW/RpHKmikgFizX+NCBc0UEGv2axyowFoBsWe/hloF9gqIPfs1xCqwUgBn/0UoVWCnAM7+ixCqwKgAzv5qqFRgVgBnfzVEKqhVAGd/PRQqqFcAZ389BCqYqQDOfjvaqmC2AmxqX2LOfk1LFVQGoCjNMBbWyuwnqItZdgZvijboGTbLpKNkVX+otCArWREiD2JfpLjjuhZfo0vn5eduClXpthikXfdLdl0KQJH9KA5gwVDXXM5CNb4qnV9gw3+loi8oWRCi2AYPUNdczmQkDrw0/uSzS31BKQDy4B6BPzJXF0IoJtcu+LtESlne5fecXCHTCgG7hUcTU+wT8Ql4pEp5wQXAmRWNFt+v2RCeAiaQWpFv66kj1ACQWVEI1lNH4+sD5Fh27nLG85jmGuesqN1Sh431IOSDV/07QID8XqLJ9v4UkOJjRDCVrLeyImvrSdDbepa3AEwnXOZ1lDmtyNp6EPcWNQOvwmsf8PZV/ykY1lHmHhVZW8/xE/AIzTVibVBWNJZLA6J2dpo19VYrPFrPl0MAz1hbETWerUcTxDDUxopICcB6NOHMA+xGRTQEYD2aYAKwMCsKxHo0Qc2EnVtRQNajCW8pwpEVFfsMyHo0wQVA2YNIcAsh2QcCJsHEntpnSNaj8T8PqGDaUL9BBIS7GhoJHADPcAA8wwHwDAfAMxwAz3AAPNM4AOp2XsCQUREAzOv+YQid+vuoRcyPt+/WVhWq+tfL71UEQORQhzw9yCooo9pkDPh33TYC8Ojye+UACDwEw2cNR1demKIdC6rhVe2/ahMwVGAgiuel96p2KHf2ARh6UrxzeUGwpIDp7SV7wBAjnlWtxlaPghZ5ejACirZMk8qzfZW3rz89eXdy7bsbZ/LlQ2Bag2P4c/C6/1/V32Y+P0DdI//qtzdR9hIZMPOjzkG/6c98pkLtAxxOP73rqQcWSAn9DKv3RAynKNspMr+m8RXGJ2gUSrh+8185PL0OADwJswJ7sh/9ZZbtXNgSGlBcYTjGR0KIX+WYdtNQThgRxepBLmdah5214dNlulE5wzAMwzAMwzAMwzAMszg+AwO7OHiQ02N6AAAAAElFTkSuQmCC" alt="Redeem Icon" class="h-6 w-6" />
             </div>
             <span class="text-xs font-medium mt-2">Deposit</span>
         </a>
@@ -336,7 +356,7 @@
         // Add active styles to the clicked item
         const icon = element.querySelector('div');
         const text = element.querySelector('span');
-        icon.classList.add('bg-green-300', 'text-white'); // Highlight background of active icon
+        icon.classList.add('bg-blue-400', 'text-white'); // Highlight background of active icon
         text.classList.add('text-black'); // Highlight text of active item
     }
 
@@ -349,4 +369,42 @@
         }
     });
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Select all buttons and CTAs
+        const buttons = document.querySelectorAll('button, .cta');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Show the spinner
+                document.getElementById('spinner').classList.remove('hidden');
+
+                // Simulate a delay for loading (e.g., 1 second)
+                setTimeout(() => {
+                    // Hide the spinner after the action is completed
+                    document.getElementById('spinner').classList.add('hidden');
+                }, 1000); // Adjust the delay as needed
+            });
+        });
+    });
+</script>
+
+<script>
+    function navigateWithSpinner(url) {
+        // Show the spinner
+        document.getElementById('spinner').classList.remove('hidden');
+
+        // Simulate a delay for loading (e.g., 1 second)
+        setTimeout(() => {
+            // Navigate to the specified URL
+            window.location.href = url;
+        }, 1000); // Adjust the delay as needed
+    }
+</script>
+
+<!-- Spinner -->
+<div id="spinner" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="loader"></div>
+</div>
 </html>

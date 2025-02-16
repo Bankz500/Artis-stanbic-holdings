@@ -4,7 +4,7 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ATPIB Dashboard</title>
+    <title>Beal Offshore Ltd Dashboard</title>
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" sizes="180x180" href="logo 2.png">
     <link rel="icon" href="logo 2.png" type="image/png">
@@ -15,6 +15,19 @@
     <style>
         html, body {
             overflow: auto; /* Ensures scrolling is enabled */
+        }
+        .loader {
+            border: 8px solid #f3f3f3; /* Light grey */
+            border-top: 8px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
     <script type="module">
@@ -195,7 +208,7 @@
     <div class="container mx-auto flex items-center justify-between">
         <!-- Left Logo -->
         <a href="index.html" class="flex items-center">
-            <img src="Logo.png" alt="Gift Card Brand Logo" class="h-14">
+            <img src="Logo.png" alt="Beal Offshore Ltd Logo" class="h-14">
         </a>
 
         <!-- Right Logo (WhatsApp) -->
@@ -223,7 +236,7 @@
 
 <!-- Main Content -->
 <div class="flex-1 p-2 bg-gray-100 ">
-    <div class="flex-1 py-2 bg-green-900 rounded-lg text-black mt-6">
+    <div class="flex-1 py-2 bg-blue-900 rounded-lg text-black mt-6">
 
         <!-- Flex container to align Welcome Message and Generate Wallet Address -->
         <div class="flex justify-between items-center mb-6">
@@ -236,7 +249,7 @@
 
 <div class="flex justify-between items-stretch space-x-4 mt-6">
 <!-- Deposit Account Card -->
-<div class="relative bg-gradient-to-r from-green-700 to-green-900 shadow rounded-lg p-4 flex flex-col justify-between h-48 w-1/3">
+<div class="relative bg-gradient-to-r from-blue-700 to-blue-900 shadow rounded-lg p-4 flex flex-col justify-between h-48 w-1/3">
     <!-- Card label -->
     <label for="Deposit-account" class="block text-sm font-regular text-green-50 text-center">Savings</label>
     
@@ -300,31 +313,38 @@
     <!-- Card Grid Section -->
     <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
         <!-- BTC Exchange Card -->
-        <div onclick="window.location.href='deposit.html'" 
+        <div onclick="navigateWithSpinner('deposit.html')" 
              class="cursor-pointer bg-white text-black py-4 px-6 rounded-lg flex flex-col items-center space-y-2 hover:shadow-md transition duration-200">
             <img src="deposit.png" alt="BTC Icon" class="h-8 w-8">
             <span class="text-xs font-semibold">Deposit</span>
         </div>
 
         <!-- Zelle Payment Card -->
-        <div onclick="window.location.href='withdraw.html'" 
+        <div onclick="navigateWithSpinner('withdraw.html')" 
              class="cursor-pointer bg-white text-black py-4 px-6 rounded-lg flex flex-col items-center space-y-2 hover:shadow-md transition duration-200">
             <img src="withdraw.png" alt="Zelle Icon" class="h-8 w-8">
             <span class="text-xs font-semibold">Withdraw</span>
         </div>
 
         <!-- PayPal Payment Card -->
-        <div onclick="window.location.href='transfer.html'" 
+        <div onclick="navigateWithSpinner('transfer.html')" 
              class="cursor-pointer bg-white text-black py-4 px-6 rounded-lg flex flex-col items-center space-y-2 hover:shadow-md transition duration-200">
             <img src="transfer.png" alt="PayPal Icon" class="h-8 w-8">
             <span class="text-xs font-semibold">Transfer</span>
         </div>
 
         <!-- USDT Exchange Card -->
-        <div onclick="window.location.href='statement.html'" 
+        <div onclick="navigateWithSpinner('statement.html')" 
              class="cursor-pointer bg-white text-black py-4 px-6 rounded-lg flex flex-col items-center space-y-2 hover:shadow-md transition duration-200">
             <img src="statement.png" alt="USDT Icon" class="h-8 w-8">
             <span class="text-xs font-semibold">Statement</span>
+        </div>
+
+        <!-- Change PIN Button -->
+        <div onclick="navigateWithSpinner('pin.html')" 
+             class="cursor-pointer bg-white text-black py-4 px-6 rounded-lg flex flex-col items-center space-y-2 hover:shadow-md transition duration-200">
+            <img src="key.png" alt="Change PIN Icon" class="h-8 w-8">
+            <span class="text-xs font-semibold">Change PIN</span>
         </div>
     </div>
 </div>
@@ -503,7 +523,7 @@
         // Add active styles to the clicked item
         const icon = element.querySelector('div');
         const text = element.querySelector('span');
-        icon.classList.add('bg-green-300', 'text-white'); // Highlight background of active icon
+        icon.classList.add('bg-blue-400', 'text-white'); // Highlight background of active icon
         text.classList.add('text-black'); // Highlight text of active item
     }
 
@@ -516,4 +536,42 @@
         }
     });
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Select all buttons and CTAs
+        const buttons = document.querySelectorAll('button, .cta');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Show the spinner
+                document.getElementById('spinner').classList.remove('hidden');
+
+                // Simulate a delay for loading (e.g., 1 second)
+                setTimeout(() => {
+                    // Hide the spinner after the action is completed
+                    document.getElementById('spinner').classList.add('hidden');
+                }, 1000); // Adjust the delay as needed
+            });
+        });
+    });
+</script>
+
+<script>
+    function navigateWithSpinner(url) {
+        // Show the spinner
+        document.getElementById('spinner').classList.remove('hidden');
+
+        // Simulate a delay for loading (e.g., 1 second)
+        setTimeout(() => {
+            // Navigate to the specified URL
+            window.location.href = url;
+        }, 1000); // Adjust the delay as needed
+    }
+</script>
+
+<!-- Spinner -->
+<div id="spinner" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="loader"></div>
+</div>
 </html>
