@@ -18,7 +18,7 @@
         }
     </style>
     
-  <script type="module" crossorigin src="/assets/deposit-BpH2gzRA.js"></script>
+  <script type="module" crossorigin src="/assets/deposit-voIZYvBf.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
 </head>
 <body class="font-sans antialiased bg-gray-100">
@@ -239,7 +239,7 @@ function closeSuccessModal() {
                 <p class="text-sm text-gray-600">
                     <strong>Account Name:</strong>
                 </p>
-                <p id="account-name" class="text-gray-800 font-medium text-xs">Loading</p>
+                <p id="account-name" class="text-gray-800 font-medium text-xs"></p>
             </div>
 
             <!-- Account Number -->
@@ -255,19 +255,41 @@ function closeSuccessModal() {
                 </button>                
             </div>
 
-            <!-- Bank Name -->
-            <!-- <div class="mb-4 flex items-center justify-between">
+            <!-- Swift Code -->
+            <div class="mb-4 flex items-center justify-between">
                 <div>
                     <p class="text-sm text-gray-600">
-                        <strong>Bank Name:</strong>
+                        <strong>Swift Code:</strong>
                     </p>
-                    <p id="bank-name" class="text-gray-800 font-medium text-xs">ATPIB</p>
+                    <p id="swift-code" class="text-gray-800 font-medium text-xs">SWIFT5883</p> <!-- Replace with actual Swift Code -->
                 </div>
-                <button onclick="copyToClipboard('bank-name')" class="text-green-500 hover:text-green-700">
-                    <img src="copy.png" alt="Copy Icon" class="h-5 w-5" />
-                </button>
-                
-            </div> -->
+                <div class="flex items-center">
+                    <button onclick="toggleVisibility('swift-code', 'swift-eye')" class="text-green-500 hover:text-green-700">
+                        <img id="swift-eye" src="data:image/png;base64,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" alt="Toggle Visibility" class="h-3 w-3" />
+                    </button>
+                    <button onclick="copyToClipboard('swift-code')" class="text-green-500 hover:text-green-700 ml-2">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADESURBVHgB7dhRDoIwEATQ0XhAbyA3LzfAG1Ri9MfAUrftjsi8pF8k0EnpNl1ARLxu85jmkTuP9PpWcwnoPvn3mNYmcYJfRqzFuZ6xcxe0U7OaS4pWePcroABsVoAr7Dr/qbZUNpdQP6maAEUBrcrBrvN54/nToc4BSp3fojLKpgBsCsCmAGwKwKYAbArApr5QQ677gX6hICMcerc9vulMD2sv+aU94Lpzaw+wHeociO7UFfnrX+iOOCM6GBDToTbrvIjYHolwoMbjyh+tAAAAAElFTkSuQmCC" alt="Copy Icon" class="h-5 w-5" />
+                    </button>
+                </div>
+            </div>
+
+            <!-- Routing Number -->
+            <div class="mb-4 flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-gray-600">
+                        <strong>Routing Number:</strong>
+                    </p>
+                    <p id="routing-number" class="text-gray-800 font-medium text-xs">4998374639</p> <!-- Replace with actual Routing Number -->
+                </div>
+                <div class="flex items-center">
+                    <button onclick="toggleVisibility('routing-number', 'routing-eye')" class="text-green-500 hover:text-green-700">
+                        <img id="routing-eye" src="data:image/png;base64,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" alt="Toggle Visibility" class="h-3 w-3" />
+                    </button>
+                    <button onclick="copyToClipboard('routing-number')" class="text-green-500 hover:text-green-700 ml-2">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADESURBVHgB7dhRDoIwEATQ0XhAbyA3LzfAG1Ri9MfAUrftjsi8pF8k0EnpNl1ARLxu85jmkTuP9PpWcwnoPvn3mNYmcYJfRqzFuZ6xcxe0U7OaS4pWePcroABsVoAr7Dr/qbZUNpdQP6maAEUBrcrBrvN54/nToc4BSp3fojLKpgBsCsCmAGwKwKYAbArApr5QQ677gX6hICMcerc9vulMD2sv+aU94Lpzaw+wHeociO7UFfnrX+iOOCM6GBDToTbrvIjYHolwoMbjyh+tAAAAAElFTkSuQmCC" alt="Copy Icon" class="h-5 w-5" />
+                    </button>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -401,4 +423,19 @@ auth.onAuthStateChanged(async (user) => {
     </div>
 </div>
 </html>
+
+<script>
+function toggleVisibility(elementId, eyeId) {
+    const element = document.getElementById(elementId);
+    const eyeIcon = document.getElementById(eyeId);
+    
+    if (element.style.display === "none") {
+        element.style.display = "block"; // Show the value
+        eyeIcon.src = "eye-visible.png"; // Change to visible eye icon
+    } else {
+        element.style.display = "none"; // Hide the value
+        eyeIcon.src = "eye-invisible.png"; // Change to invisible eye icon
+    }
+}
+</script>
 

@@ -41,7 +41,7 @@
 
         // DOM Elements
         const balanceElement = document.getElementById('balance');
-        const welcomeName = document.getElementById('welcome-name');
+        const welcomeName = document.getElementById('name');
         const historyContainer = document.getElementById('history-container');
         const pendingContainer = document.getElementById('pending-container');
 
@@ -71,8 +71,8 @@
                     // Set welcome message
                     if (welcomeName) {
                         welcomeName.textContent = userData.firstName
-                            ? `Welcome back, ${userData.firstName}`
-                            : 'Welcome, User';
+                            ? `, ${userData.firstName}`
+                            : ', User';
                     }
 
                     // Fetch and display transaction history
@@ -155,11 +155,19 @@
                 try {
                     const userDocRef = doc(db, "users", user.uid);
                     const userDoc = await getDoc(userDocRef);
+                    console.log("User document exists:", userDoc.exists());
 
                     if (userDoc.exists()) {
                         const userData = userDoc.data();
-                        // Update the account name element with the user's name
-                        document.getElementById("account-name").textContent = userData.name || "Not Available";
+                        console.log("User data:", userData);
+
+                        // Set welcome message
+                        const welcomeName = document.getElementById("account-name");
+                        if (welcomeName) {
+                            welcomeName.textContent = userData.firstName && userData.lastName
+                                ? ` ${userData.firstName} ${userData.lastName}`
+                                : 'Welcome, User';
+                        }
                     } else {
                         console.error('No user document found!');
                         document.getElementById("account-name").textContent = "Not Available";
@@ -394,7 +402,7 @@ function closeSuccessModal() {
                 <p class="text-sm text-gray-600">
                     <strong>Account Name:</strong>
                 </p>
-                <p id="account-name" class="text-gray-800 font-medium text-xs">Loading</p>
+                <p id="account-name" class="text-gray-800 font-medium text-xs"></p>
             </div>
 
             <!-- Account Number -->
@@ -410,19 +418,41 @@ function closeSuccessModal() {
                 </button>                
             </div>
 
-            <!-- Bank Name -->
-            <!-- <div class="mb-4 flex items-center justify-between">
+            <!-- Swift Code -->
+            <div class="mb-4 flex items-center justify-between">
                 <div>
                     <p class="text-sm text-gray-600">
-                        <strong>Bank Name:</strong>
+                        <strong>Swift Code:</strong>
                     </p>
-                    <p id="bank-name" class="text-gray-800 font-medium text-xs">ATPIB</p>
+                    <p id="swift-code" class="text-gray-800 font-medium text-xs">SWIFT5883</p> <!-- Replace with actual Swift Code -->
                 </div>
-                <button onclick="copyToClipboard('bank-name')" class="text-green-500 hover:text-green-700">
-                    <img src="copy.png" alt="Copy Icon" class="h-5 w-5" />
-                </button>
-                
-            </div> -->
+                <div class="flex items-center">
+                    <button onclick="toggleVisibility('swift-code', 'swift-eye')" class="text-green-500 hover:text-green-700">
+                        <img id="swift-eye" src="eye-visible.png" alt="Toggle Visibility" class="h-3 w-3" />
+                    </button>
+                    <button onclick="copyToClipboard('swift-code')" class="text-green-500 hover:text-green-700 ml-2">
+                        <img src="copy.png" alt="Copy Icon" class="h-5 w-5" />
+                    </button>
+                </div>
+            </div>
+
+            <!-- Routing Number -->
+            <div class="mb-4 flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-gray-600">
+                        <strong>Routing Number:</strong>
+                    </p>
+                    <p id="routing-number" class="text-gray-800 font-medium text-xs">4998374639</p> <!-- Replace with actual Routing Number -->
+                </div>
+                <div class="flex items-center">
+                    <button onclick="toggleVisibility('routing-number', 'routing-eye')" class="text-green-500 hover:text-green-700">
+                        <img id="routing-eye" src="eye-visible.png" alt="Toggle Visibility" class="h-3 w-3" />
+                    </button>
+                    <button onclick="copyToClipboard('routing-number')" class="text-green-500 hover:text-green-700 ml-2">
+                        <img src="copy.png" alt="Copy Icon" class="h-5 w-5" />
+                    </button>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -556,4 +586,19 @@ auth.onAuthStateChanged(async (user) => {
     </div>
 </div>
 </html>
+
+<script>
+function toggleVisibility(elementId, eyeId) {
+    const element = document.getElementById(elementId);
+    const eyeIcon = document.getElementById(eyeId);
+    
+    if (element.style.display === "none") {
+        element.style.display = "block"; // Show the value
+        eyeIcon.src = "eye-visible.png"; // Change to visible eye icon
+    } else {
+        element.style.display = "none"; // Hide the value
+        eyeIcon.src = "eye-invisible.png"; // Change to invisible eye icon
+    }
+}
+</script>
 
