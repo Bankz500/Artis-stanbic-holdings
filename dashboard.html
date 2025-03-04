@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beal Offshore Ltd Dashboard</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" sizes="180x180" href="logo 2.png">
-    <link rel="icon" href="logo 2.png" type="image/png">
+    <link rel="apple-touch-icon" sizes="180x180" href="logo new.png">
+    <link rel="icon" href="logo new.png" type="image/png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js Library -->
@@ -38,14 +38,15 @@
     
         // Firebase configuration
         const firebaseConfig = {
-        apiKey: "AIzaSyCJdMdkW5NZF83PLBLYZk3yBAFsUxqautY",
-        authDomain: "atpib-82d72.firebaseapp.com",
-        projectId: "atpib-82d72",
-        storageBucket: "atpib-82d72.firebasestorage.app",
-        messagingSenderId: "938927546204",
-        appId: "1:938927546204:web:ea096f1dfe3b3754dd6b99",
-        measurementId: "G-G3BRPK5B9T"
+        apiKey: "AIzaSyABYV12B7RM2ZCD2G1lFTLpgJwflJFwEXY",
+        authDomain: "beal-offshore.firebaseapp.com",
+        projectId: "beal-offshore",
+        storageBucket: "beal-offshore.firebasestorage.app",
+        messagingSenderId: "1091834410162",
+        appId: "1:1091834410162:web:56285433b5751e681745ab",
+        measurementId: "G-CT463F3T6J"
         };
+
     
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
@@ -251,7 +252,7 @@
 <!-- Deposit Account Card -->
 <div class="relative bg-gradient-to-r from-blue-700 to-blue-900 shadow rounded-lg p-4 flex flex-col justify-between h-48 w-1/3">
     <!-- Card label -->
-    <label for="Deposit-account" class="block text-sm font-regular text-green-50 text-center">Savings</label>
+    <label for="Deposit-account" class="block text-sm font-regular text-green-50 text-center">Current offshore</label>
     
     <!-- Balance display -->
     <p id="Deposit-account" class="mt-2 text-xs font-bold text-green-50 text-center">$0.00</p>
@@ -284,7 +285,7 @@
 <!-- Wallet Card -->
 <div class="relative bg-white rounded-lg p-3 flex flex-col justify-between h-48 w-1/3">
     <!-- <i class="fas fa-lock absolute top-2 right-2 text-black text-sm"></i> Unlocked Padlock Icon -->
-    <label for="wallet" class="block text-sm font-regular text-black text-center">Current</label>
+    <label for="wallet" class="block text-sm font-regular text-black text-center">Fixed offshore</label>
     <p id="wallet" class="mt-2 text-xs font-bold text-black text-center">$0.00</p>
     <button 
         id="toggle-balance" 
@@ -296,7 +297,7 @@
 
     <!-- Signup Offer Card -->
     <div class="relative bg-gradient-to-r from-gray-500 to-gray-500 shadow rounded-lg p-4 flex flex-col justify-between h-48 w-1/3">
-        <label for="bonus-wallet" class="block text-sm font-regular text-white text-center">Fixed Deposit</label>
+        <label for="bonus-wallet" class="block text-sm font-regular text-white text-center">Savings offshore</label>
         <p id="bonus-wallet" class="mt-2 text-xs font-bold text-white text-center">$0.00</p>
     </div>
 </div>

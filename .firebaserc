@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "atpib-82d72"
-  }
+    "default": "beal-offshore",
+    "Beal offshore": "beal-offshore"
+  },
+  "targets": {},
+  "etags": {}
 }
