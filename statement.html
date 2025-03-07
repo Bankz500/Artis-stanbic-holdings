@@ -411,8 +411,8 @@ Request Statement
 <!-- Success Message -->
 <div 
 id="successMessage" 
-class="mt-6 hidden text-center text-green-600 font-medium text-lg">
-✅ Your bank statement has been sent to your registered email.
+class="mt-6 hidden text-center text-blue-900 font-medium text-xs">
+Your bank statement has been sent to your registered email.
 </div>
 
 <script>
@@ -521,6 +521,33 @@ form.addEventListener('submit', (e) => {
     });
 </script>
 
+<script>
+        // Logout after 10 minutes of inactivity
+        let inactivityTime = 0;
+
+function resetTimer() {
+    inactivityTime = 0; // Reset the timer
+}
+
+// Check for user activity
+window.onload = function() {
+    // Increment the inactivity time every minute
+    setInterval(function() {
+        inactivityTime++;
+        if (inactivityTime >= 10) { // 10 minutes
+            signOut(auth); // Call the sign-out function
+            alert('You have been logged out due to inactivity.');
+        }
+    }, 60000); // 1 minute
+
+    // Reset the timer on user activity
+    window.onmousemove = resetTimer;
+    window.onkeypress = resetTimer;
+    window.onclick = resetTimer;
+    window.onscroll = resetTimer;
+};
+</script>
+
 
              
 
@@ -542,12 +569,12 @@ form.addEventListener('submit', (e) => {
             <span class="text-xs font-medium mt-2">Deposit</span>
         </a>
         <!-- Withdraw Icon -->
-        <a href="withdraw.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
+        <!-- <a href="withdraw.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
             <div class="bg-white rounded p-2">
                 <img src="withdraw.png" alt="Withdraw Icon" class="h-6 w-6" />
             </div>
             <span class="text-xs font-medium mt-2">Withdraw</span>
-        </a>
+        </a> -->
         <!-- Verify Icon -->
         <a href="support.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
             <div class="bg-white rounded p-2">

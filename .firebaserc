@@ -1,8 +1,5 @@
 {
   "projects": {
-    "default": "beal-offshore",
-    "Beal offshore": "beal-offshore"
-  },
-  "targets": {},
-  "etags": {}
+    "default": "beal-offshore"
+  }
 }

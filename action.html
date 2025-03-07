@@ -248,7 +248,7 @@ overlay.onclick = closeMenu;
                 <button 
                     type="submit" 
                     id="reset-button"
-                    class="bg-green-600 text-white rounded-lg py-3 w-full hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    class="bg-blue-800 text-white rounded-lg py-3 w-full hover:bg-blue-900 transition disabled:opacity-50 disabled:cursor-not-allowed"
                     disabled
                 >
                     Reset Password
@@ -362,7 +362,7 @@ overlay.onclick = closeMenu;
             function showMessage(message, isError = false) {
                 const statusMessage = document.getElementById('status-message');
                 statusMessage.textContent = message;
-                statusMessage.className = `mt-4 text-center ${isError ? 'text-red-600' : 'text-green-600'}`;
+                statusMessage.className = `mt-4 text-center ${isError ? 'text-red-600' : 'text-blue-900'}`;
                 statusMessage.classList.remove('hidden');
             }
         </script>

@@ -6,11 +6,27 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    "headers": [
+      {
+        "source": "/manifest.json",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ]
+      }
+    ],
     "rewrites": [
       {
-        "source": "**",
+        "source": "index.html",
         "destination": "/index.html"
+      },
+      {
+        "source": "/manifest.json",
+        "destination": "/manifest.json"
       }
     ]
   }
 }
+

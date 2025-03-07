@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Beal Offshore Ltd Sign Up</title>
-    <link rel="manifest" href="/assets/manifest-ZZgdoLqs.json">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/logo%20new-zMwoG01L.png">
-    <link rel="icon" href="/assets/logo%20new-zMwoG01L.png" type="image/png">
+    <link rel="manifest" href="/assets/manifest-CU0lAEK-.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/logo%20new-DPEJ_4oz.png">
+    <link rel="icon" href="/assets/logo%20new-DPEJ_4oz.png" type="image/png">
     <!-- Include Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Include Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js"></script>
     <!-- Add Firebase SDK -->
-  <script type="module" crossorigin src="/assets/account-BmOyH9pU.js"></script>
+  <script type="module" crossorigin src="/assets/account-Dwj3gL5E.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
   <link rel="modulepreload" crossorigin href="/assets/index.esm-BeIn6wDe.js">
 </head>
@@ -185,144 +185,234 @@ overlay.onclick = closeMenu;
     
 
 <!-- Open Account Section -->
-<div class="flex items-center justify-center min-h-screen bg-white p-4 mt-24">
-    <div class="flex bg-white rounded-lg shadow overflow-hidden max-w-3xl w-full">
-        <!-- Form Section -->
-        <div class="w-full md:w-3/5 p-6">
-            <h2 class="text-2xl font-bold text-gray-900 mb-2 text-center">Open an Account</h2>
-            <p class="text-gray-600 text-center mb-6 text-sm">
-                Join thousands enjoying seamless banking with secure transactions and 24/7 support.
+<div class="flex items-center justify-center min-h-screen bg-gray-100 p-8 mt-24">
+    <div class="flex bg-white rounded overflow-hidden max-w-4xl w-full">
+        <!-- Form Section: Step 1 -->
+        <div id="step-1" class="w-full md:w-3/5 p-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 text-center">Open an Account</h2>
+            <p class="text-gray-600 text-center mb-8 text-base">
+                Join thousands of businesses enjoying seamless banking with secure transactions and 24/7 support.
             </p>
-            <form action="#" method="POST" class="space-y-4">
-                <div class="grid grid-cols-2 gap-4">
+            <form id="personal-info-form" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label for="first-name" class="block text-sm font-medium text-gray-700">First Name</label>
-                        <input type="text" id="first-name" name="first-name" required placeholder="First Name" 
-                            class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <label for="first-name" class="block text-base font-medium text-gray-700">First Name</label>
+                        <input type="text" id="first-name" name="first-name" required placeholder="Enter your first name" 
+                            class="mt-1 block w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400">
                     </div>
                     <div>
-                        <label for="last-name" class="block text-sm font-medium text-gray-700">Last Name</label>
-                        <input type="text" id="last-name" name="last-name" required placeholder="Last Name" 
-                            class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <label for="last-name" class="block text-base font-medium text-gray-700">Last Name</label>
+                        <input type="text" id="last-name" name="last-name" required placeholder="Enter your last name" 
+                            class="mt-1 block w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400">
                     </div>
                 </div>
                 <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
-                    <input type="email" id="email" name="email" required placeholder="Email" 
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <label for="email" class="block text-base font-medium text-gray-700">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email" 
+                        class="mt-1 block w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400">
                 </div>
                 <div>
-                    <label for="account-type" class="block text-sm font-medium text-gray-700">Account Type</label>
+                    <label for="account-type" class="block text-base font-medium text-gray-700">Account Type</label>
                     <select id="account-type" name="account-type" required 
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        class="mt-1 block w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400">
                         <option value="">Select Account Type</option>
                         <option value="checking">Fixed Offshore</option>
                         <option value="savings">Savings Offshore</option>
-                        <option value="current">Current Offshore</option>
+                        <option value="current">Checking Offshore</option>
                     </select>
                 </div>
+                <!-- Password -->
+                <div class="relative">
+                    <label for="password" class="block text-base font-medium text-gray-700">Password</label>
+                    <input type="password" id="password" name="password" required placeholder="Create a password"
+                        class="mt-1 block w-full border border-gray-300 rounded-md p-3 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400">
+                    <button type="button" onclick="togglePasswordVisibility('password', 'eyeIcon1')" 
+                        class="absolute right-3 top-11">
+                        <svg id="eyeIcon1" class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" 
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="relative mt-4">
+                    <label for="confirm-password" class="block text-base font-medium text-gray-700">Confirm Password</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required placeholder="Confirm your password"
+                        class="mt-1 block w-full border border-gray-300 rounded-md p-3 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400">
+                    <button type="button" onclick="togglePasswordVisibility('confirm-password', 'eyeIcon2')" 
+                        class="absolute right-3 top-11">
+                        <svg id="eyeIcon2" class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" 
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </button>
+                </div>
+
+                <script>
+                function togglePasswordVisibility(inputId, iconId) {
+                    const inputField = document.getElementById(inputId);
+                    const eyeIcon = document.getElementById(iconId);
+
+                    if (inputField.type === "password") {
+                        inputField.type = "text";
+                        eyeIcon.innerHTML = `<path d="M17.94 17.94A10.09 10.09 0 0 1 12 20c-7 0-11-8-11-8a18.66 18.66 0 0 1 3-4m3.53-2.36A10.09 10.09 0 0 1 12 4c7 0 11 8 11 8a18.3 18.3 0 0 1-1.72 2.82M15 12a3 3 0 1 0-3 3m8.17 8.17L3 3"></path>`;
+                    } else {
+                        inputField.type = "password";
+                        eyeIcon.innerHTML = `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>`;
+                    }
+                }
+                </script>
+
+                <button type="button" id="continue-btn" class="w-full bg-blue-800 text-white py-3 rounded-md hover:bg-blue-900 transition duration-200">
+                    Continue
+                </button>
+            </form>
+        </div>
+
+        <!-- Form Section: Step 2 (Hidden Initially) -->
+        <div id="step-2" class="w-full md:w-3/5 p-8 hidden">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 text-center">Business Information</h2>
+            <p class="text-gray-600 text-center mb-8 text-base">
+                Provide your business details to complete your account setup.
+            </p>
+            <form id="business-info-form" class="space-y-6">
                 <div>
-                    <label for="business-type" class="block text-sm font-medium text-gray-700">Business Type</label>
-                    <input type="text" id="business-type" name="business-type" required placeholder="Enter Business Type" 
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <label for="business-name" class="block text-base font-medium text-gray-700">Business Name</label>
+                    <input type="text" id="business-name" name="business-name" required placeholder="Enter your business name" 
+                        class="mt-1 block w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400">
                 </div>
                 <div>
-                    <label for="business-address" class="block text-sm font-medium text-gray-700">Business Address</label>
-                    <input type="text" id="business-address" name="business-address" required placeholder="Enter Business Address" 
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <label for="business-type" class="block text-base font-medium text-gray-700">Business Type</label>
+                    <input type="text" id="business-type" name="business-type" required placeholder="Enter your business type" 
+                        class="mt-1 block w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400">
                 </div>
                 <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <input type="password" id="password" name="password" required placeholder="Password (min. 8 characters)" minlength="8" 
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <label for="business-ein" class="block text-base font-medium text-gray-700">Business EIN</label>
+                    <input type="text" id="business-ein" name="business-ein" required placeholder="Enter your business EIN" 
+                        class="mt-1 block w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400">
                 </div>
                 <div>
-                    <label for="confirm-password" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-                    <input type="password" id="confirm-password" name="confirm-password" required placeholder="Confirm Password" minlength="8"
-                        class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <label for="business-cert" class="block text-base font-medium text-gray-700">Business Certificate</label>
+                    <input type="text" id="business-cert" name="business-cert" required placeholder="Enter your business certificate" 
+                        class="mt-1 block w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400">
                 </div>
-                <button type="submit" id="create-account-btn" class="w-full bg-blue-800 text-white py-2 rounded-md hover:bg-blue-900 transition duration-200">
+                <button type="submit" id="create-account-btn" class="w-full bg-blue-800 text-white py-3 rounded-md hover:bg-blue-900 transition duration-200">
                     Create Account
                 </button>
             </form>
-            <p class="text-xs text-gray-600 mt-3 text-center">Already have an account? <a href="login.html" class="text-blue-600 hover:underline">Sign in</a></p>
         </div>
+
         <!-- Image Section -->
         <div class="hidden md:block w-2/5 bg-cover bg-center rounded-r-lg" style="background-image: url('/assets/vertical-shot-caucasian-happy-businesswoman-holding-her-phone-smiling-BDCRMJNB.jpg');">
         </div>
     </div>
 </div>
 
+<script>
+    document.getElementById("continue-btn").addEventListener("click", function() {
+        const formData = {
+            firstName: document.getElementById("first-name").value.trim(),
+            lastName: document.getElementById("last-name").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            accountType: document.getElementById("account-type").value,
+            password: document.getElementById("password").value,
+            confirmPassword: document.getElementById("confirm-password").value,
+        };
+
+        // Validate form data
+        if (!formData.firstName || !formData.lastName || !formData.email || !formData.password || !formData.accountType) {
+            alert("All fields are required.");
+            return;
+        }
+        if (formData.password !== formData.confirmPassword) {
+            alert("Passwords do not match.");
+            return;
+        }
+        if (formData.password.length < 8) {
+            alert("Password must be at least 8 characters long.");
+            return;
+        }
+
+        // Proceed to the next step
+        document.getElementById("step-1").classList.add("hidden");
+        document.getElementById("step-2").classList.remove("hidden");
+    });
+</script>
 
 
-<!-- Success Modal -->
-<div id="success-modal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-    <div class="bg-white rounded-lg p-8 w-96 text-center">
-        <h2 class="text-sm font-bold text-green-600 mb-4">Account Opening in progress!</h2>
-        <p class="text-gray-700 text-sm">Your account has been successfully registered. Please hold while we process your informations we would get back to you via your registered emails on its progress</p>
-        <button onclick="window.location.href='index.html'" class="mt-6 bg-black text-white py-2 px-4 rounded hover:bg-green-900 transition duration-200">
-            Continue
-        </button>
+
+
+
+<footer class="bg-black text-white py-10 mt-32">
+    <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <!-- Company Info -->
+      <div>
+        <div class="flex items-center mb-4">
+          <img src="/assets/LOGO-DP4bRQMr.png" alt="Beal Offshore Ltd Logo" class="w-15 h-12 mr-1" />
+          <div>
+            <h1 class="text-lg font-semibold"></h1>
+            <p class="text-sm text-gray-400"></p>
+          </div>
+        </div>
+        <p class="text-sm text-gray-400 leading-relaxed">
+            Being a member of Beal Offshore Ltd is not like opening an account at the usual bank. You have a voice in what and how the organization is run. 
+        </p>
+      </div>
+  
+      <!-- Quick Links -->
+      <div>
+        <h2 class="text-lg font-semibold mb-4">Quick Links</h2>
+        <ul class="text-sm text-gray-400 space-y-2">
+          <li><a href="about-us.html" class="hover:text-white">About</a></li>
+          <li><a href="personal.html" class="hover:text-white">Personal Offshore</a></li>
+          <li><a href="business.html" class="hover:text-white">Business Offshore</a></li>
+        </ul>
+      </div>
+  
+      <!-- Services -->
+      <div>
+        <h2 class="text-lg font-semibold mb-4">Services</h2>
+        <ul class="text-sm text-gray-400 space-y-2">
+        <li>Online banking</li>
+        <li>E-bank Statement</li>
+        </ul>
+      </div>
+  
+      <!-- Social and Review -->
+      <div>
+        <h2 class="text-lg font-semibold mb-4">HEAD OFFICE</h2>
+        <ul class="text-sm text-gray-400 space-y-2">
+          <li>Address: 480 Springpark Place Suite 1000 Herndon, VA 20170</li>
+        </ul>
+        <div class="mt-6 max-w-7xl">
+          <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
+            <p class="text-sm text-gray-400">
+                This year, we've been recognized as one of the top financing institutions, offering unparalleled financial solutions.</p>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
-
-
-
-
-    <!-- Footer -->
-    <footer class="bg-black text-white py-10 mt-32">
-        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-                <div class="flex items-center mb-4">
-                    <img src="/assets/LOGO-DP4bRQMr.png" alt="Beal Offshore Ltd Logo" class="w-15 h-12 mr-3" />
-                </div>
-                <p class="text-sm text-gray-400 leading-relaxed">
-                    Being a member of Beal Offshore Ltd is not like opening an account at the usual bank.
-                </p>
-            </div>
-
-            <div>
-                <h2 class="text-lg font-semibold mb-4">Quick Links</h2>
-                <ul class="text-sm text-gray-400 space-y-2">
-                    <li><a href="about-us.html" class="hover:text-white">About</a></li>
-                    <li><a href="personal.html" class="hover:text-white">Personal Account</a></li>
-                    <li><a href="business.html" class="hover:text-white">Business Account</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h2 class="text-lg font-semibold mb-4">Services</h2>
-                <ul class="text-sm text-gray-400 space-y-2">
-                    <li>Savings Account</li>
-                    <li>Current Account</li>
-                </ul>
-            </div>
-
-            <div>
-                <h2 class="text-lg font-semibold mb-4">HEAD OFFICE</h2>
-                <ul class="text-sm text-gray-400 space-y-2">
-                    <li>Address: Beştepe, Dumlupınar Blv. No:6, 06560 Yenimahalle/Ankara, Türkiye</li>
-                </ul>
-                <div class="mt-6 max-w-7xl">
-                    <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
-                        <p class="text-sm text-gray-400">
-                            This year, we've been recognized as one of the top financing institutions, offering unparalleled financial solutions.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="text-center mt-6">
-            © 2025 Beal Offshore Ltd. Powered by Menta Digital Marketing Inc.
-        </div>
-    </footer>
+  
+    <div class="mt-10 border-t border-gray-700 pt-6 px-4 text-center text-xs text-gray-500">
+      © 2025 Beal Offshore Ltd. Powered by Menta Digital Marketing Inc.
+      <div class="flex justify-center mt-4 space-x-4">
+        <a href="#facebook" class="hover:text-white"><i class="fab fa-facebook"></i></a>
+        <a href="" class="hover:text-white" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-instagram"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
 
 <!-- Email Button -->
 <a href="https://wa.me/message/NG7YD6LENEJFO1" target="_blank" class="fixed bottom-16 right-6">
     <img src="/assets/Chat%20bot-BXzxOU0N.png" alt="Chat with us on Telegram" class="w-16 h-18">
 </a>
 </body>
-</body>
+
 </html>
 <!-- Include Font Awesome -->
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>

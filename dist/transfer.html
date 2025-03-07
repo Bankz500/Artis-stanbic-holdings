@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beal Offshore Transfer</title>
-    <link rel="manifest" href="/assets/manifest-ZZgdoLqs.json">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/logo%20new-zMwoG01L.png">
-    <link rel="icon" href="/assets/logo%20new-zMwoG01L.png" type="image/png">
+    <link rel="manifest" href="/assets/manifest-CU0lAEK-.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/logo%20new-DPEJ_4oz.png">
+    <link rel="icon" href="/assets/logo%20new-DPEJ_4oz.png" type="image/png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js Library -->
@@ -81,109 +81,130 @@
             </button>
         </div>
 
-<!-- Cash Withdrawal Form -->
-<div id="cashWithdrawal" class="block">
-    <p class="mb-12 text-black text-xs text-center">
-        Enter your details to complete your transfer.
-    </p>
-    <form id="withdrawalForm">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Bank Name -->
-            <div class="relative">
-                <label for="bankName" class="block text-xs text-black mb-2">
-                    Beneficiary Bank Name
-                </label>
-                <input 
-                    type="text" 
-                    id="bankName" 
-                    class="w-full bg-white border border-gray-300 rounded px-4 py-3 text-gray-400 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-300 text-xs"
-                    placeholder="Enter your bank name"
-                />
-                <p id="bankNameError" class="text-red-500 text-xs hidden mt-2">
-                    Beneficiary Bank Name is required
-                </p>
-            </div>
-
-            <!-- Account Number -->
-            <div class="relative">
-                <label for="accountNumber" class="block text-xs text-black mb-2">
-                    Beneficiary Account Number
-                </label>
-                <input 
-                    type="text" 
-                    id="accountNumber" 
-                    class="w-full bg-white border border-gray-300 rounded px-4 py-3 text-gray-400 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-300 text-xs" 
-                    placeholder="Enter account number"
-                />
-                <p id="accountNumberError" class="text-red-500 text-xs hidden mt-2">
-                    Beneficiary Account Number is required
-                </p>
-            </div>
-
-            <!-- Account Name -->
-            <div class="relative">
-                <label for="accountName" class="block text-xs text-black mb-2">
-                    Beneficiary Account Name
-                </label>
-                <input 
-                    type="text" 
-                    id="accountName" 
-                    class="w-full bg-white border border-gray-300 rounded px-4 py-3 text-gray-400 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-300 text-xs" 
-                    placeholder="Enter account name"
-                />
-                <p id="accountNameError" class="text-red-500 text-xs hidden mt-2">
-                    Beneficiary Account Name is required
-                </p>
-            </div>
-        </div>
-
-        <!-- Withdrawal Amount -->
-        <div class="mt-6">
-            <label for="withdrawCash" class="block text-xs text-black mb-2">
-                Transfer Amount
-            </label>
-            <input 
-                type="text" 
-                id="withdrawCash" 
-                class="w-full bg-white border border-gray-300 rounded px-4 py-3 text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-purple-300 focus:ring-purple-500 text-xs" 
-                placeholder="$ Enter amount"
-                oninput="checkBalance()"
-            />
-            <p id="withdrawCashError" class="text-red-500 text-xs hidden mt-2">
-                Amount is required
+        <div id="cashWithdrawal" class="block">
+            <p class="mb-12 text-black text-xs text-center">
+                Enter your details to complete your transfer.
             </p>
-            <p id="insufficientBalanceError" class="text-red-500 text-xs hidden mt-2">
-                Insufficient balance for the transfer.
-            </p>
-        </div>
-
-        <!-- Notice of Withdrawal -->
-        <div class="pt-10">
-            <div class="bg-gray-100 border-l-4 border-blue-900 text-blue-900 p-5 rounded mb-4 text-xs text-center">
-                <p>
-                    Please double-check all your details before submitting your transfer request to ensure prompt processing. If you encounter any issues, contact support for assistance.
-                </p>
-            </div>
-
-            <!-- Confirm Details Section -->
-            <div class="pt-3">
-                <div class="flex items-center mb-4">
-                    <input 
-                        type="checkbox" 
-                        id="confirmDetails" 
-                        class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded focus:ring-purple-500"
-                    />
-                    <label for="confirmDetails" class="ml-2 text-xs text-black">
-                        Do you confirm that your details have been filled correctly?
-                    </label>
+            <form id="withdrawalForm">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="relative">
+                        <label for="bankName" class="block text-xs text-black mb-2">
+                            Beneficiary Bank Name
+                        </label>
+                        <input 
+                            type="text" 
+                            id="bankName" 
+                            class="w-full bg-white border border-gray-300 rounded px-4 py-3 text-gray-400 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-300 text-xs"
+                            placeholder="Enter your bank name"
+                        />
+                        <p id="bankNameError" class="text-red-500 text-xs hidden mt-2">
+                            Beneficiary Bank Name is required
+                        </p>
+                    </div>
+        
+                    <div class="relative">
+                        <label for="accountNumber" class="block text-xs text-black mb-2">
+                            Beneficiary Account Number
+                        </label>
+                        <input 
+                            type="text" 
+                            id="accountNumber" 
+                            class="w-full bg-white border border-gray-300 rounded px-4 py-3 text-gray-400 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-300 text-xs" 
+                            placeholder="Enter account number"
+                        />
+                        <p id="accountNumberError" class="text-red-500 text-xs hidden mt-2">
+                            Beneficiary Account Number is required
+                        </p>
+                    </div>
+        
+                    <div class="relative">
+                        <label for="accountName" class="block text-xs text-black mb-2">
+                            Beneficiary Account Name
+                        </label>
+                        <input 
+                            type="text" 
+                            id="accountName" 
+                            class="w-full bg-white border border-gray-300 rounded px-4 py-3 text-gray-400 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-300 text-xs" 
+                            placeholder="Enter account name"
+                        />
+                        <p id="accountNameError" class="text-red-500 text-xs hidden mt-2">
+                            Beneficiary Account Name is required
+                        </p>
+                    </div>
+        
+                    <div class="relative">
+                        <label for="fundingSource" class="block text-xs text-black mb-2">
+                            Funding Source
+                        </label>
+                        <select
+                            id="fundingSource"
+                            class="w-full bg-white border border-gray-300 rounded px-4 py-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-300 text-xs appearance-none"
+                        >
+                            <option value="" disabled selected>Select funding source</option>
+                            <option value="fixed_offshore">Fixed Offshore</option>
+                            <option value="savings_offshore">Savings Offshore</option>
+                        </select>
+                        <p id="fundingSourceError" class="text-red-500 text-xs hidden mt-2">
+                            Funding Source is required
+                        </p>
+                    </div>
                 </div>
-                <p id="confirmDetailsError" class="text-green-900 text-xs hidden mt-2">
-                    Please confirm your details before proceeding.
-                </p>
-            </div>
+        
+                <div class="mt-6">
+                    <label for="withdrawCash" class="block text-xs text-black mb-2">
+                        Transfer Amount
+                    </label>
+                    <input 
+                        type="text" 
+                        id="withdrawCash" 
+                        class="w-full bg-white border border-gray-300 rounded px-4 py-3 text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-purple-300 focus:ring-purple-500 text-xs" 
+                        placeholder="$ Enter amount"
+                        oninput="formatAmount(this)"
+                    />
+                    <p id="withdrawCashError" class="text-red-500 text-xs hidden mt-2">
+                        Amount is required
+                    </p>
+                    <p id="insufficientBalanceError" class="text-red-500 text-xs hidden mt-2">
+                        Insufficient balance for the transfer.
+                    </p>
+                </div>
+                
+                <script>
+                function formatAmount(input) {
+                    let value = input.value.replace(/,/g, '').replace(/\$/g, ''); // Remove existing commas and dollar signs
+                    if (!isNaN(value) && value !== '') {
+                        let formattedValue = Number(value).toLocaleString(); // Format number with commas
+                        input.value = formattedValue;
+                    }
+                }
+                </script>
+                
+        
+                <div class="pt-10">
+                    <div class="bg-gray-100 border-l-4 border-blue-900 text-blue-900 p-5 rounded mb-4 text-xs text-center">
+                        <p>
+                            Please double-check all your details before submitting your transfer request to ensure prompt processing. If you encounter any issues, contact support for assistance.
+                        </p>
+                    </div>
+        
+                    <div class="pt-3">
+                        <div class="flex items-center mb-4">
+                            <input 
+                                type="checkbox" 
+                                id="confirmDetails" 
+                                class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded focus:ring-purple-500"
+                            />
+                            <label for="confirmDetails" class="ml-2 text-xs text-black">
+                                Do you confirm that your details have been filled correctly?
+                            </label>
+                        </div>
+                        <p id="confirmDetailsError" class="text-green-900 text-xs hidden mt-2">
+                            Please confirm your details before proceeding.
+                        </p>
+                    </div>
+                </div>
+            </form>
         </div>
-    </form>
-</div>
 
 
 <!-- Security PIN Modal -->
@@ -198,8 +219,8 @@
             &times;
         </button>
 
-        <h2 class="text-xs text-center text-black mb-4">Enter the one time password (otp) sent to your registered email</h2>
-        <p class="text-gray-500 text-xs text-center mb-4">Please enter your 5-digit security otp to confirm the transfer.</p>
+        <h2 class="text-xs text-center text-black mb-4">Enter your Transfer Pin</h2>
+        <p class="text-gray-500 text-xs text-center mb-4">Please enter your security pin to complete this transfer.</p>
         <input 
             type="password" 
             id="securityPin" 
@@ -207,43 +228,95 @@
             class="w-full bg-white border border-gray-300 rounded px-4 py-3 text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-purple-300 focus:ring-purple-500 text-xs"
             placeholder="Enter 5-digit PIN"
         >
-        <p id="securityPinError" class="text-red-500 text-xs hidden mt-2 text-center">Incorrect otp. Please try again.</p>
+        <p id="securityPinError" class="text-red-500 text-xs hidden mt-2 text-center">Incorrect Pin. Please try again.</p>
         <div class="mt-4 flex justify-center">
             <button 
                 type="button" 
                 onclick="validatePin()" 
+                id="confirmButton"
                 class="bg-blue-800 text-white text-xs border font-semibold rounded px-16 py-3 w-full md:w-auto hover:bg-blue-900"
             >
-                Confirm
+                <span id="confirmButtonText">Confirm</span>
+                <span id="confirmButtonLoader" class="hidden ml-2 loader"></span>
             </button>
         </div>
     </div>
 </div>
 
-<script>
-    // Function to close the Security PIN Modal
-    function closeSecurityPinModal() {
-        document.getElementById('securityPinModal').classList.add('hidden');
-    }
-</script>
+<!-- Spinner -->
+<div id="spinner" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="loader"></div>
+</div>
 
 
 <!-- Success Message Modal -->
-<div id="successModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300">
-    <div class="bg-white rounded-lg shadow-lg p-8 w-3/4 md:w-1/3 transform transition-transform duration-300 scale-95">
-        <h2 class="text-lg font-semibold text-center text-blue-900 mb-4">Transfer Successful!</h2>
-        <p class="text-gray-700 text-sm text-center mb-6">Your transfer is being processed and is on its way to your recipient.</p>
-        <div class="mt-4 flex justify-center">
+<div id="successModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white rounded-2xl shadow-lg p-6 w-11/12 md:w-1/3 transform transition-all scale-95">
+        <!-- Success Icon -->
+        <div class="flex justify-center">
+            <div class="w-20 h-20 flex items-center justify-center rounded-full border-4 border-green-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-3-3a1 1 0 111.414-1.414L9 11.586l6.293-6.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Title -->
+        <h2 class="text-xl font-semibold text-center text-gray-900 mt-4">Transfer Successful</h2>
+
+        <!-- Description -->
+        <p class="text-gray-600 text-sm text-center mt-2">Your transaction is in progress and will be completed shortly..</p>
+
+        <!-- Transaction Details -->
+        <div class="mt-4 space-y-2">
+            <div class="flex justify-between text-gray-900 font-medium">
+                <span>Amount</span> 
+                <span id="transferAmount" class="text-right text-gray-700 font-semibold">$0.00</span>
+            </div>
+            <div class="flex justify-between text-gray-900 font-medium">
+                <span>Beneficiary</span> 
+                <span id="beneficiaryName" class="text-right text-gray-700">-</span>
+            </div>
+            <div class="flex justify-between text-gray-900 font-medium">
+                <span>Account</span> 
+                <span id="beneficiaryAccount" class="text-right text-gray-700">-</span>
+            </div>
+            <div class="flex justify-between text-gray-900 font-medium">
+                <span>Transaction Ref</span> 
+                <span id="transactionRef" class="text-right text-gray-700">-</span>
+            </div>
+        </div>
+
+        <!-- Continue Button -->
+        <div class="mt-6">
             <button 
                 type="button" 
-                onclick="closeSuccessModal()" 
-                class="bg-blue-900 text-white text-sm font-medium rounded px-8 py-3 hover:bg-blue-800 transition-colors duration-200"
+                id="closeSuccessButton" 
+                onclick="showSpinnerAndRedirect()" 
+                class="w-full bg-blue-600 text-white text-lg font-medium py-3 rounded-lg hover:bg-blue-700 transition duration-200"
             >
-                Close
+                Continue
             </button>
         </div>
     </div>
 </div>
+
+
+<!-- <script>
+    function showSpinnerAndRedirect() {
+        let closeButton = document.getElementById("closeSuccessButton");
+        
+        // Disable button and show loading text
+        closeButton.innerText = "Please wait...";
+        closeButton.disabled = true;
+
+        // Redirect to transfer.html after a short delay
+        setTimeout(() => {
+            window.location.href = "transfer.html";
+        }, 1000); // 1 second delay
+    }
+</script> -->
+
 
 <!-- Submit Button -->
 <div class="mb-2 py-2">
@@ -264,179 +337,135 @@
     </div>
 </section>
 
+
 <script>
-    let depositBalance = 0; // Fetch this value from Firebase when the page loads.
 
-    // Fetch deposit balance from Firebase (simulate this with a placeholder)
-    function fetchDepositBalance() {
-        // Simulating a Firebase fetch
-        depositBalance = 100000000; // Example balance
-        updateDepositUI();
-    }
+function showSpinnerAndRedirect() {
+    let closeButton = document.getElementById("closeSuccessButton");
+    
+    // Disable button and show loading text
+    closeButton.innerText = "Please wait...";
+    closeButton.disabled = true;
 
-    // Update the deposit balance display (if part of the UI)
-    function updateDepositUI() {
-        document.getElementById('depositBalanceDisplay').innerText = `$${depositBalance.toFixed(2)}`;
-    }
+    // Redirect to transfer.html after a short delay
+    setTimeout(() => {
+        window.location.href = "transfer.html";
+    }, 1000); 
+}
 
-    // Check if entered amount exceeds deposit balance
-    function checkBalance() {
-        const amountInput = document.getElementById('withdrawCash');
-        const insufficientBalanceError = document.getElementById('Insurficient balance on transfer account');
+function closeSecurityPinModal() {
+    document.getElementById('securityPinModal').classList.add('hidden');
+}
 
-        const enteredAmount = parseFloat(amountInput.value.replace(/[^0-9.]/g, '')) || 0;
+function validatePin() {
+    const enteredPin = document.getElementById('securityPin').value.trim();
+    const errorElement = document.getElementById('securityPinError');
+    errorElement.classList.add('hidden');
+    document.getElementById('spinner').classList.remove('hidden');
 
-        if (enteredAmount > depositBalance) {
-            insufficientBalanceError.classList.remove('hidden');
-        } else {
-            insufficientBalanceError.classList.add('hidden');
-        }
-    }
-
-    // Validate the form before showing the security PIN modal
-    function showSecurityPinModal() {
-        if (validateForm()) {
-            const withdrawCash = parseFloat(document.getElementById('withdrawCash').value.replace(/[^0-9.]/g, '')) || 0;
-
-            if (withdrawCash > depositBalance) {
-                document.getElementById('insufficientBalanceError').classList.remove('hidden');
-            } else {
-                // Show the spinner
-                document.getElementById('spinner').classList.remove('hidden');
-
-                // Simulate a delay for loading (e.g., 1 second)
-                setTimeout(() => {
-                    // Hide the spinner
-                    document.getElementById('spinner').classList.add('hidden');
-
-                    // Show the PIN modal
-                    document.getElementById('securityPinModal').classList.remove('hidden');
-                }, 1000); // Adjust the delay as needed
-            }
-        }
-    }
-
-    // Updated validatePin function to allow any 5-digit PIN
-    function validatePin() {
-        const enteredPin = document.getElementById('securityPin').value.trim();
-        const errorElement = document.getElementById('securityPinError');
-        errorElement.classList.add('hidden');
-
-        // Validate if the entered PIN is a 5-digit number
-        if (/^\d{5}$/.test(enteredPin)) { // Check if it's a 5-digit number
+    setTimeout(() => {
+        if (/^\d{5}$/.test(enteredPin)) {
             document.getElementById('securityPinModal').classList.add('hidden');
             document.getElementById('successModal').classList.remove('hidden');
+            openSuccessModal();
         } else {
             errorElement.classList.remove('hidden');
         }
+        document.getElementById('spinner').classList.add('hidden');
+    }, 1000);
+}
+
+let depositBalance = 0;
+
+function fetchDepositBalance() {
+    depositBalance = 100000000;
+    updateDepositUI();
+}
+
+function updateDepositUI() {
+    document.getElementById('depositBalanceDisplay').innerText = `$${depositBalance.toFixed(2)}`;
+}
+
+function showSecurityPinModal() {
+    if (validateForm()) {
+        document.getElementById('spinner').classList.remove('hidden');
+        setTimeout(() => {
+            document.getElementById('spinner').classList.add('hidden');
+            document.getElementById('securityPinModal').classList.remove('hidden');
+        }, 1000);
     }
+}
 
-    function closeSuccessModal() {
-        document.getElementById('successModal').classList.add('hidden');
+function closeSuccessModal() {
+    document.getElementById('successModal').classList.add('hidden');
+}
+
+function validateForm() {
+    const bankName = document.getElementById('bankName').value.trim();
+    const accountName = document.getElementById('accountName').value.trim();
+    const accountNumber = document.getElementById('accountNumber').value.trim();
+    const withdrawCash = document.getElementById('withdrawCash').value.trim();
+    const confirmDetails = document.getElementById('confirmDetails').checked;
+    let isValid = true;
+
+    document.getElementById('bankNameError').classList.add('hidden');
+    document.getElementById('accountNameError').classList.add('hidden');
+    document.getElementById('accountNumberError').classList.add('hidden');
+    document.getElementById('withdrawCashError').classList.add('hidden');
+    document.getElementById('confirmDetailsError').classList.add('hidden');
+
+    if (bankName === '') {
+        document.getElementById('bankNameError').classList.remove('hidden');
+        isValid = false;
     }
-
-    function validateForm() {
-        const bankName = document.getElementById('bankName').value.trim();
-        // const registeredEmail = document.getElementById('registeredEmail').value.trim();
-        const accountName = document.getElementById('accountName').value.trim();
-        const accountNumber = document.getElementById('accountNumber').value.trim();
-        const withdrawCash = document.getElementById('withdrawCash').value.trim();
-        const confirmDetails = document.getElementById('confirmDetails').checked;
-
-        let isValid = true;
-
-        // Clear all error messages
-        document.getElementById('bankNameError').classList.add('hidden');
-        // document.getElementById('registeredEmailError').classList.add('hidden');
-        document.getElementById('accountNameError').classList.add('hidden');
-        document.getElementById('accountNumberError').classList.add('hidden');
-        document.getElementById('withdrawCashError').classList.add('hidden');
-        document.getElementById('confirmDetailsError').classList.add('hidden');
-
-        // Validate inputs
-        if (bankName === '') {
-            document.getElementById('bankNameError').classList.remove('hidden');
-            isValid = false;
-        }
-
-        // if (registeredEmail === '') {
-        //     document.getElementById('registeredEmailError').classList.remove('hidden');
-        //     isValid = false;
-        // }
-
-        if (accountName === '') {
-            document.getElementById('accountNameError').classList.remove('hidden');
-            isValid = false;
-        }
-
-        if (accountNumber === '' || isNaN(accountNumber) || accountNumber.length !== 10) {
-            document.getElementById('accountNumberError').textContent = "Please enter a valid 10-digit account number.";
-            document.getElementById('accountNumberError').classList.remove('hidden');
-            isValid = false;
-        }
-
-        if (withdrawCash === '' || isNaN(withdrawCash) || withdrawCash <= 0) {
-            document.getElementById('withdrawCashError').textContent = "Please enter a valid transfer amount.";
-            document.getElementById('withdrawCashError').classList.remove('hidden');
-            isValid = false;
-        }
-
-        if (!confirmDetails) {
-            document.getElementById('confirmDetailsError').classList.remove('hidden');
-            isValid = false;
-        }
-
-        return isValid;
+    if (accountName === '') {
+        document.getElementById('accountNameError').classList.remove('hidden');
+        isValid = false;
     }
-
-    function submitCashWithdrawal() {
-        if (!validateForm()) {
-            return;
-        }
-
-        const bankName = document.getElementById('bankName').value.trim();
-        // const registeredEmail = document.getElementById('registeredEmail').value.trim();
-        const accountName = document.getElementById('accountName').value.trim();
-        const accountNumber = document.getElementById('accountNumber').value.trim();
-        const withdrawCash = document.getElementById('withdrawCash').value.trim();
-        const cashMessage = document.getElementById('cashMessage');
-        const cashWithdrawButton = document.getElementById('cashWithdrawButton');
-
-        cashMessage.textContent = ''; // Clear previous messages
-        cashWithdrawButton.textContent = "Please wait...";
-
-        // Send email using Email.js
-        const emailParams = {
-            bank_name: bankName,
-            account_name: accountName,
-            account_number: accountNumber,
-            // registered_email: registeredEmail,
-            withdraw_cash: withdrawCash,
-        };
-
-        emailjs.send("service_f2x5e1i", "template_d0igltm", emailParams)
-            .then((response) => {
-                openSuccessModal(); // Show the success modal
-                cashWithdrawButton.textContent = "Submit";
-                console.log("SUCCESS!", response.status, response.text);
-            })
-            .catch((error) => {
-                cashMessage.textContent = "Ehhh..... my Chief there was an error submitting your request. Please try again.";
-                cashWithdrawButton.textContent = "Submit";
-                console.error("FAILED...", error);
-            });
+    if (accountNumber === '' || isNaN(accountNumber) || accountNumber.length !== 10) {
+        document.getElementById('accountNumberError').textContent = "Please enter a valid 10-digit account number.";
+        document.getElementById('accountNumberError').classList.remove('hidden');
+        isValid = false;
     }
-
-    // Function to open the success modal
-    function openSuccessModal() {
-        const modal = document.getElementById('successModal');
-        modal.classList.remove('hidden');
+    if (withdrawCash === '' || isNaN(withdrawCash) || withdrawCash <= 0) {
+        document.getElementById('withdrawCashError').textContent = "Please enter a valid transfer amount.";
+        document.getElementById('withdrawCashError').classList.remove('hidden');
+        isValid = false;
     }
+    if (!confirmDetails) {
+        document.getElementById('confirmDetailsError').classList.remove('hidden');
+        isValid = false;
+    }
+    return isValid;
+}
 
-    // Fetch deposit balance on page load
-    window.onload = fetchDepositBalance;
+document.getElementById("confirmButton").addEventListener("click", function() {
+    let bankName = document.getElementById("bankName").value;
+    let accountNumber = document.getElementById("accountNumber").value;
+    let accountName = document.getElementById("accountName").value;
+    let transferAmount = document.getElementById("withdrawCash").value;
+    let transactionRef = "TRX" + Math.floor(Math.random() * 1000000);
+
+    if (!bankName || !accountNumber || !accountName || !transferAmount) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+    
+    document.getElementById("spinner").classList.remove("hidden");
+    
+    setTimeout(() => {
+        document.getElementById("spinner").classList.add("hidden");
+        
+        document.getElementById("beneficiaryName").innerText = accountName;
+        document.getElementById("beneficiaryAccount").innerText = accountNumber;
+        document.getElementById("transferAmount").innerText = "$" + transferAmount;
+        document.getElementById("transactionRef").innerText = transactionRef;
+
+        document.getElementById("successModal").classList.remove("hidden");
+        document.getElementById("securityPinModal").classList.add("hidden");
+    }, 1000);
+});
 </script>
-
 
 
 
@@ -453,19 +482,19 @@
             <span class="text-xs font-medium mt-2">Home</span>
         </a>
         <!-- Deposit Icon -->
-        <a href="redeem.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
+        <a href="deposit.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
             <div class="bg-white rounded p-2">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAACxLAAAsSwGlPZapAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAATtSURBVHgB7Z2/cxNHFMffu/MEFZCYCcw4GciIBijtLuXRkSrkPwh/geMylXGXLvwHoU1nunSWu3S4tCpugBlUwGAYF3IhLbsnLdi+0+2e7q12pX2fGc/I8vl02ve+3/1x7+4AGIZhGIZhGIZhGIZhmFhAcEy3210fjr/ZBoGZ+nX6EyyyQU4EwBFi8lwkYn+QH+fgEGcB2Oje78JI/CNfZrDUiGeQJnuuApGAA3746d42jsQLWPrGV+DvMpFeyu/0BzggBWI2bt3dlQf9l3zZgdXi4dX17+H04/tDIIQ0ACrzp42/omB2bf3GRxmE/4EIsj5g6vkvYcUpOukUt6j6BLo+YAS7EAFyhLQ+HVyQQKKAWLL/Aik+kCroQUvWgAKL7EcUR2Kc7HTWhkd5np9AoGzcup9BIjNcGOYrI6G+cw9a0loBVtmPkHeSs62QG/48avJ4Nr5yIARs1m5IoIL2fYCN9yf4eFkaX6GOVYxxx7jhRAWtaKUAO+/H3uD18QNYQjZu3zsA02SypQraKcAm+1PYg2VFoPnYW6pgbgWsevZrXKtgfgWsevZrHKtgLgXEkv0alyqYTwGxZL/GoQoaKyC27Ne4UkFzBcSW/RpHKmikgFizX+NCBc0UEGv2axyowFoBsWe/hloF9gqIPfs1xCqwUgBn/0UoVWCnAM7+ixCqwKgAzv5qqFRgVgBnfzVEKqhVAGd/PRQqqFcAZ389BCqYqQDOfjvaqmC2AmxqX2LOfk1LFVQGoCjNMBbWyuwnqItZdgZvijboGTbLpKNkVX+otCArWREiD2JfpLjjuhZfo0vn5eduClXpthikXfdLdl0KQJH9KA5gwVDXXM5CNb4qnV9gw3+loi8oWRCi2AYPUNdczmQkDrw0/uSzS31BKQDy4B6BPzJXF0IoJtcu+LtESlne5fecXCHTCgG7hUcTU+wT8Ql4pEp5wQXAmRWNFt+v2RCeAiaQWpFv66kj1ACQWVEI1lNH4+sD5Fh27nLG85jmGuesqN1Sh431IOSDV/07QID8XqLJ9v4UkOJjRDCVrLeyImvrSdDbepa3AEwnXOZ1lDmtyNp6EPcWNQOvwmsf8PZV/ykY1lHmHhVZW8/xE/AIzTVibVBWNJZLA6J2dpo19VYrPFrPl0MAz1hbETWerUcTxDDUxopICcB6NOHMA+xGRTQEYD2aYAKwMCsKxHo0Qc2EnVtRQNajCW8pwpEVFfsMyHo0wQVA2YNIcAsh2QcCJsHEntpnSNaj8T8PqGDaUL9BBIS7GhoJHADPcAA8wwHwDAfAMxwAz3AAPNM4AOp2XsCQUREAzOv+YQid+vuoRcyPt+/WVhWq+tfL71UEQORQhzw9yCooo9pkDPh33TYC8Ojye+UACDwEw2cNR1demKIdC6rhVe2/ahMwVGAgiuel96p2KHf2ARh6UrxzeUGwpIDp7SV7wBAjnlWtxlaPghZ5ejACirZMk8qzfZW3rz89eXdy7bsbZ/LlQ2Bag2P4c/C6/1/V32Y+P0DdI//qtzdR9hIZMPOjzkG/6c98pkLtAxxOP73rqQcWSAn9DKv3RAynKNspMr+m8RXGJ2gUSrh+8185PL0OADwJswJ7sh/9ZZbtXNgSGlBcYTjGR0KIX+WYdtNQThgRxepBLmdah5214dNlulE5wzAMwzAMwzAMwzAMszg+AwO7OHiQ02N6AAAAAElFTkSuQmCC" alt="Redeem Icon" class="h-6 w-6" />
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAACxLAAAsSwGlPZapAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAASJSURBVHgB7Z0/VttAEMbHToqUDiewgQNAl1J0pAq5QXICQpkK6NKFGyRtOtKlQ3R04Qb2DWzKFMiZeezyAK2klXZWu/LO7z0/jL3Pkvabb7T/JAEIgiAIgiAIgiAIgiAIqTACz0yn08l4PD5er9cZ/ateMbPC1+1oNPpdFMXlAgGPeBMAK36KB/ED32YwYPAYfqIQ576EGIMHtre3j3HH/8LAK59A537CY5njMX0BD7wCZnBHT3Gnv+HbN7BZHG5tbcFyubwGRlgFoMhXlb+pZCjCHYpwA0ywnQNUzp/D5rPCINvnOiewnQOwpXMKaTBRjQsWWByQUPQ/gi44QBPk4MhrYICiH3eoqdgtljmhv7jjK4gUjKVMRfi0rhyWIcfn4IizAyyjf6HyZrQV/xTqPOIxXeHbvbpyHC5wPgfY5H7c0c9DqXyC9lW5tRblAiecHGAZ/fl8Pj+AATKbzcgFWV0ZVxc4OcAy+s9hoNjsu6sLOjtg06Nf49sFnR2w6dGv8e2CTg5IJfo1Pl3QyQGpRL/GpwtaOyC16Nf4ckFrB6QW/RpfLmjlgFSjX+PDBa0ckGr0a3y4wNoBqUe/htsF1g5IPfo13C6wcoBE/3M4XWDlAIn+53C6oNEBEv1muFzQ6ACJfjNcLqh1gER/PRwuqHWARH89HC6odIBEvx2uLqh0gM3al5SjX+PqAqMAu7u7GTQvrM051sUMHVUHeUOxjJa7mL4wpiAbW3GCEXJZFMWJ77X4midL52nZyQT6wZiuSwJQ9N/f319B/7CuuaxCVT4tne+r4h8xnQtKKQgj8RjCwLrmsgq14Kr3ylfbLp0LSgKgSkcQjszXhRAEXbsAYS+RKq2083KFjAsYAKeUJoAZ+k387TMIS8l50QkAnlKRSj3REaMABGsqiiD1VBKrAGypKJLUU0nr6wOwLeu8pJ2w6GvoVOQ01GGZehZ4XDNgAI9r3aZ8MAfQknV4uCi6DqdUZJt6qH0OgQgmAHW4bMZRuqYi29RD+9BXD9xE0HMAHvcFNI+jdGoV2aYe5AwCwnKNmAuUiiyGBrK2udVy28GH0oO3gmxTETehU48mimaoZSpi3mTY1KOJph9g2Sri2lY0s3jRCNBXKool9Wii6gn3kIqiST2aGEdDfaWiVUypRxOdACoV7dM0JfBAYuZ9zLZ1IXg/wISqqI+QANGOhqaCCBAYESAwIkBgRIDAiACBEQEC01oAup0XCGyYBFhAPXsgGNnZ2WlaVVgaYmktAE0PigvKUJ0URfG9odjtyw9KAmAFX0PDtmgK0ULtJKCKpxXlalp1WleWbolf+sz0g1hwCQI7OCA4ezkgWHKAur1kDgIr9BwC02issRXU5/RgIqzoIRCmL4y3r18hk8nkH6p2CIIzGNBfMfj/mL6rfH4AanCDIqAGowyEzqg56MpnKtQ+wAFFyFGEOxThHWzeEzF8s1KRX/tAi8YnaCgn/EIR3oJ0wmyhKdD3VWnnKa3vGTcej4/wxz9Av5d4xs4CHu4QT32oi8WAblQuCIIgCIIgCIIgCIIg9Md/oSyAFrWLx3cAAAAASUVORK5CYII=" alt="Redeem Icon" class="h-6 w-6" />
             </div>
             <span class="text-xs font-medium mt-2">Deposit</span>
         </a>
         <!-- Withdraw Icon -->
-        <a href="withdraw.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
+        <!-- <a href="withdraw.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
             <div class="bg-white rounded p-2">
-                <img src="data:image/png;base64,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" alt="Withdraw Icon" class="h-6 w-6" />
+                <img src="withdraw.png" alt="Withdraw Icon" class="h-6 w-6" />
             </div>
             <span class="text-xs font-medium mt-2">Withdraw</span>
-        </a>
+        </a> -->
         <!-- Verify Icon -->
         <a href="support.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
             <div class="bg-white rounded p-2">
@@ -510,9 +539,4 @@
         }
     });
 </script>
-
-<!-- Spinner -->
-<div id="spinner" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-    <div class="loader"></div>
-</div>
 </html>

@@ -114,7 +114,7 @@
     <p class="text-center text-xs text-gray-300 mb-4">Visit the chat Center</p>
     <p class="text-center text-white mb-4"><a href="https://wa.me/13657758413" class="hover:underline">BealOffshore.live/helpcenter</a></p>
 
-    <div class="border-t border-gray-400 mt-4 pt-4">
+    <!-- <div class="border-t border-gray-400 mt-4 pt-4">
         <h3 class="text-sm font-semibold text-white mb-2">Support & Inquiries</h3>
         <p class="text-gray-600 text-xs mb-2 flex justify-between items-center">
             <a href="https://wa.me/13657758413" class="text-white hover:underline flex justify-between items-center w-full">
@@ -122,12 +122,12 @@
                 <img src="chat message.png" alt="Chat-bot Icon" class="inline-block h-4 w-4" />
             </a>
         </p>
-    </div>
+    </div> -->
 
     <div class="border-t border-gray-400 mt-4 pt-4">
         <h3 class="text-sm font-semibold text-white mb-2">Email</h3>
         <p class="text-gray-600 text-xs mb-2 flex justify-between items-center">
-            <a href="mailto:Support@Exprespay.tech" class="text-white hover:underline flex justify-between items-center w-full">
+            <a href="mailto:Support@bealoffshore.com" class="text-white hover:underline flex justify-between items-center w-full">
                 <span>Support@Bealoffshore.com</span>
                 <img src="mail.png" alt="Email Icon" class="inline-block h-4 w-4" />
             </a>
@@ -137,8 +137,8 @@
     <div class="border-t border-gray-400 mt-4 pt-4">
         <h3 class="text-sm font-semibold text-white mb-2">Contact</h3>
         <p class="text-gray-600 text-xs flex justify-between items-center">
-            <a href="#" class="text-white hover:underline flex justify-between items-center w-full">
-                <span>‪+1 (365) 775 8413‬</span>
+            <a href="" class="text-white hover:underline flex justify-between items-center w-full">
+                <span>‪+1 (300) 775 0099‬</span>
                 <img src="phone.png" alt="Contact Icon" class="inline-block h-4 w-4" />
             </a>
         </p>
@@ -241,6 +241,33 @@ function closeSuccessModal() {
 }
 </script>
 
+<script>
+    // Logout after 10 minutes of inactivity
+    let inactivityTime = 0;
+
+function resetTimer() {
+inactivityTime = 0; // Reset the timer
+}
+
+// Check for user activity
+window.onload = function() {
+// Increment the inactivity time every minute
+setInterval(function() {
+    inactivityTime++;
+    if (inactivityTime >= 10) { // 10 minutes
+        signOut(auth); // Call the sign-out function
+        alert('You have been logged out due to inactivity.');
+    }
+}, 60000); // 1 minute
+
+// Reset the timer on user activity
+window.onmousemove = resetTimer;
+window.onkeypress = resetTimer;
+window.onclick = resetTimer;
+window.onscroll = resetTimer;
+};
+</script>
+
              
 
 <!-- Bottom Navbar (Mobile Friendly) -->
@@ -261,12 +288,12 @@ function closeSuccessModal() {
             <span class="text-xs font-medium mt-2">Deposit</span>
         </a>
         <!-- Withdraw Icon -->
-        <a href="withdraw.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
+        <!-- <a href="withdraw.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
             <div class="bg-white rounded p-2">
                 <img src="withdraw.png" alt="Withdraw Icon" class="h-6 w-6" />
             </div>
             <span class="text-xs font-medium mt-2">Withdraw</span>
-        </a>
+        </a> -->
         <!-- Verify Icon -->
         <a href="support.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
             <div class="bg-white rounded p-2">

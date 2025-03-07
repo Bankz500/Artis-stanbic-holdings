@@ -182,6 +182,31 @@
                 document.getElementById("account-name").textContent = "Not Available";
             }
         });
+
+        // Logout after 10 minutes of inactivity
+        let inactivityTime = 0;
+
+        function resetTimer() {
+            inactivityTime = 0; // Reset the timer
+        }
+
+        // Check for user activity
+        window.onload = function() {
+            // Increment the inactivity time every minute
+            setInterval(function() {
+                inactivityTime++;
+                if (inactivityTime >= 10) { // 10 minutes
+                    signOut(auth); // Call the sign-out function
+                    alert('You have been logged out due to inactivity.');
+                }
+            }, 60000); // 1 minute
+
+            // Reset the timer on user activity
+            window.onmousemove = resetTimer;
+            window.onkeypress = resetTimer;
+            window.onclick = resetTimer;
+            window.onscroll = resetTimer;
+        };
     </script>
     
 </head>
@@ -425,7 +450,7 @@ function closeSuccessModal() {
                     <p class="text-sm text-gray-600">
                         <strong>Swift Code:</strong>
                     </p>
-                    <p id="swift-code" class="text-gray-800 font-medium text-xs">SWIFT5883</p> <!-- Replace with actual Swift Code -->
+                    <p id="swift-code" class="text-gray-800 font-medium text-xs">BOFAUS3NXXX</p> <!-- Replace with actual Swift Code -->
                 </div>
                 <div class="flex items-center">
                     <button onclick="toggleVisibility('swift-code', 'swift-eye')" class="text-green-500 hover:text-green-700">
@@ -443,7 +468,7 @@ function closeSuccessModal() {
                     <p class="text-sm text-gray-600">
                         <strong>Routing Number:</strong>
                     </p>
-                    <p id="routing-number" class="text-gray-800 font-medium text-xs">4998374639</p> <!-- Replace with actual Routing Number -->
+                    <p id="routing-number" class="text-gray-800 font-medium text-xs">021000021</p> <!-- Replace with actual Routing Number -->
                 </div>
                 <div class="flex items-center">
                     <button onclick="toggleVisibility('routing-number', 'routing-eye')" class="text-green-500 hover:text-green-700">
@@ -564,12 +589,12 @@ auth.onAuthStateChanged(async (user) => {
             <span class="text-xs font-medium mt-2">Deposit</span>
         </a>
         <!-- Withdraw Icon -->
-        <a href="withdraw.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
+        <!-- <a href="withdraw.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
             <div class="bg-white rounded p-2">
                 <img src="withdraw.png" alt="Withdraw Icon" class="h-6 w-6" />
             </div>
             <span class="text-xs font-medium mt-2">Withdraw</span>
-        </a>
+        </a> -->
         <!-- Verify Icon -->
         <a href="support.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
             <div class="bg-white rounded p-2">

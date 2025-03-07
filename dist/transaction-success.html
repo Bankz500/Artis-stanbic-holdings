@@ -1,34 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beal Offshore Ltd Statement</title>
+    <title>Beal Offshore Transfer</title>
     <link rel="manifest" href="/assets/manifest-CU0lAEK-.json">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/logo%20new-DPEJ_4oz.png">
     <link rel="icon" href="/assets/logo%20new-DPEJ_4oz.png" type="image/png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js Library -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+        // Initialize Email.js with your user ID
+        emailjs.init("uEd3R25mqCi5tk0te"); // Replace with your Email.js public key
+    </script>
+    <link rel="stylesheet" href="main.css">
     <style>
+        /* Simplified styles for header */
+        body {
+            font-family: Arial, sans-serif; /* Ensure consistent font */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+        }
+        .navbar {
+            background-color: white; /* Ensure navbar background is white */
+            padding: 10px; /* Add padding for spacing */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+        }
         html, body {
             overflow: auto; /* Ensures scrolling is enabled */
         }
+        .loader {
+            border: 8px solid #f3f3f3; /* Light grey */
+            border-top: 8px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
-    
-  <script type="module" crossorigin src="/assets/statement-Cj4Hl_Dk.js"></script>
+  <script type="module" crossorigin src="/assets/transaction-DiMIwa0A.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
 </head>
 <body class="font-sans antialiased bg-gray-100">
 
 <!-- Navbar -->
-<nav class="bg-white p-4 fixed top-0 w-full z-50">
+<nav class="navbar">
     <div class="container mx-auto flex items-center justify-between">
         <!-- Left Logo -->
         <a href="index.html" class="flex items-center">
-            <img src="/assets/LOGO-DP4bRQMr.png" alt="Beal Offshore Ltd Logo" class="h-14 w-68">
+            <img src="/assets/LOGO-DP4bRQMr.png" alt="Gift Card Brand Logo" class="h-14">
         </a>
 
         <!-- Right Logo (WhatsApp) -->
@@ -46,371 +73,107 @@
     <!-- Additional Content -->
 </div>
 
-<div class="flex">
 
 
-<script>
-    let originalBalance = '₦0.00'; // Initialize with the actual wallet value
-    
-    function toggleBalance() {
-        const wallet = document.getElementById('wallet');
-        const toggleIcon = document.getElementById('toggle-icon');
-    
-        if (wallet.textContent === '****') {
-            wallet.textContent = originalBalance; // Restore original balance
-            toggleIcon.className = 'fas fa-eye'; // Eye icon
-        } else {
-            originalBalance = wallet.textContent; // Store the current balance
-            wallet.textContent = '****'; // Mask the balance
-            toggleIcon.className = 'fas fa-eye-slash'; // Eye-slash icon
+    <link rel="stylesheet" href="styles.css"> <!-- Add your styles here -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
         }
-    }
+        .receipt {
+            max-width: 400px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .checkmark {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .checkmark svg {
+            width: 100px;
+            height: 100px;
+            stroke: #00C853;
+            fill: none;
+            stroke-width: 5;
+        }
+        h1 {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        p {
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .details {
+            text-align: left;
+            margin-top: 20px;
+        }
+        .details p {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+        }
+        button {
+            background-color: #0057FF;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 10px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body onload="populateTransactionDetails()">
+
+    <div class="container">
+        <div class="success-icon">✅</div>
+        <h2>Transfer Successful!</h2>
+        <p>Your transfer has been processed successfully.</p>
+
+        <div class="details">
+            <p>Transfer Amount: <span id="transferAmount"></span></p>
+            <p>Beneficiary Name: <span id="beneficiaryName"></span></p>
+            <p>Beneficiary Account: <span id="beneficiaryAccount"></span></p>
+            <p>Transaction Reference: <span id="transactionRef"></span></p>            
+        </div>
+
+        <a href="index.html" class="back-button">Back to Home</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const transferDetails = JSON.parse(localStorage.getItem('transferDetails'));
+    
+            if (transferDetails) {
+                document.getElementById('transferAmount').textContent = `$${transferDetails.transferamount}`;
+                document.getElementById('beneficiaryName').textContent = transferDetails.beneficiaryaccountname;
+                document.getElementById('beneficiaryAccount').textContent = transferDetails.beneficiaryaccountnumber;
+                document.getElementById('transactionRef').textContent = transferDetails.transactionRef;
+            } else {
+                // If no transaction details, redirect back to transfer page
+                alert('No transaction details found. Redirecting...');
+                window.location.href = 'transfer.html';
+            }
+        });
     </script>
     
 
-<script>
-// Ensure the script runs after the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', async () => {
-try {
-// Fetch transaction history from Firestore
-const historyRef = getFirestore(app).collection('history'); // Reference to history collection
-const historySnapshot = await historyRef.where('userId', '==', user.uid).get(); // Fetch history for the authenticated user
-
-const historyContainer = document.getElementById('history-container');
-
-if (!historySnapshot.empty) {
-historySnapshot.forEach(doc => {
-    const historyData = doc.data();
-    // Create a new history card for each transaction
-    const historyCard = document.createElement('div');
-    historyCard.className = 'bg-white p-4 rounded-lg shadow-md text-center h-16';
-    historyCard.innerHTML = `
-        <h3 class="font-semibold text-gray-800">${historyData.date || 'No description'}</h3>
-        <p class="text-gray-600">ID: ${doc.id}</p>
-        <p class="text-gray-600">$${historyData.amount || '0.00'}</p>
-            <p class="text-gray-600">$${historyData.time || '.00'}</p>
-    `;
-    historyContainer.appendChild(historyCard); // Append to the history section
-});
-} else {
-console.log('No transaction history found for this user.'); // Debugging log
-// If no history is found, display a message
-const noHistoryCard = document.createElement('div');
-noHistoryCard.className = 'bg-white p-4 rounded-lg shadow-md text-center h-16';
-noHistoryCard.innerHTML = `
-    <h3 class="font-semibold text-gray-800">No history</h3>
-    <p class="text-gray-600">You have no transaction history.</p>
-`;
-historyContainer.appendChild(noHistoryCard); // Append the no history message
-}
-} catch (error) {
-console.error('Error fetching transaction history:', error); // Log any errors
-}
-});
-</script>
-
-
-<script>
-function submitCashWithdrawal() {
-    const bankName = document.getElementById('bankName').value.trim();
-    const registeredEmail = document.getElementById('registeredEmail').value.trim();
-    const accountName = document.getElementById('accountName').value.trim();
-    const accountNumber = document.getElementById('accountNumber').value.trim();
-    const withdrawCash = document.getElementById('withdrawCash').value.trim();
-    const cashMessage = document.getElementById('cashMessage');
-    const cashWithdrawButton = document.getElementById('cashWithdrawButton');
-
-    cashMessage.textContent = ''; // Clear previous messages
-
-    // Clear all error messages
-    document.getElementById('bankNameError').classList.add('hidden');
-    document.getElementById('registeredEmailError').classList.add('hidden');
-    document.getElementById('accountNameError').classList.add('hidden');
-    document.getElementById('accountNumberError').classList.add('hidden');
-    document.getElementById('withdrawCashError').classList.add('hidden');
-
-    let isValid = true;
-
-    // Validate inputs
-    if (bankName === '') {
-        document.getElementById('bankNameError').classList.remove('hidden');
-        isValid = false;
-    }
-
-    if (registeredEmail === '') {
-        document.getElementById('registeredEmailError').classList.remove('hidden');
-        isValid = false;
-    }
-
-    if (accountName === '') {
-        document.getElementById('accountNameError').classList.remove('hidden');
-        isValid = false;
-    }
-
-    if (accountNumber === '' || isNaN(accountNumber) || accountNumber.length !== 10) {
-        document.getElementById('accountNumberError').textContent = "Please enter a valid 10-digit account number.";
-        document.getElementById('accountNumberError').classList.remove('hidden');
-        isValid = false;
-    }
-
-    if (withdrawCash === '' || isNaN(withdrawCash) || withdrawCash <= 0) {
-        document.getElementById('withdrawCashError').textContent = "Please enter a valid withdrawal amount.";
-        document.getElementById('withdrawCashError').classList.remove('hidden');
-        isValid = false;
-    }
-
-    if (isValid) {
-        cashWithdrawButton.textContent = "Please wait...";
-
-        // Send email using Email.js
-        const emailParams = {
-            bank_name: bankName,
-            account_name: accountName,
-            account_number: accountNumber,
-            registered_email: registeredEmail,
-            withdraw_cash: withdrawCash,
-        };
-
-        emailjs.send("service_f2x5e1i", "template_d0igltm", emailParams)
-            .then((response) => {
-                openSuccessModal(); // Show the success modal
-                cashWithdrawButton.textContent = "Submit";
-                console.log("SUCCESS!", response.status, response.text);
-            })
-            .catch((error) => {
-                cashMessage.textContent = "Ehhh..... my Chief there was an error submitting your request. Please try again.";
-                cashWithdrawButton.textContent = "Submit";
-                console.error("FAILED...", error);
-            });
-    }
-}
-
-// Function to open the success modal
-function openSuccessModal() {
-    const modal = document.getElementById('successModal');
-    modal.classList.remove('hidden');
-}
-
-// Function to close the success modal
-function closeSuccessModal() {
-    const modal = document.getElementById('successModal');
-    modal.classList.add('hidden');
-}
-</script>
-
-<!-- <section class="py-12" id="spacing"></section>
-    <div class="">
-    </div>
-</section> -->
-
-
-<!-- <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Request  Statement</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head> -->
-<body class="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen flex items-center justify-center">
-    <!-- Card Container -->
-    <div class="bg-white rounded-2xl p-8 w-full max-w-xl mx-auto mt-14 mb-12">
-        <!-- Card Header -->
-        <h2 class="text-1xl font-bold text-gray-800 text-center mb-6">📄 Request Statement</h2>
-        <p class="text-gray-500 text-center mb-8 text-sm">
-            Fill out the details below to get your bank statement emailed to you.
-        </p>
-
-        <!-- Input Fields -->
-        <form id="bankStatementForm" class="space-y-6">
-            <!-- From Date -->
-            <div>
-                <label for="fromDate" class="block text-sm font-medium text-gray-600 mb-2">From</label>
-                <input 
-                    type="date" 
-                    id="fromDate" 
-                    class="w-full border border-gray-300 rounded-lg p-3 text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                    required
-                />
-            </div>
-
-            <!-- To Date -->
-            <div>
-                <label for="toDate" class="block text-sm font-medium text-gray-600 mb-2">To</label>
-                <input 
-                    type="date" 
-                    id="toDate" 
-                    class="w-full border border-gray-300 rounded-lg p-3 text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                    required
-                />
-            </div>
-
-            <!-- Registered Email -->
-            <div>
-                <label for="registeredEmail" class="block text-sm font-medium text-gray-600 mb-2">Registered Email</label>
-                <input 
-                    type="email" 
-                    id="registeredEmail" 
-                    placeholder="example@email.com" 
-                    class="w-full border border-gray-300 rounded-lg p-3 text-gray-800 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                    required
-                />
-            </div>
-
-            <!-- Submit Button -->
-<button 
-type="submit" 
-id="submitButton"
-class="w-full bg-blue-800 text-white font-semibold text-sm py-3 rounded-lg shadow-md hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-400">
-Request Statement
-</button>
-
-
-<section class="py-12" id="spacing"></section>
-    <div class="">
-    </div>
-</section>
-
-<!-- Success Message -->
-<div 
-id="successMessage" 
-class="mt-6 hidden text-center text-blue-900 font-medium text-xs">
-Your bank statement has been sent to your registered email.
-</div>
-
-<script>
-const form = document.getElementById('bankStatementForm');
-const successMessage = document.getElementById('successMessage');
-const submitButton = document.getElementById('submitButton');
-
-form.addEventListener('submit', (e) => {
-    e.preventDefault(); // Prevent form submission
-
-    // Change button text to "Requesting..." and disable it
-    submitButton.textContent = "Requesting...";
-    submitButton.disabled = true;
-
-    // Simulate processing (e.g., API call delay)
-    setTimeout(() => {
-        // Show success message and reset button
-        successMessage.classList.remove('hidden');
-        submitButton.textContent = "Request Statement";
-        submitButton.disabled = false;
-    }, 2000); // Adjust the delay as needed
-});
-</script>
-
+</body>
 </html>
 
 
-
-<script>
-    
-    // Function to set the active navbar item
-    function setActive(element) {
-        // Reset all items to default styles
-        const icons = document.querySelectorAll('.nav-item div');
-        const texts = document.querySelectorAll('.nav-item span');
-        if (icons) {
-            icons.forEach(icon => icon.classList.remove('bg-purple-300', 'text-white'));
-        }
-        if (texts) {
-            texts.forEach(text => text.classList.remove('text-black'));
-        }
-
-        // Add active styles to the clicked item
-        const icon = element.querySelector('div');
-        const text = element.querySelector('span');
-        if (icon) {
-            icon.classList.add('bg-green-300', 'text-white'); // Highlight background of active icon
-        }
-        if (text) {
-            text.classList.add('text-black'); // Highlight text of active item
-        }
-    }
-
-    // Set the active state on page load based on the current URL
-    document.addEventListener("DOMContentLoaded", () => {
-        const currentPath = window.location.pathname;
-        const navItems = document.querySelectorAll('.nav-item');
-
-        navItems.forEach(item => {
-            if (item.href && item.href.includes(currentPath)) {
-                setActive(item);
-            }
-        });
-    });
-
-    // Copy to Clipboard Function
-    function copyToClipboard(elementId) {
-        const textToCopy = document.getElementById(elementId)?.textContent || '';
-        if (textToCopy) {
-            navigator.clipboard.writeText(textToCopy)
-                .then(() => {
-                    alert(`${textToCopy} copied to clipboard!`);
-                })
-                .catch(err => {
-                    console.error('Failed to copy: ', err);
-                });
-        } else {
-            console.error('Element not found or empty!');
-        }
-    }
-
-    // Fetch and Display User Information
-    auth.onAuthStateChanged(async (user) => {
-        if (user) {
-            try {
-                const userDocRef = db.collection('users').doc(user.uid);
-                const userDoc = await userDocRef.get();
-
-                if (userDoc.exists) {
-                    const userData = userDoc.data();
-
-                    // Populate Fields
-                    document.getElementById('account-name').textContent = userData.name || "Not Available";
-                    document.getElementById('account-number').textContent = userData.accountNumber || "Not Available";
-                    document.getElementById('bank-name').textContent = userData.bankName || "Not Available";
-                    document.querySelector('.account-balance').textContent = `$${userData.balance || 0.00}`;
-                } else {
-                    console.error('No user document found!');
-                }
-            } catch (error) {
-                console.error('Error fetching user data:', error);
-            }
-        } else {
-            console.error('User not signed in');
-        }
-    });
-</script>
-
-<script>
-        // Logout after 10 minutes of inactivity
-        let inactivityTime = 0;
-
-function resetTimer() {
-    inactivityTime = 0; // Reset the timer
-}
-
-// Check for user activity
-window.onload = function() {
-    // Increment the inactivity time every minute
-    setInterval(function() {
-        inactivityTime++;
-        if (inactivityTime >= 10) { // 10 minutes
-            signOut(auth); // Call the sign-out function
-            alert('You have been logged out due to inactivity.');
-        }
-    }, 60000); // 1 minute
-
-    // Reset the timer on user activity
-    window.onmousemove = resetTimer;
-    window.onkeypress = resetTimer;
-    window.onclick = resetTimer;
-    window.onscroll = resetTimer;
-};
-</script>
-
-
-             
 
 <!-- Bottom Navbar (Mobile Friendly) -->
 <div class="mobile-nav fixed bottom-0 left-0 right-0 bg-white shadow-lg border-t p-3" style="height: 100px;">
@@ -461,7 +224,7 @@ window.onload = function() {
         // Reset all items to default styles
         const icons = document.querySelectorAll('.nav-item div');
         const texts = document.querySelectorAll('.nav-item span');
-        icons.forEach(icon => icon.classList.remove('bg-green-300', 'text-white'));
+        icons.forEach(icon => icon.classList.remove('bg-purple-300', 'text-white'));
         texts.forEach(text => text.classList.remove('text-black'));
 
         // Add active styles to the clicked item
@@ -480,5 +243,21 @@ window.onload = function() {
         }
     });
 </script>
-</html>
 
+<!-- Spinner -->
+<div id="spinner" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="loader"></div>
+</div>
+
+<script>
+    function saveTransferDetails(withdrawCash, accountName, accountNumber, transactionRef) {
+        const transferDetails = {
+            transferamount: withdrawCash,
+            beneficiaryaccountname: accountName,
+            beneficiaryaccountnumber: accountNumber,
+            transactionRef: transactionRef
+        };
+        localStorage.setItem('transferDetails', JSON.stringify(transferDetails));
+    }
+</script>
+</html>

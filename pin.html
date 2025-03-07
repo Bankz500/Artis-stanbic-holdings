@@ -224,13 +224,40 @@
 
             <!-- Input Fields -->
             <form id="changePinForm" class="space-y-6">
-                <!-- New PIN -->
-                <div>
-                    <label for="newPin" class="block text-sm font-medium text-gray-600 mb-2">Enter New PIN</label>
-                    <input type="password" id="newPin" maxlength="5" placeholder="5-digit PIN"
-                        class="w-full border border-gray-300 rounded-lg p-3 text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        required />
-                </div>
+            <!-- New PIN -->
+            <div class="relative">
+                <label for="newPin" class="block text-sm font-medium text-gray-600 mb-2">Enter New PIN</label>
+                <input 
+                    type="password" 
+                    id="newPin" 
+                    maxlength="5" 
+                    placeholder="5-digit PIN"
+                    class="w-full border border-gray-300 rounded-lg p-3 text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10"
+                    required 
+                />
+                <button type="button" onclick="togglePinVisibility()" class="absolute right-3 top-10">
+                    <svg id="eyeIcon" class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                </button>
+            </div>
+
+            <script>
+            function togglePinVisibility() {
+                const pinInput = document.getElementById("newPin");
+                const eyeIcon = document.getElementById("eyeIcon");
+
+                if (pinInput.type === "password") {
+                    pinInput.type = "text";
+                    eyeIcon.innerHTML = `<path d="M17.94 17.94A10.09 10.09 0 0 1 12 20c-7 0-11-8-11-8a18.66 18.66 0 0 1 3-4m3.53-2.36A10.09 10.09 0 0 1 12 4c7 0 11 8 11 8a18.3 18.3 0 0 1-1.72 2.82M15 12a3 3 0 1 0-3 3m8.17 8.17L3 3"></path>`;
+                } else {
+                    pinInput.type = "password";
+                    eyeIcon.innerHTML = `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>`;
+                }
+            }
+            </script>
+              
 
                 <!-- Submit Button -->
                 <button type="submit" id="submitButton"
@@ -283,8 +310,9 @@
                 </button>
                 <!-- Cancel Button -->
                 <button type="button" id="cancelButton"
-                    class="w-full bg-gray-300 text-gray-800 font-semibold text-sm py-3 rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400">
-                    Cancel
+                class="w-full bg-gray-300 text-gray-800 font-semibold text-sm py-3 rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400"
+                onclick="window.location.href='pin.html';">
+                Cancel
                 </button>
             </div>
         </form>
@@ -312,13 +340,6 @@
                     <img src="deposit.png" alt="Redeem Icon" class="h-6 w-6" />
                 </div>
                 <span class="text-xs font-medium mt-2">Deposit</span>
-            </a>
-            <!-- Withdraw Icon -->
-            <a href="withdraw.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
-                <div class="bg-white rounded p-2">
-                    <img src="withdraw.png" alt="Withdraw Icon" class="h-6 w-6" />
-                </div>
-                <span class="text-xs font-medium mt-2">Withdraw</span>
             </a>
             <!-- Verify Icon -->
             <a href="support.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
