@@ -63,11 +63,11 @@
 </div>
 
 
-    <div class="flex">
+     <div class="flex">
 
 <!-- Main Content -->
 <div class="flex-1 p-4 bg-gray-100 pb-24 md:pb-0"> 
-    <div class="flex-1 p-6 bg-white rounded pb-0 text-black">
+    <div class="flex-1 p-6 bg-white rounded pb-0 text-black mb-6">
         <h1 class="text-xl font-semibold mb-6 text-black"></h1>
 
         <!-- Tabs for Cash Withdrawal -->
@@ -87,6 +87,26 @@
             </p>
             <form id="withdrawalForm">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <!-- Select Transfer Type -->
+                    <div class="relative">
+                        <label class="block text-xs text-black mb-2">Select Transfer Type</label>
+                        <div class="flex gap-4">
+                            <button type="button" id="internationalTransfer" onclick="selectTransferType('International')" 
+                                class="flex-1 flex items-center border rounded justify-left gap-2 text-xs md:text-xs text-black px-2 py-2">
+                                <span id="dotInternational" class=""></span>
+                                International
+                            </button>
+                            <button type="button" id="domesticTransfer" onclick="selectTransferType('Domestic')" 
+                                class="flex-1 flex items-center border rounded justify-left gap-2 text-xs md:text-xs text-black px-2 py-2">
+                                <span id="dotDomestic" class=""></span>
+                                Domestic
+                            </button>
+                        </div>
+                        <p id="transferTypeError" class="text-red-500 text-xs hidden mt-2">Transfer Type is required</p>
+                    </div>
+
+
                     <div class="relative">
                         <label for="bankName" class="block text-xs text-black mb-2">
                             Beneficiary Bank Name
@@ -159,7 +179,7 @@
                         id="withdrawCash" 
                         class="w-full bg-white border border-gray-300 rounded px-4 py-3 text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-purple-300 focus:ring-purple-500 text-xs" 
                         placeholder="$ Enter amount"
-                        oninput="formatAmount(this)"
+                        oninput="checkBalance()"
                     />
                     <p id="withdrawCashError" class="text-red-500 text-xs hidden mt-2">
                         Amount is required
@@ -168,17 +188,22 @@
                         Insufficient balance for the transfer.
                     </p>
                 </div>
-                
-                <script>
-                function formatAmount(input) {
-                    let value = input.value.replace(/,/g, '').replace(/\$/g, ''); // Remove existing commas and dollar signs
-                    if (!isNaN(value) && value !== '') {
-                        let formattedValue = Number(value).toLocaleString(); // Format number with commas
-                        input.value = formattedValue;
-                    }
-                }
-                </script>
-                
+
+                <!-- Payment Description -->
+                <div class="mt-6">
+                    <label for="paymentDescription" class="block text-xs text-black mb-2">
+                        Payment Description
+                    </label>
+                    <input 
+                        type="text" 
+                        id="paymentDescription" 
+                        class="w-full bg-white border border-gray-300 rounded px-4 py-3 text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-purple-300 text-xs" 
+                        placeholder="Enter payment description"
+                    />
+                    <p id="paymentDescriptionError" class="text-red-500 text-xs hidden mt-2">
+                        Payment Description is required
+                    </p>
+                </div>
         
                 <div class="pt-10">
                     <div class="bg-gray-100 border-l-4 border-blue-900 text-blue-900 p-5 rounded mb-4 text-xs text-center">
@@ -282,6 +307,14 @@
                 <span id="beneficiaryAccount" class="text-right text-gray-700">-</span>
             </div>
             <div class="flex justify-between text-gray-900 font-medium">
+                <span>Transfer Type</span> 
+                <span id="receiptTransferType" class="text-right text-gray-700">-</span>
+            </div>
+            <div class="flex justify-between text-gray-900 font-medium">
+                <span>Payment Description</span> 
+                <span id="receiptPaymentDescription" class="text-right text-gray-700">-</span>
+            </div>
+            <div class="flex justify-between text-gray-900 font-medium">
                 <span>Transaction Ref</span> 
                 <span id="transactionRef" class="text-right text-gray-700">-</span>
             </div>
@@ -340,23 +373,64 @@
 
 <script>
 
+let depositBalance = 0; // Fetch this value from Firebase when the page loads.
+
+// Fetch deposit balance from Firebase (simulate this with a placeholder)
+function fetchDepositBalance() {
+    depositBalance = 100000000; // Example balance
+    updateDepositUI();
+}
+
+// Update the deposit balance display
+function updateDepositUI() {
+    document.getElementById('depositBalanceDisplay').innerText = `$${depositBalance.toFixed(2)}`;
+}
+
+// Check if entered amount exceeds deposit balance
+function checkBalance() {
+    const amountInput = document.getElementById('withdrawCash');
+    const insufficientBalanceError = document.getElementById('insufficientBalanceError');
+
+    const enteredAmount = parseFloat(amountInput.value.replace(/[^0-9.]/g, '')) || 0;
+
+    if (enteredAmount > depositBalance) {
+        insufficientBalanceError.classList.remove('hidden');
+    } else {
+        insufficientBalanceError.classList.add('hidden');
+    }
+}
+
+// Function to show a spinner and redirect after a delay
 function showSpinnerAndRedirect() {
     let closeButton = document.getElementById("closeSuccessButton");
-    
-    // Disable button and show loading text
-    closeButton.innerText = "Please wait...";
-    closeButton.disabled = true;
-
-    // Redirect to transfer.html after a short delay
-    setTimeout(() => {
-        window.location.href = "transfer.html";
-    }, 1000); 
+    if (closeButton) {
+        closeButton.innerText = "Please wait...";
+        closeButton.disabled = true;
+        setTimeout(() => {
+            window.location.href = "transfer.html";
+        }, 1000);
+    }
 }
 
-function closeSecurityPinModal() {
-    document.getElementById('securityPinModal').classList.add('hidden');
+// Validate form before showing security PIN modal
+function showSecurityPinModal() {
+    if (validateForm()) {
+        const withdrawCash = parseFloat(document.getElementById('withdrawCash').value.replace(/[^0-9.]/g, '')) || 0;
+
+        if (withdrawCash > depositBalance) {
+            document.getElementById('insufficientBalanceError').classList.remove('hidden');
+        } else {
+            document.getElementById('spinner').classList.remove('hidden');
+
+            setTimeout(() => {
+                document.getElementById('spinner').classList.add('hidden');
+                document.getElementById('securityPinModal').classList.remove('hidden');
+            }, 1000);
+        }
+    }
 }
 
+// Validate PIN input
 function validatePin() {
     const enteredPin = document.getElementById('securityPin').value.trim();
     const errorElement = document.getElementById('securityPinError');
@@ -367,7 +441,6 @@ function validatePin() {
         if (/^\d{5}$/.test(enteredPin)) {
             document.getElementById('securityPinModal').classList.add('hidden');
             document.getElementById('successModal').classList.remove('hidden');
-            openSuccessModal();
         } else {
             errorElement.classList.remove('hidden');
         }
@@ -375,97 +448,126 @@ function validatePin() {
     }, 1000);
 }
 
-let depositBalance = 0;
-
-function fetchDepositBalance() {
-    depositBalance = 100000000;
-    updateDepositUI();
-}
-
-function updateDepositUI() {
-    document.getElementById('depositBalanceDisplay').innerText = `$${depositBalance.toFixed(2)}`;
-}
-
-function showSecurityPinModal() {
-    if (validateForm()) {
-        document.getElementById('spinner').classList.remove('hidden');
-        setTimeout(() => {
-            document.getElementById('spinner').classList.add('hidden');
-            document.getElementById('securityPinModal').classList.remove('hidden');
-        }, 1000);
-    }
-}
-
 function closeSuccessModal() {
     document.getElementById('successModal').classList.add('hidden');
 }
 
+// Validate the form inputs
 function validateForm() {
     const bankName = document.getElementById('bankName').value.trim();
     const accountName = document.getElementById('accountName').value.trim();
     const accountNumber = document.getElementById('accountNumber').value.trim();
     const withdrawCash = document.getElementById('withdrawCash').value.trim();
     const confirmDetails = document.getElementById('confirmDetails').checked;
+
     let isValid = true;
 
+    // Clear error messages
     document.getElementById('bankNameError').classList.add('hidden');
     document.getElementById('accountNameError').classList.add('hidden');
     document.getElementById('accountNumberError').classList.add('hidden');
     document.getElementById('withdrawCashError').classList.add('hidden');
     document.getElementById('confirmDetailsError').classList.add('hidden');
 
+    // Validate inputs
     if (bankName === '') {
         document.getElementById('bankNameError').classList.remove('hidden');
         isValid = false;
     }
+
     if (accountName === '') {
         document.getElementById('accountNameError').classList.remove('hidden');
         isValid = false;
     }
+
     if (accountNumber === '' || isNaN(accountNumber) || accountNumber.length !== 10) {
         document.getElementById('accountNumberError').textContent = "Please enter a valid 10-digit account number.";
         document.getElementById('accountNumberError').classList.remove('hidden');
         isValid = false;
     }
+
     if (withdrawCash === '' || isNaN(withdrawCash) || withdrawCash <= 0) {
         document.getElementById('withdrawCashError').textContent = "Please enter a valid transfer amount.";
         document.getElementById('withdrawCashError').classList.remove('hidden');
         isValid = false;
     }
+
     if (!confirmDetails) {
         document.getElementById('confirmDetailsError').classList.remove('hidden');
         isValid = false;
     }
+
     return isValid;
 }
 
-document.getElementById("confirmButton").addEventListener("click", function() {
-    let bankName = document.getElementById("bankName").value;
-    let accountNumber = document.getElementById("accountNumber").value;
-    let accountName = document.getElementById("accountName").value;
-    let transferAmount = document.getElementById("withdrawCash").value;
-    let transactionRef = "TRX" + Math.floor(Math.random() * 1000000);
+// Fetch deposit balance on page load
+window.onload = fetchDepositBalance;
 
-    if (!bankName || !accountNumber || !accountName || !transferAmount) {
-        alert("Please fill in all required fields.");
-        return;
+document.addEventListener("DOMContentLoaded", function () {
+    let selectedTransferType = "";
+
+    document.getElementById("internationalTransfer").addEventListener("click", () => selectTransferType("International"));
+    document.getElementById("domesticTransfer").addEventListener("click", () => selectTransferType("Domestic"));
+
+    const confirmButton = document.getElementById("confirmButton");
+    if (confirmButton) {
+        confirmButton.addEventListener("click", function () {
+            let bankName = document.getElementById("bankName").value;
+            let accountNumber = document.getElementById("accountNumber").value;
+            let accountName = document.getElementById("accountName").value;
+            let transferAmount = document.getElementById("withdrawCash").value;
+            let transactionRef = "TRX" + Math.floor(Math.random() * 1000000);
+
+            if (!bankName || !accountNumber || !accountName || !transferAmount) {
+                alert("Please fill in all required fields.");
+                return;
+            }
+
+            document.getElementById("spinner").classList.remove("hidden");
+
+            setTimeout(() => {
+                document.getElementById("spinner").classList.add("hidden");
+
+                document.getElementById("beneficiaryName").innerText = accountName;
+                document.getElementById("beneficiaryAccount").innerText = accountNumber;
+                document.getElementById("transferAmount").innerText = "$" + transferAmount;
+                document.getElementById("transactionRef").innerText = transactionRef;
+                document.getElementById("receiptTransferType").innerText = selectedTransferType;
+                document.getElementById("receiptPaymentDescription").innerText = document.getElementById("paymentDescription").value;
+
+                document.getElementById("successModal").classList.remove("hidden");
+                document.getElementById("securityPinModal").classList.add("hidden");
+            }, 1000);
+        });
     }
-    
-    document.getElementById("spinner").classList.remove("hidden");
-    
-    setTimeout(() => {
-        document.getElementById("spinner").classList.add("hidden");
-        
-        document.getElementById("beneficiaryName").innerText = accountName;
-        document.getElementById("beneficiaryAccount").innerText = accountNumber;
-        document.getElementById("transferAmount").innerText = "$" + transferAmount;
-        document.getElementById("transactionRef").innerText = transactionRef;
-
-        document.getElementById("successModal").classList.remove("hidden");
-        document.getElementById("securityPinModal").classList.add("hidden");
-    }, 1000);
 });
-</script>
+
+// Select transfer type
+function selectTransferType(type) {
+    const internationalBtn = document.getElementById("internationalTransfer");
+    const domesticBtn = document.getElementById("domesticTransfer");
+    const dotInternational = document.getElementById("dotInternational");
+    const dotDomestic = document.getElementById("dotDomestic");
+    const transferTypeError = document.getElementById("transferTypeError");
+
+    internationalBtn.classList.remove("bg-blue-900", "text-white");
+    domesticBtn.classList.remove("bg-blue-900", "text-white");
+    dotInternational.classList.remove("bg-blue-900");
+    dotDomestic.classList.remove("bg-blue-900");
+
+    if (type === "International") {
+        internationalBtn.classList.add("bg-blue-900", "text-white");
+        dotInternational.classList.add("bg-blue-900");
+    } else {
+        domesticBtn.classList.add("bg-blue-900", "text-white");
+        dotDomestic.classList.add("bg-blue-900");
+    }
+
+    transferTypeError.classList.add("hidden");
+}
+
+    </script>
+    
 
 
 
@@ -484,7 +586,7 @@ document.getElementById("confirmButton").addEventListener("click", function() {
         <!-- Deposit Icon -->
         <a href="deposit.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
             <div class="bg-white rounded p-2">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAACxLAAAsSwGlPZapAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAASJSURBVHgB7Z0/VttAEMbHToqUDiewgQNAl1J0pAq5QXICQpkK6NKFGyRtOtKlQ3R04Qb2DWzKFMiZeezyAK2klXZWu/LO7z0/jL3Pkvabb7T/JAEIgiAIgiAIgiAIgiAIqTACz0yn08l4PD5er9cZ/ateMbPC1+1oNPpdFMXlAgGPeBMAK36KB/ED32YwYPAYfqIQ576EGIMHtre3j3HH/8LAK59A537CY5njMX0BD7wCZnBHT3Gnv+HbN7BZHG5tbcFyubwGRlgFoMhXlb+pZCjCHYpwA0ywnQNUzp/D5rPCINvnOiewnQOwpXMKaTBRjQsWWByQUPQ/gi44QBPk4MhrYICiH3eoqdgtljmhv7jjK4gUjKVMRfi0rhyWIcfn4IizAyyjf6HyZrQV/xTqPOIxXeHbvbpyHC5wPgfY5H7c0c9DqXyC9lW5tRblAiecHGAZ/fl8Pj+AATKbzcgFWV0ZVxc4OcAy+s9hoNjsu6sLOjtg06Nf49sFnR2w6dGv8e2CTg5IJfo1Pl3QyQGpRL/GpwtaOyC16Nf4ckFrB6QW/RpfLmjlgFSjX+PDBa0ckGr0a3y4wNoBqUe/htsF1g5IPfo13C6wcoBE/3M4XWDlAIn+53C6oNEBEv1muFzQ6ACJfjNcLqh1gER/PRwuqHWARH89HC6odIBEvx2uLqh0gM3al5SjX+PqAqMAu7u7GTQvrM051sUMHVUHeUOxjJa7mL4wpiAbW3GCEXJZFMWJ77X4midL52nZyQT6wZiuSwJQ9N/f319B/7CuuaxCVT4tne+r4h8xnQtKKQgj8RjCwLrmsgq14Kr3ylfbLp0LSgKgSkcQjszXhRAEXbsAYS+RKq2083KFjAsYAKeUJoAZ+k387TMIS8l50QkAnlKRSj3REaMABGsqiiD1VBKrAGypKJLUU0nr6wOwLeu8pJ2w6GvoVOQ01GGZehZ4XDNgAI9r3aZ8MAfQknV4uCi6DqdUZJt6qH0OgQgmAHW4bMZRuqYi29RD+9BXD9xE0HMAHvcFNI+jdGoV2aYe5AwCwnKNmAuUiiyGBrK2udVy28GH0oO3gmxTETehU48mimaoZSpi3mTY1KOJph9g2Sri2lY0s3jRCNBXKool9Wii6gn3kIqiST2aGEdDfaWiVUypRxOdACoV7dM0JfBAYuZ9zLZ1IXg/wISqqI+QANGOhqaCCBAYESAwIkBgRIDAiACBEQEC01oAup0XCGyYBFhAPXsgGNnZ2WlaVVgaYmktAE0PigvKUJ0URfG9odjtyw9KAmAFX0PDtmgK0ULtJKCKpxXlalp1WleWbolf+sz0g1hwCQI7OCA4ezkgWHKAur1kDgIr9BwC02issRXU5/RgIqzoIRCmL4y3r18hk8nkH6p2CIIzGNBfMfj/mL6rfH4AanCDIqAGowyEzqg56MpnKtQ+wAFFyFGEOxThHWzeEzF8s1KRX/tAi8YnaCgn/EIR3oJ0wmyhKdD3VWnnKa3vGTcej4/wxz9Av5d4xs4CHu4QT32oi8WAblQuCIIgCIIgCIIgCIIg9Md/oSyAFrWLx3cAAAAASUVORK5CYII=" alt="Redeem Icon" class="h-6 w-6" />
+                <img src="data:image/png;base64,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" alt="Redeem Icon" class="h-6 w-6" />
             </div>
             <span class="text-xs font-medium mt-2">Deposit</span>
         </a>

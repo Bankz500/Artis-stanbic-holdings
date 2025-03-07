@@ -121,11 +121,11 @@
 </div>
 
 
-    <div class="flex">
+     <div class="flex">
 
 <!-- Main Content -->
 <div class="flex-1 p-4 bg-gray-100 pb-24 md:pb-0"> 
-    <div class="flex-1 p-6 bg-white rounded pb-0 text-black">
+    <div class="flex-1 p-6 bg-white rounded pb-0 text-black mb-6">
         <h1 class="text-xl font-semibold mb-6 text-black"></h1>
 
         <!-- Tabs for Cash Withdrawal -->
@@ -145,6 +145,26 @@
             </p>
             <form id="withdrawalForm">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <!-- Select Transfer Type -->
+                    <div class="relative">
+                        <label class="block text-xs text-black mb-2">Select Transfer Type</label>
+                        <div class="flex gap-4">
+                            <button type="button" id="internationalTransfer" onclick="selectTransferType('International')" 
+                                class="flex-1 flex items-center border rounded justify-left gap-2 text-xs md:text-xs text-black px-2 py-2">
+                                <span id="dotInternational" class=""></span>
+                                International
+                            </button>
+                            <button type="button" id="domesticTransfer" onclick="selectTransferType('Domestic')" 
+                                class="flex-1 flex items-center border rounded justify-left gap-2 text-xs md:text-xs text-black px-2 py-2">
+                                <span id="dotDomestic" class=""></span>
+                                Domestic
+                            </button>
+                        </div>
+                        <p id="transferTypeError" class="text-red-500 text-xs hidden mt-2">Transfer Type is required</p>
+                    </div>
+
+
                     <div class="relative">
                         <label for="bankName" class="block text-xs text-black mb-2">
                             Beneficiary Bank Name
@@ -217,7 +237,7 @@
                         id="withdrawCash" 
                         class="w-full bg-white border border-gray-300 rounded px-4 py-3 text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-purple-300 focus:ring-purple-500 text-xs" 
                         placeholder="$ Enter amount"
-                        oninput="formatAmount(this)"
+                        oninput="checkBalance()"
                     />
                     <p id="withdrawCashError" class="text-red-500 text-xs hidden mt-2">
                         Amount is required
@@ -226,17 +246,22 @@
                         Insufficient balance for the transfer.
                     </p>
                 </div>
-                
-                <script>
-                function formatAmount(input) {
-                    let value = input.value.replace(/,/g, '').replace(/\$/g, ''); // Remove existing commas and dollar signs
-                    if (!isNaN(value) && value !== '') {
-                        let formattedValue = Number(value).toLocaleString(); // Format number with commas
-                        input.value = formattedValue;
-                    }
-                }
-                </script>
-                
+
+                <!-- Payment Description -->
+                <div class="mt-6">
+                    <label for="paymentDescription" class="block text-xs text-black mb-2">
+                        Payment Description
+                    </label>
+                    <input 
+                        type="text" 
+                        id="paymentDescription" 
+                        class="w-full bg-white border border-gray-300 rounded px-4 py-3 text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-purple-300 text-xs" 
+                        placeholder="Enter payment description"
+                    />
+                    <p id="paymentDescriptionError" class="text-red-500 text-xs hidden mt-2">
+                        Payment Description is required
+                    </p>
+                </div>
         
                 <div class="pt-10">
                     <div class="bg-gray-100 border-l-4 border-blue-900 text-blue-900 p-5 rounded mb-4 text-xs text-center">
@@ -340,6 +365,14 @@
                 <span id="beneficiaryAccount" class="text-right text-gray-700">-</span>
             </div>
             <div class="flex justify-between text-gray-900 font-medium">
+                <span>Transfer Type</span> 
+                <span id="receiptTransferType" class="text-right text-gray-700">-</span>
+            </div>
+            <div class="flex justify-between text-gray-900 font-medium">
+                <span>Payment Description</span> 
+                <span id="receiptPaymentDescription" class="text-right text-gray-700">-</span>
+            </div>
+            <div class="flex justify-between text-gray-900 font-medium">
                 <span>Transaction Ref</span> 
                 <span id="transactionRef" class="text-right text-gray-700">-</span>
             </div>
@@ -398,23 +431,64 @@
 
 <script>
 
+let depositBalance = 0; // Fetch this value from Firebase when the page loads.
+
+// Fetch deposit balance from Firebase (simulate this with a placeholder)
+function fetchDepositBalance() {
+    depositBalance = 100000000; // Example balance
+    updateDepositUI();
+}
+
+// Update the deposit balance display
+function updateDepositUI() {
+    document.getElementById('depositBalanceDisplay').innerText = `$${depositBalance.toFixed(2)}`;
+}
+
+// Check if entered amount exceeds deposit balance
+function checkBalance() {
+    const amountInput = document.getElementById('withdrawCash');
+    const insufficientBalanceError = document.getElementById('insufficientBalanceError');
+
+    const enteredAmount = parseFloat(amountInput.value.replace(/[^0-9.]/g, '')) || 0;
+
+    if (enteredAmount > depositBalance) {
+        insufficientBalanceError.classList.remove('hidden');
+    } else {
+        insufficientBalanceError.classList.add('hidden');
+    }
+}
+
+// Function to show a spinner and redirect after a delay
 function showSpinnerAndRedirect() {
     let closeButton = document.getElementById("closeSuccessButton");
-    
-    // Disable button and show loading text
-    closeButton.innerText = "Please wait...";
-    closeButton.disabled = true;
-
-    // Redirect to transfer.html after a short delay
-    setTimeout(() => {
-        window.location.href = "transfer.html";
-    }, 1000); 
+    if (closeButton) {
+        closeButton.innerText = "Please wait...";
+        closeButton.disabled = true;
+        setTimeout(() => {
+            window.location.href = "transfer.html";
+        }, 1000);
+    }
 }
 
-function closeSecurityPinModal() {
-    document.getElementById('securityPinModal').classList.add('hidden');
+// Validate form before showing security PIN modal
+function showSecurityPinModal() {
+    if (validateForm()) {
+        const withdrawCash = parseFloat(document.getElementById('withdrawCash').value.replace(/[^0-9.]/g, '')) || 0;
+
+        if (withdrawCash > depositBalance) {
+            document.getElementById('insufficientBalanceError').classList.remove('hidden');
+        } else {
+            document.getElementById('spinner').classList.remove('hidden');
+
+            setTimeout(() => {
+                document.getElementById('spinner').classList.add('hidden');
+                document.getElementById('securityPinModal').classList.remove('hidden');
+            }, 1000);
+        }
+    }
 }
 
+// Validate PIN input
 function validatePin() {
     const enteredPin = document.getElementById('securityPin').value.trim();
     const errorElement = document.getElementById('securityPinError');
@@ -425,7 +499,6 @@ function validatePin() {
         if (/^\d{5}$/.test(enteredPin)) {
             document.getElementById('securityPinModal').classList.add('hidden');
             document.getElementById('successModal').classList.remove('hidden');
-            openSuccessModal();
         } else {
             errorElement.classList.remove('hidden');
         }
@@ -433,97 +506,126 @@ function validatePin() {
     }, 1000);
 }
 
-let depositBalance = 0;
-
-function fetchDepositBalance() {
-    depositBalance = 100000000;
-    updateDepositUI();
-}
-
-function updateDepositUI() {
-    document.getElementById('depositBalanceDisplay').innerText = `$${depositBalance.toFixed(2)}`;
-}
-
-function showSecurityPinModal() {
-    if (validateForm()) {
-        document.getElementById('spinner').classList.remove('hidden');
-        setTimeout(() => {
-            document.getElementById('spinner').classList.add('hidden');
-            document.getElementById('securityPinModal').classList.remove('hidden');
-        }, 1000);
-    }
-}
-
 function closeSuccessModal() {
     document.getElementById('successModal').classList.add('hidden');
 }
 
+// Validate the form inputs
 function validateForm() {
     const bankName = document.getElementById('bankName').value.trim();
     const accountName = document.getElementById('accountName').value.trim();
     const accountNumber = document.getElementById('accountNumber').value.trim();
     const withdrawCash = document.getElementById('withdrawCash').value.trim();
     const confirmDetails = document.getElementById('confirmDetails').checked;
+
     let isValid = true;
 
+    // Clear error messages
     document.getElementById('bankNameError').classList.add('hidden');
     document.getElementById('accountNameError').classList.add('hidden');
     document.getElementById('accountNumberError').classList.add('hidden');
     document.getElementById('withdrawCashError').classList.add('hidden');
     document.getElementById('confirmDetailsError').classList.add('hidden');
 
+    // Validate inputs
     if (bankName === '') {
         document.getElementById('bankNameError').classList.remove('hidden');
         isValid = false;
     }
+
     if (accountName === '') {
         document.getElementById('accountNameError').classList.remove('hidden');
         isValid = false;
     }
+
     if (accountNumber === '' || isNaN(accountNumber) || accountNumber.length !== 10) {
         document.getElementById('accountNumberError').textContent = "Please enter a valid 10-digit account number.";
         document.getElementById('accountNumberError').classList.remove('hidden');
         isValid = false;
     }
+
     if (withdrawCash === '' || isNaN(withdrawCash) || withdrawCash <= 0) {
         document.getElementById('withdrawCashError').textContent = "Please enter a valid transfer amount.";
         document.getElementById('withdrawCashError').classList.remove('hidden');
         isValid = false;
     }
+
     if (!confirmDetails) {
         document.getElementById('confirmDetailsError').classList.remove('hidden');
         isValid = false;
     }
+
     return isValid;
 }
 
-document.getElementById("confirmButton").addEventListener("click", function() {
-    let bankName = document.getElementById("bankName").value;
-    let accountNumber = document.getElementById("accountNumber").value;
-    let accountName = document.getElementById("accountName").value;
-    let transferAmount = document.getElementById("withdrawCash").value;
-    let transactionRef = "TRX" + Math.floor(Math.random() * 1000000);
+// Fetch deposit balance on page load
+window.onload = fetchDepositBalance;
 
-    if (!bankName || !accountNumber || !accountName || !transferAmount) {
-        alert("Please fill in all required fields.");
-        return;
+document.addEventListener("DOMContentLoaded", function () {
+    let selectedTransferType = "";
+
+    document.getElementById("internationalTransfer").addEventListener("click", () => selectTransferType("International"));
+    document.getElementById("domesticTransfer").addEventListener("click", () => selectTransferType("Domestic"));
+
+    const confirmButton = document.getElementById("confirmButton");
+    if (confirmButton) {
+        confirmButton.addEventListener("click", function () {
+            let bankName = document.getElementById("bankName").value;
+            let accountNumber = document.getElementById("accountNumber").value;
+            let accountName = document.getElementById("accountName").value;
+            let transferAmount = document.getElementById("withdrawCash").value;
+            let transactionRef = "TRX" + Math.floor(Math.random() * 1000000);
+
+            if (!bankName || !accountNumber || !accountName || !transferAmount) {
+                alert("Please fill in all required fields.");
+                return;
+            }
+
+            document.getElementById("spinner").classList.remove("hidden");
+
+            setTimeout(() => {
+                document.getElementById("spinner").classList.add("hidden");
+
+                document.getElementById("beneficiaryName").innerText = accountName;
+                document.getElementById("beneficiaryAccount").innerText = accountNumber;
+                document.getElementById("transferAmount").innerText = "$" + transferAmount;
+                document.getElementById("transactionRef").innerText = transactionRef;
+                document.getElementById("receiptTransferType").innerText = selectedTransferType;
+                document.getElementById("receiptPaymentDescription").innerText = document.getElementById("paymentDescription").value;
+
+                document.getElementById("successModal").classList.remove("hidden");
+                document.getElementById("securityPinModal").classList.add("hidden");
+            }, 1000);
+        });
     }
-    
-    document.getElementById("spinner").classList.remove("hidden");
-    
-    setTimeout(() => {
-        document.getElementById("spinner").classList.add("hidden");
-        
-        document.getElementById("beneficiaryName").innerText = accountName;
-        document.getElementById("beneficiaryAccount").innerText = accountNumber;
-        document.getElementById("transferAmount").innerText = "$" + transferAmount;
-        document.getElementById("transactionRef").innerText = transactionRef;
-
-        document.getElementById("successModal").classList.remove("hidden");
-        document.getElementById("securityPinModal").classList.add("hidden");
-    }, 1000);
 });
-</script>
+
+// Select transfer type
+function selectTransferType(type) {
+    const internationalBtn = document.getElementById("internationalTransfer");
+    const domesticBtn = document.getElementById("domesticTransfer");
+    const dotInternational = document.getElementById("dotInternational");
+    const dotDomestic = document.getElementById("dotDomestic");
+    const transferTypeError = document.getElementById("transferTypeError");
+
+    internationalBtn.classList.remove("bg-blue-900", "text-white");
+    domesticBtn.classList.remove("bg-blue-900", "text-white");
+    dotInternational.classList.remove("bg-blue-900");
+    dotDomestic.classList.remove("bg-blue-900");
+
+    if (type === "International") {
+        internationalBtn.classList.add("bg-blue-900", "text-white");
+        dotInternational.classList.add("bg-blue-900");
+    } else {
+        domesticBtn.classList.add("bg-blue-900", "text-white");
+        dotDomestic.classList.add("bg-blue-900");
+    }
+
+    transferTypeError.classList.add("hidden");
+}
+
+    </script>
+    
 
 
 
