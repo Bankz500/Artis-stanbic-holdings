@@ -20,6 +20,45 @@
         html, body {
             overflow: auto; /* Ensures scrolling is enabled */
         }
+        .loader {
+            border: 8px solid rgba(0, 0, 0, 0.1); /* Light grey */
+            border-top: 8px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* New spinner styles */
+        .smart-spinner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #3498db, #8e44ad);
+            animation: smart-spin 1.5s linear infinite;
+        }
+
+        @keyframes smart-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .smart-spinner::before {
+            content: '';
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            position: absolute;
+        }
     </style>
     <script type="module">
         // Firebase SDK imports
@@ -82,7 +121,7 @@
         };
     </script>
 </head>
-<body class="font-sans antialiased bg-gray-100">
+<body class="font-sans antialiased" style="background-image: url('/Users/circo-mac005/Documents/Beal Offshore Ltd/background 5.png');">
 
 <!-- Navbar -->
 <nav class="bg-white p-4 fixed top-0 w-full z-50">
@@ -93,7 +132,7 @@
         </a>
 
             <!-- Sign out button for mobile and desktop -->
-            <button onclick="signOut()" class="bg-white border-b-2 text-black text-xs px-6 py-2 rounded hover:bg-white border">Sign Out</button>
+            <button onclick="signOut()" class="bg-white border-b-2 text-black text-xs px-6 py-2 rounded-full hover:bg-white border">Sign Out</button>
         </div>
     </div>
 </nav>
@@ -109,7 +148,7 @@
     <div class="flex">
 
 <!-- Contact Card -->
-<div class="w-full Center p-4 bg-blue-900 mt-2 px-8">
+<div class="w-full Center p-8 bg-blue-900 mt-2 px-8">
     <h2 class="text-xl font-bold text-center text-white mb-4">Support</h2>
     <p class="text-center text-xs text-gray-300 mb-4">Visit the chat Center</p>
     <p class="text-center text-white mb-4"><a href="https://wa.me/13657758413" class="hover:underline">BealOffshore.live/helpcenter</a></p>
@@ -127,8 +166,8 @@
     <div class="border-t border-gray-400 mt-4 pt-4">
         <h3 class="text-sm font-semibold text-white mb-2">Email</h3>
         <p class="text-gray-600 text-xs mb-2 flex justify-between items-center">
-            <a href="mailto:Support@bealoffshore.com" class="text-white hover:underline flex justify-between items-center w-full">
-                <span>Support@Bealoffshore.com</span>
+            <a href="mailto:bealoffshore@gmail.com?subject=Support Inquiry&body=Hello," class="text-white hover:underline flex justify-between items-center w-full">
+                <span>Support@beal-offshore.com</span>
                 <img src="mail.png" alt="Email Icon" class="inline-block h-4 w-4" />
             </a>
         </p>
@@ -338,4 +377,22 @@ window.onscroll = resetTimer;
         }
     });
 </script>
+
+<script>
+    function navigateWithSpinner(url) {
+        // Show the spinner
+        document.getElementById('spinner').classList.remove('hidden');
+
+        // Simulate a delay for loading (e.g., 1 second)
+        setTimeout(() => {
+            // Navigate to the specified URL
+            window.location.href = url;
+        }, 1000); // Adjust the delay as needed
+    }
+</script>
+
+<!-- Spinner -->
+<div id="spinner" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="smart-spinner"></div>
+</div>
 </html>

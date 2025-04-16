@@ -16,23 +16,62 @@
         html, body {
             overflow: auto; /* Ensures scrolling is enabled */
         }
+        .loader {
+            border: 8px solid rgba(0, 0, 0, 0.1); /* Light grey */
+            border-top: 8px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* New spinner styles */
+        .smart-spinner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #3498db, #8e44ad);
+            animation: smart-spin 1.5s linear infinite;
+        }
+
+        @keyframes smart-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .smart-spinner::before {
+            content: '';
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            position: absolute;
+        }
     </style>
     
-  <script type="module" crossorigin src="/assets/deposit-DKB11SRy.js"></script>
+  <script type="module" crossorigin src="/assets/deposit-lOK6Ut5H.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
 </head>
-<body class="font-sans antialiased bg-gray-100">
+<body class="font-sans antialiased" style="background-image: url('/assets/background%204-B9Im80rf.png');">
 
 <!-- Navbar -->
 <nav class="bg-white p-4 fixed top-0 w-full z-50">
     <div class="container mx-auto flex items-center justify-between">
         <!-- Left Logo -->
-        <a href="index.html" class="flex items-center">
+        <a href="/" class="flex items-center">
             <img src="/assets/LOGO-DP4bRQMr.png" alt="Beal Offshore Ltd Logo" class="h-14">
         </a>
 
         <!-- Right Logo (WhatsApp) -->
-        <a href="https://wa.me/message/NG7YD6LENEJFO1" target="_blank" class="flex items-center">
+        <a href="mailto:bealoffshore@gmail.com" class="flex items-center">
             <img src="data:image/png;base64,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" alt="Gift Card Brand Logo" class="h-8 w-8">
         </a>
     </div>
@@ -204,14 +243,14 @@ function closeSuccessModal() {
 </section> -->
 
 <!-- Deposit Section -->
-<div class="container mx-auto px-6 py-12 bg-gray-100 min-h-screen overflow-y-auto">
+<div class="container mx-auto px-6 py-12 bg- min-h-screen overflow-y-auto">
 
     <!-- Section Header -->
     <div class="text-center mb-8">
-        <h2 class="text-1xl font-extrabold text-gray-800">
+        <h2 class="text-1xl font-extrabold text-white">
             Deposit Section
         </h2>
-        <p class="text-gray-600 mt-2 text-sm">
+        <p class="text-white font-semibold text-sm">
             Manage your finances seamlessly with your personalized banking details.
         </p>
     </div>
@@ -234,13 +273,13 @@ function closeSuccessModal() {
                 Account Details
             </h3>
 
-            <!-- Account Name -->
+            <!-- Account Name
             <div class="mb-4">
                 <p class="text-sm text-gray-600">
                     <strong>Account Name:</strong>
                 </p>
                 <p id="account-name" class="text-gray-800 font-medium text-xs"></p>
-            </div>
+            </div> -->
 
             <!-- Account Number -->
             <div class="mb-4 flex items-center justify-between">
@@ -248,20 +287,20 @@ function closeSuccessModal() {
                     <p class="text-sm text-gray-600">
                         <strong>Account Number:</strong>
                     </p>
-                    <p id="account-number" class="text-gray-800 font-medium text-xs">0095609981</p>
+                    <p id="account-number" class="text-gray-800 font-medium text-xs">7382063712</p>
                 </div>
                 <button onclick="copyToClipboard('account-number')" class="text-green-500 hover:text-green-700">
                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADESURBVHgB7dhRDoIwEATQ0XhAbyA3LzfAG1Ri9MfAUrftjsi8pF8k0EnpNl1ARLxu85jmkTuP9PpWcwnoPvn3mNYmcYJfRqzFuZ6xcxe0U7OaS4pWePcroABsVoAr7Dr/qbZUNpdQP6maAEUBrcrBrvN54/nToc4BSp3fojLKpgBsCsCmAGwKwKYAbArApr5QQ677gX6hICMcerc9vulMD2sv+aU94Lpzaw+wHeociO7UFfnrX+iOOCM6GBDToTbrvIjYHolwoMbjyh+tAAAAAElFTkSuQmCC" alt="Copy Icon" class="h-5 w-5" />
                 </button>                
             </div>
 
-            <!-- Swift Code -->
+        
             <div class="mb-4 flex items-center justify-between">
                 <div>
                     <p class="text-sm text-gray-600">
                         <strong>Swift Code:</strong>
                     </p>
-                    <p id="swift-code" class="text-gray-800 font-medium text-xs">BOFAUS3NXXX</p> <!-- Replace with actual Swift Code -->
+                    <p id="swift-code" class="text-gray-800 font-medium text-xs">FTBCUS3C</p> <!-- Replace with actual Swift Code -->
                 </div>
                 <div class="flex items-center">
                     <button onclick="toggleVisibility('swift-code', 'swift-eye')" class="text-green-500 hover:text-green-700">
@@ -279,7 +318,7 @@ function closeSuccessModal() {
                     <p class="text-sm text-gray-600">
                         <strong>Routing Number:</strong>
                     </p>
-                    <p id="routing-number" class="text-gray-800 font-medium text-xs">021000021</p> <!-- Replace with actual Routing Number -->
+                    <p id="routing-number" class="text-gray-800 font-medium text-xs">042101190</p> <!-- Replace with actual Routing Number -->
                 </div>
                 <div class="flex items-center">
                     <button onclick="toggleVisibility('routing-number', 'routing-eye')" class="text-green-500 hover:text-green-700">
@@ -349,34 +388,6 @@ function closeSuccessModal() {
         }
     }
 
-// Fetch and display user information
-auth.onAuthStateChanged(async (user) => {
-    console.log("Current user:", user);
-    if (user) {
-        try {
-            const userDocRef = doc(db, "users", user.uid);
-            const userDoc = await getDoc(userDocRef);
-
-            if (userDoc.exists()) {
-                const userData = userDoc.data();
-                // Update the account name element with the user's first and last name
-                document.getElementById("account-name").textContent = userData.firstName && userData.lastName 
-                    ? `${userData.firstName} ${userData.lastName}` 
-                    : "Not Available";
-            } else {
-                console.error('No user document found!');
-                document.getElementById("account-name").textContent = "Not Available";
-            }
-        } catch (error) {
-            console.error('Error fetching user data:', error);
-            document.getElementById("account-name").textContent = "Error loading name";
-        }
-    } else {
-        console.error('User not signed in');
-        document.getElementById("account-name").textContent = "Not Available";
-    }
-});
-
 </script>
 
 
@@ -439,3 +450,20 @@ function toggleVisibility(elementId, eyeId) {
 }
 </script>
 
+<script>
+    function navigateWithSpinner(url) {
+        // Show the spinner
+        document.getElementById('spinner').classList.remove('hidden');
+
+        // Simulate a delay for loading (e.g., 1 second)
+        setTimeout(() => {
+            // Navigate to the specified URL
+            window.location.href = url;
+        }, 1000); // Adjust the delay as needed
+    }
+</script>
+
+<!-- Spinner -->
+<div id="spinner" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="smart-spinner"></div>
+</div>

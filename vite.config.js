@@ -13,7 +13,6 @@ export default defineConfig({
         deposit: './deposit.html',
         dashboard: './dashboard.html',
         password: './forgot-password.html',
-        transaction: './transaction-success.html',
         profile: './profile.html',
         withdraw: './withdraw.html',
         support: './support.html',

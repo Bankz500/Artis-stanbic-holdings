@@ -17,7 +17,7 @@
             overflow: auto; /* Ensures scrolling is enabled */
         }
         .loader {
-            border: 8px solid #f3f3f3; /* Light grey */
+            border: 8px solid rgba(0, 0, 0, 0.1); /* Light grey */
             border-top: 8px solid #3498db; /* Blue */
             border-radius: 50%;
             width: 50px;
@@ -29,23 +29,49 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* New spinner styles */
+        .smart-spinner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #3498db, #8e44ad);
+            animation: smart-spin 1.5s linear infinite;
+        }
+
+        @keyframes smart-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .smart-spinner::before {
+            content: '';
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            position: absolute;
+        }
     </style>
     
-  <script type="module" crossorigin src="/assets/dashboard-CC64SITh.js"></script>
+  <script type="module" crossorigin src="/assets/dashboard-BzxX3S_v.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
 </head>
-<body class="font-sans antialiased bg-white">
+<body class="font-sans antialiased" style="background-image: url('/assets/background%205-gJdUV8Bp.png');">
 
 <!-- Navbar -->
 <nav class="bg-white p-4 fixed top-0 w-full z-50">
     <div class="container mx-auto flex items-center justify-between">
         <!-- Left Logo -->
-        <a href="index.html" class="flex items-center">
+        <a href="/" class="flex items-center">
             <img src="/assets/LOGO-DP4bRQMr.png" alt="Beal Offshore Ltd Logo" class="h-14">
         </a>
 
         <!-- Right Logo (WhatsApp) -->
-        <a href="https://wa.me/message/NG7YD6LENEJFO1" target="_blank" class="flex items-center">
+        <a href="mailto:bealoffshore@gmail.com" class="flex items-center">
             <img src="data:image/png;base64,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" alt="Gift Card Brand Logo" class="h-8 w-8">
         </a>
     </div>
@@ -68,55 +94,35 @@
 
 
 <!-- Main Content -->
-<div class="flex-1 p-2 bg-white ">
-    <div class="flex-1 py-2 bg-blue-900 rounded-lg text-black mt-6">
+<div class="flex-1 p-2 bg-white/50 ">
+    <div class="flex-1 py-2 bg- rounded text-black mt-6">
 
         <!-- Flex container to align Welcome Message and Generate Wallet Address -->
         <div class="flex justify-between items-center mb-6">
             <!-- Welcome Message -->
-            <div class="flex-1 p-2 bg-gray-100">
+            <div class="flex-1 p-2 bg-">
                 <h1 id="welcome-name" class="text-sm font-semibold mb-6 mt-6 rounded-lg text-gray-800">Welcome back</h1>
                 
 <!-- Include FontAwesome for icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-<div class="flex justify-between items-stretch space-x-4 mt-6">
+<div class="flex justify-between items-stretch space-x-2 mt-6">
 <!-- Deposit Account Card -->
-<div class="relative bg-blue-900 border rounded-lg p-4 flex flex-col justify-between h-48 w-1/3">
-    <!-- Card label -->
+<div class="relative bg-blue-900 border rounded-lg p-3 flex flex-col justify-between h-48 w-1/3">
+    <i class="fas fa-lock absolute top-2 right-2 text-white text-sm"></i>
     <label for="Deposit-account" class="block text-sm font-regular text-white text-left">Checking offshore</label>
-    
-    <!-- Balance display -->
     <p id="Deposit-account" class="mt-2 text-xs font-bold text-white text-center">$0.00</p>
     
 </div>
 
-<!-- JavaScript -->
-<script>
-    function toggleBalance() {
-        const balanceElement = document.getElementById("Deposit-account");
-        const toggleIcon = document.getElementById("toggle-icon");
-
-        // Toggle visibility
-        if (balanceElement.style.display === "none") {
-            balanceElement.style.display = "block";
-            toggleIcon.classList.remove("eye-close-fill.png");
-            toggleIcon.classList.add("fa-eye");
-        } else {
-            balanceElement.style.display = "none";
-            toggleIcon.classList.remove("fa-eye");
-            toggleIcon.classList.add("fa-eye-slash");
-        }
-    }
-</script>
 
 <!-- Font Awesome for icons -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
 
 <!-- Wallet Card -->
-<div class="relative bg-white rounded-lg p-3 flex flex-col justify-between h-48 w-1/3">
-    <!-- <i class="fas fa-lock absolute top-2 right-2 text-black text-sm"></i> Unlocked Padlock Icon -->
+<div class="relative bg-white border rounded-lg p-4 flex flex-col justify-between h-48 w-1/3">
+    <!-- <i class="fas fa-lock absolute top-2 right-2 text-black text-sm"></i> -->
     <label for="wallet" class="block text-sm font-regular text-black text-left">Fixed offshore</label>
     <p id="wallet" class="mt-2 text-xs font-bold text-black text-center">$0.00</p>
     <button 
@@ -128,7 +134,7 @@
 </div>
 
     <!-- Signup Offer Card -->
-    <div class="relative bg-blue-600 shadow rounded-lg p-4 flex flex-col justify-between h-48 w-1/3">
+    <div class="relative bg-black border rounded-lg p-3 flex flex-col justify-between h-48 w-1/3">
         <label for="bonus-wallet" class="block text-sm font-regular text-white text-left">Savings offshore</label>
         <p id="bonus-wallet" class="mt-2 text-xs font-bold text-white text-center">$0.00</p>
     </div>
@@ -139,12 +145,12 @@
 <hr class="my-4 border-gray-200">
 
 <!-- Simplified Fintech Style UI with Responsive Layout -->
-<div class="bg-gray-100 mt-6 p-0">
+<div class="bg- mt-6 p-0">
     <!-- Quick Access Header -->
     <h2 class="text-xs font-bold text-gray-700 mb-4 text-left md:text-left">Quick Access</h2>
 
     <!-- Card Grid Section -->
-    <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+    <div class="grid grid-cols-2 gap-2 md:grid-cols-4">
         <!-- BTC Exchange Card -->
         <div onclick="navigateWithSpinner('deposit.html')" 
              class="cursor-pointer bg-white text-black py-4 px-6 rounded-lg flex flex-col items-center space-y-2 hover:shadow-md transition duration-200">
@@ -160,8 +166,8 @@
         </div> -->
 
         <!-- PayPal Payment Card -->
-        <div onclick="navigateWithSpinner('transfer.html')" 
-             class="cursor-pointer bg-white text-black py-4 px-6 rounded-lg flex flex-col items-center space-y-2 hover:shadow-md transition duration-200">
+        <div onclick="navigateWithSpinner('')" 
+             class="cursor-pointer bg-white text-black py-4 px-6 rounded-lg flex flex-col items-center space-y-2 hover:shadow-md transition duration-200 shadow-lg">
             <img src="data:image/png;base64,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" alt="PayPal Icon" class="h-6 w-6">
             <span class="text-xs font-semibold">Transfer</span>
         </div>
@@ -192,19 +198,57 @@
     
     <!-- Header Section -->
     <div class="flex items-center justify-between mb-4">
-        <label for="Profit-wallet" class="bg-white rounded text-sm font-semibold text-gray-800">
-            Transaction history
-        </label>
+        <h2 class="text-xs font-semibold text-gray-800">Transaction History</h2>
     </div>
     <!-- Divider -->
     <hr class="border-gray-200 mb-4">
     <!-- History Content -->
-    <div class="flex flex-col items-start mb-4">
+    <div class="flex flex-col items-start text-xs mb-4 space-y-4">
         <!-- History Entries -->
-        <p id="history1" class="text-xs text-red-600 mb-2">No history available</p>
-        <p id="history2" class="text-xs text-green-700 mb-2"></p>
-        <p id="history3" class="text-xs text-green-700 mb-2"></p>
+        <div id="history1" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+            <h3 class="font-semibold text-xs text-gray-800">No history available</h3>
+        </div>
+        <div id="history2" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+            <h3 class="font-semibold text-xs text-green-600"></h3>
+            <p class="text-xs font-regular text-green-800"></p>
+        </div>
+        <div id="history3" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+            <h3 class="font-semibold text-xs text-red-600"></h3>
+            <p class="text-xs font-bold text-gray-800"></p>
+        </div>
+        <div id="history4" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+            <h3 class="font-semibold text-xs text-blue-600"></h3>
+            <p class="text-xs font-bold text-gray-800"></p>
+        </div>
+        <div id="history5" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+            <h3 class="font-semibold text-xs text-yellow-600"></h3>
+            <p class="text-xs font-bold text-gray-800"></p>
+        </div>
+        <div id="history6" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+            <h3 class="font-semibold text-xs text-gray-800"></h3>
+            <p class="text-xs font-bold text-gray-800"></p>
+        </div>
+        <div id="history7" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+            <h3 class="font-semibold text-xs text-gray-800"></h3>
+            <p class="text-xs font-bold text-gray-800"></p>
+        </div>
+        <!-- Hidden history entries -->
+        <!-- <div id="history8" class="bg-white p-3 rounded border transition-transform transform hover:scale-105 hidden">
+            <h3 class="font-semibold text-xs text-gray-800"></h3>
+            <p class="text-xs font-bold text-gray-800"></p>
+        </div>
+        <div id="history9" class="bg-white p-3 rounded border transition-transform transform hover:scale-105 hidden">
+            <h3 class="font-semibold text-xs text-gray-800"></h3>
+            <p class="text-xs font-bold text-gray-800"></p>
+        </div>
+        <div id="history10" class="bg-white p-3 rounded border transition-transform transform hover:scale-105 hidden">
+            <h3 class="font-semibold text-xs text-gray-800"></h3>
+            <p class="text-xs font-bold text-gray-800"></p>
+        </div> -->
     </div>
+
+    <!-- See More Text -->
+    <!-- <p id="see-more" class="text-blue-500 text-xs cursor-pointer hover:text-blue-600 transition duration-300 ease-in-out">See More</p> -->
 </div>
 
 
@@ -219,47 +263,53 @@
 <div class="bg-white rounded p-6 w-full">
     <!-- Header Section -->
     <div class="flex items-center justify-between mb-4">
-        <label for="pending-wallet" class="bg-white rounded text-sm font-semibold text-gray-800">
-            Pending Transactions
+        <h2 class="text-xs font-semibold text-gray-800">Pending Transactions</h2>
     </div>
     <!-- Divider -->
     <hr class="border-gray-300 mb-4">
     <!-- Content Section -->
-    <div class="text-gray-600 text-sm">
-        <p id="pending1" class="text-xs">No pending transactions</p>
-        <hr class="border-white mb-4">
-        <p id="pending2" class="text-xs"></p>
-        <hr class="border-white mb-4">
-        <p id="pending3" class="text-xs"></p>
+    <div class="text-gray-600 text-xs space-y-4">
+        <div id="pending1" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+            <h3 class="font-semibold text-red-600"></h3>
+            <p class="text-lg font-bold text-gray-800"></p>
+        </div>
+        <div id="pending2" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+            <h3 class="font-semibold text-green-600"></h3>
+            <p class="text-lg font-bold text-gray-800"></p>
+        </div>
+        <div id="pending3" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+            <h3 class="font-semibold text-blue-600"></h3>
+            <p class="text-lg font-bold text-gray-800"></p>
+        </div>
+        <!-- <p class="text-xs text-gray-500">No pending transactions</p> -->
     </div>
 </div>
 
 
 
-                <section class="py-8 bg" id="spacing">
-                    <div class="container mx-auto text-center">
-                    </div>
-                </section>
+<section class="py-8 bg" id="spacing">
+<div class="container mx-auto text-center">
+</div>
+</section>
 
-                <script>
-                    let originalBalance = '$0.00'; // Initialize with the actual wallet value
-                    
-                    function toggleBalance() {
-                        const wallet = document.getElementById('wallet');
-                        const Deposit = document.getElementById('Deposit-account');
-                        const toggleIcon = document.getElementById('toggle-icon');
-                    
-                        if (wallet.textContent === '****') {
-                            wallet.textContent = originalBalance; // Restore original balance
-                            toggleIcon.className = 'fas fa-eye'; // Eye icon
-                        } else {
-                            originalBalance = wallet.textContent; // Store the current balance
-                            wallet.textContent = '****'; // Mask the balance
-                            toggleIcon.className = 'fas fa-eye-slash'; // Eye-slash icon
-                        }
-                    }
-                    </script>
-                    
+<script>
+let originalBalance = '$0.00'; // Initialize with the actual wallet value
+
+function toggleBalance() {
+    const wallet = document.getElementById('wallet');
+    const Deposit = document.getElementById('Deposit-account');
+    const toggleIcon = document.getElementById('toggle-icon');
+
+    if (wallet.textContent === '****') {
+        wallet.textContent = originalBalance; // Restore original balance
+        toggleIcon.className = 'fas fa-eye'; // Eye icon
+    } else {
+        originalBalance = wallet.textContent; // Store the current balance
+        wallet.textContent = '****'; // Mask the balance
+        toggleIcon.className = 'fas fa-eye-slash'; // Eye-slash icon
+    }
+}
+</script>                    
 
 <script>
     // Ensure the script runs after the DOM is fully loaded
@@ -388,6 +438,20 @@
                 }, 1000); // Adjust the delay as needed
             });
         });
+
+        // See More button functionality
+        const seeMoreButton = document.getElementById('see-more');
+        if (seeMoreButton) {
+            seeMoreButton.addEventListener('click', function() {
+                // Show the hidden history entries
+                document.getElementById('history8').classList.remove('hidden');
+                document.getElementById('history9').classList.remove('hidden');
+                document.getElementById('history10').classList.remove('hidden');
+                
+                // Optionally, hide the "See More" button after clicking
+                this.classList.add('hidden');
+            });
+        }
     });
 </script>
 
@@ -406,6 +470,6 @@
 
 <!-- Spinner -->
 <div id="spinner" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-    <div class="loader"></div>
+    <div class="smart-spinner"></div>
 </div>
 </html>

@@ -16,6 +16,52 @@
         html, body {
             overflow: auto; /* Ensures scrolling is enabled */
         }
+        .loader {
+            border: 8px solid rgba(0, 0, 0, 0.1); /* Light grey */
+            border-top: 8px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* New spinner styles */
+        .smart-spinner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #3498db, #8e44ad);
+            animation: smart-spin 1.5s linear infinite;
+        }
+
+        @keyframes smart-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .smart-spinner::before {
+            content: '';
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            position: absolute;
+        }
+
+        input[type="date"],
+        input[type="email"] {
+            -webkit-appearance: none; /* Safari and Chrome */
+            -moz-appearance: none; /* Firefox */
+            appearance: none; /* Standard */
+        }
     </style>
     <script type="module">
         // Firebase SDK imports
@@ -160,7 +206,7 @@
     </script>
     
 </head>
-<body class="font-sans antialiased bg-gray-100">
+<body class="font-sans antialiased" style="background-image: url('/Users/circo-mac005/Documents/Beal Offshore Ltd/background 2.png');">
 
 <!-- Navbar -->
 <nav class="bg-white p-4 fixed top-0 w-full z-50">
@@ -171,7 +217,7 @@
         </a>
 
         <!-- Right Logo (WhatsApp) -->
-        <a href="https://wa.me/message/NG7YD6LENEJFO1" target="_blank" class="flex items-center">
+        <a href="mailto:support@beal-offshore.com" class="flex items-center">
             <img src="chat.png" alt="Gift Card Brand Logo" class="h-8 w-8">
         </a>
     </div>
@@ -337,107 +383,71 @@ function closeSuccessModal() {
 }
 </script>
 
-<!-- <section class="py-12" id="spacing"></section>
-    <div class="">
-    </div>
-</section> -->
 
-
-<!-- <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Request  Statement</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head> -->
-<body class="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen flex items-center justify-center">
+<body class="bg- min-h-screen flex items-center justify-center">
     <!-- Card Container -->
-    <div class="bg-white rounded-2xl p-8 w-full max-w-xl mx-auto mt-14 mb-12">
+    <div class="bg-white rounded p-6 sm:p-10 w-full max-w-md mx-auto mt-10 mb-10">
         <!-- Card Header -->
-        <h2 class="text-1xl font-bold text-gray-800 text-center mb-6">📄 Request Statement</h2>
-        <p class="text-gray-500 text-center mb-8 text-sm">
-            Fill out the details below to get your bank statement emailed to you.
+        <h2 class="text-xl sm:text-2xl font-bold text-blue-800 text-center mb-4">📄 Request Your Bank Statement</h2>
+        <p class="text-gray-600 text-center mb-6 text-sm sm:text-base">
+            Please fill in the details below to receive your bank statement via email.
         </p>
 
         <!-- Input Fields -->
-        <form id="bankStatementForm" class="space-y-6">
+        <form id="bankStatementForm" class="space-y-8 sm:space-y-10">
             <!-- From Date -->
             <div>
-                <label for="fromDate" class="block text-sm font-medium text-gray-600 mb-2">From</label>
+                <label for="fromDate" class="block text-sm font-medium text-gray-700 mb-2">From Date</label>
                 <input 
                     type="date" 
                     id="fromDate" 
-                    class="w-full border border-gray-300 rounded-lg p-3 text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                    class="w-full border border-gray-400 rounded-md p-3 text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                     required
                 />
             </div>
 
             <!-- To Date -->
             <div>
-                <label for="toDate" class="block text-sm font-medium text-gray-600 mb-2">To</label>
+                <label for="toDate" class="block text-sm font-medium text-gray-700 mb-2">To Date</label>
                 <input 
                     type="date" 
                     id="toDate" 
-                    class="w-full border border-gray-300 rounded-lg p-3 text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                    class="w-full border border-gray-400 rounded-md p-3 text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                     required
                 />
             </div>
 
             <!-- Registered Email -->
             <div>
-                <label for="registeredEmail" class="block text-sm font-medium text-gray-600 mb-2">Registered Email</label>
+                <label for="registeredEmail" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
                 <input 
                     type="email" 
                     id="registeredEmail" 
-                    placeholder="example@email.com" 
-                    class="w-full border border-gray-300 rounded-lg p-3 text-gray-800 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                    placeholder="you@example.com" 
+                    class="w-full border border-gray-400 rounded-md p-3 text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                     required
                 />
             </div>
 
             <!-- Submit Button -->
-<button 
-type="submit" 
-id="submitButton"
-class="w-full bg-blue-800 text-white font-semibold text-sm py-3 rounded-lg shadow-md hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-400">
-Request Statement
-</button>
+            <div class="mt-62">
+                <button 
+                    type="submit" 
+                    id="submitButton"
+                    class="w-full bg-white text-gray-400 font-semibold text-sm py-3 border border-gray-900 rounded-full hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-green-400">
+                    Request Statement
+                </button>
+            </div>
 
-
-<section class="py-12" id="spacing"></section>
-    <div class="">
+            <!-- Success Message -->
+            <div 
+                id="successMessage" 
+                class="mt-2 hidden text-center text-green-900 font-medium text-sm">
+                Your bank statement has been sent to your registered email.
+            </div>
+        </form>
     </div>
-</section>
-
-<!-- Success Message -->
-<div 
-id="successMessage" 
-class="mt-6 hidden text-center text-blue-900 font-medium text-xs">
-Your bank statement has been sent to your registered email.
-</div>
-
-<script>
-const form = document.getElementById('bankStatementForm');
-const successMessage = document.getElementById('successMessage');
-const submitButton = document.getElementById('submitButton');
-
-form.addEventListener('submit', (e) => {
-    e.preventDefault(); // Prevent form submission
-
-    // Change button text to "Requesting..." and disable it
-    submitButton.textContent = "Requesting...";
-    submitButton.disabled = true;
-
-    // Simulate processing (e.g., API call delay)
-    setTimeout(() => {
-        // Show success message and reset button
-        successMessage.classList.remove('hidden');
-        submitButton.textContent = "Request Statement";
-        submitButton.disabled = false;
-    }, 2000); // Adjust the delay as needed
-});
-</script>
-
-</html>
+</body>
 
 
 
@@ -619,5 +629,45 @@ window.onload = function() {
         }
     });
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('bankStatementForm');
+        const successMessage = document.getElementById('successMessage');
+        const submitButton = document.getElementById('submitButton');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Collect form data
+            const fromDate = document.getElementById('fromDate').value;
+            const toDate = document.getElementById('toDate').value;
+            const registeredEmail = document.getElementById('registeredEmail').value;
+
+            // Show spinner
+            document.getElementById('spinner').classList.remove('hidden');
+
+            // Show requesting state
+            submitButton.textContent = 'Requesting...';
+            submitButton.disabled = true;
+
+            // Simulate a successful submission
+            setTimeout(() => {
+                // Hide spinner
+                document.getElementById('spinner').classList.add('hidden');
+
+                successMessage.classList.remove('hidden'); // Show success message
+                form.reset(); // Reset the form fields
+                submitButton.textContent = 'Send Request'; // Reset button text
+                submitButton.disabled = false; // Re-enable the button
+            }, 1000); // Simulate a delay for the submission
+        });
+    });
+</script>
+
+<!-- Spinner -->
+<div id="spinner" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="smart-spinner"></div>
+</div>
 </html>
 

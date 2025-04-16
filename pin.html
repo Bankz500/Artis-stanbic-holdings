@@ -174,8 +174,8 @@
             setTimeout(() => {
                 // Show success message
                 const successMessage = document.createElement('div');
-                successMessage.textContent = "PIN changed successfully!";
-                successMessage.className = "text-blue-900 text-center mt-4";
+                successMessage.textContent = "PIN Change updated!";
+                successMessage.className = "text-blue-700 text-xs text-center mt-4";
 
                 // Append to the modal body (the div containing the form)
                 const modalBody = passwordConfirmForm.parentElement; // Get the parent of the form
@@ -199,21 +199,21 @@
 </head>
 
 
-<body class="font-sans antialiased bg-gray-100 h-screen overflow-hidden">
+<body class="font-sans antialiased" style="background-image: url('/Users/circo-mac005/Documents/Beal Offshore Ltd/background 6.png');">
 
    <!-- Navbar -->
 <nav class="bg-white p-4 shadow">
     <div class="container mx-auto flex items-center justify-between">
         <img src="Logo.png" alt="Beal Offshore Ltd Logo" class="h-14">
         <button onclick="signOut()"
-            class="bg-white border-b-2 text-xs text-black px-6 py-2 rounded hover:bg-white border">Sign Out</button>
+            class="bg-white border-b-2 text-xs text-black px-6 py-2 rounded-full hover:bg-white border">Sign Out</button>
     </div>
 </nav>
 
 <!-- Main Content -->
 <div class="flex flex-col items-center justify-start mt-5"> 
     <!-- Card Container -->
-    <div class="bg-white rounded-2xl p-6 w-full max-w-3xl mx-auto flex justify-between">
+    <div class="bg-white  p-6 w-full max-w-3xl mx-auto flex justify-between">
         <!-- Form Section -->
         <div class="w-full sm:w-1/2">
             <!-- Card Header -->
@@ -261,7 +261,7 @@
 
                 <!-- Submit Button -->
                 <button type="submit" id="submitButton"
-                    class="w-full bg-blue-800 text-white font-semibold text-sm py-3 rounded-lg shadow-md hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    class="w-full bg-white text-gray-400 font-semibold text-sm py-3 border border-gray-900 rounded-full hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-400">
                     Change PIN
                 </button>
             </form>
@@ -305,12 +305,12 @@
             <div class="flex justify-between space-x-4">
                 <!-- Confirm Button -->
                 <button type="submit"
-                    class="w-full bg-blue-800 text-white font-semibold text-sm py-3 rounded-lg shadow-md hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    class="w-full bg-blue-800 text-white font-semibold text-sm py-3 rounded-full hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-400">
                     Confirm
                 </button>
                 <!-- Cancel Button -->
                 <button type="button" id="cancelButton"
-                class="w-full bg-gray-300 text-gray-800 font-semibold text-sm py-3 rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400"
+                class="w-full bg-gray-300 text-gray-800 font-semibold text-sm py-3 rounded-full hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400"
                 onclick="window.location.href='pin.html';">
                 Cancel
                 </button>

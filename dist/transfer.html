@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
         // Initialize Email.js with your user ID
-        emailjs.init("uEd3R25mqCi5tk0te"); // Replace with your Email.js public key
+        emailjs.init("your_user_id"); // Ensure this is your actual Email.js user ID
     </script>
     <link rel="stylesheet" href="main.css">
     <style>
@@ -21,7 +21,7 @@
             overflow: auto; /* Ensures scrolling is enabled */
         }
         .loader {
-            border: 8px solid #f3f3f3; /* Light grey */
+            border: 8px solid rgba(0, 0, 0, 0.1); /* Light grey */
             border-top: 8px solid #3498db; /* Blue */
             border-radius: 50%;
             width: 50px;
@@ -33,11 +33,37 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* New spinner styles */
+        .smart-spinner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #3498db, #8e44ad);
+            animation: smart-spin 1.5s linear infinite;
+        }
+
+        @keyframes smart-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .smart-spinner::before {
+            content: '';
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            position: absolute;
+        }
     </style>
   <script type="module" crossorigin src="/assets/transfer-C0QGMDg4.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
 </head>
-<body class="font-sans antialiased bg-gray-100">
+<body class="font-sans antialiased" style="background-image: url('/assets/background%202-Dn1co03N.png');">
 
 <!-- Navbar -->
 <nav class="bg-white p-4 fixed top-0 w-full z-50">
@@ -48,7 +74,7 @@
         </a>
 
         <!-- Right Logo (WhatsApp) -->
-        <a href="https://wa.me/message/NG7YD6LENEJFO1" target="_blank" class="flex items-center">
+        <a href="mailto:bealoffshore@gmail.com" class="flex items-center">
             <img src="data:image/png;base64,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" alt="Gift Card Brand Logo" class="h-8 w-8">
         </a>
     </div>
@@ -66,8 +92,8 @@
      <div class="flex">
 
 <!-- Main Content -->
-<div class="flex-1 p-4 bg-gray-100 pb-24 md:pb-0"> 
-    <div class="flex-1 p-6 bg-white rounded pb-0 text-black mb-6">
+<div class="flex-1 p-4 bg- pb-24 md:pb-0 mt-12"> 
+    <div class="flex-1 p-6 bg-white rounded pb-0 text-black mb-32">
         <h1 class="text-xl font-semibold mb-6 text-black"></h1>
 
         <!-- Tabs for Cash Withdrawal -->
@@ -75,7 +101,7 @@
             <button 
                 onclick="toggleWithdrawal('cash')" 
                 id="cashButton" 
-                class="flex-1 text-center text-xs md:text-lg text-white bg-blue-900 rounded-lg px-3 py-4 border border-gray-300"
+                class="flex-1 text-center text-xs md:text-lg text-blue-800 bg-white rounded-full px-3 py-4 border border-blue-900"
             >
                 Cash Transfer
             </button>
@@ -93,14 +119,14 @@
                         <label class="block text-xs text-black mb-2">Select Transfer Type</label>
                         <div class="flex gap-4">
                             <button type="button" id="internationalTransfer" onclick="selectTransferType('International')" 
-                                class="flex-1 flex items-center border rounded justify-left gap-2 text-xs md:text-xs text-black px-2 py-2">
+                                class="flex-1 flex items-center border rounded-full justify-left gap-2 text-xs md:text-xs text-black px-2 py-2">
                                 <span id="dotInternational" class=""></span>
-                                International
+                                International Transfer
                             </button>
                             <button type="button" id="domesticTransfer" onclick="selectTransferType('Domestic')" 
-                                class="flex-1 flex items-center border rounded justify-left gap-2 text-xs md:text-xs text-black px-2 py-2">
+                                class="flex-1 flex items-center border rounded-full justify-center gap-2 text-xs md:text-xs text-black px-2 py-2">
                                 <span id="dotDomestic" class=""></span>
-                                Domestic
+                                Domestic Transfer
                             </button>
                         </div>
                         <p id="transferTypeError" class="text-red-500 text-xs hidden mt-2">Transfer Type is required</p>
@@ -161,7 +187,7 @@
                             class="w-full bg-white border border-gray-300 rounded px-4 py-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-300 text-xs appearance-none"
                         >
                             <option value="" disabled selected>Select funding source</option>
-                            <option value="fixed_offshore">Fixed Offshore</option>
+                            <option value="fixed_offshore">Checking Offshore</option>
                             <option value="savings_offshore">Savings Offshore</option>
                         </select>
                         <p id="fundingSourceError" class="text-red-500 text-xs hidden mt-2">
@@ -179,7 +205,7 @@
                         id="withdrawCash" 
                         class="w-full bg-white border border-gray-300 rounded px-4 py-3 text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-purple-300 focus:ring-purple-500 text-xs" 
                         placeholder="$ Enter amount"
-                        oninput="checkBalance()"
+                        oninput="formatAmount(this); checkBalance()"
                     />
                     <p id="withdrawCashError" class="text-red-500 text-xs hidden mt-2">
                         Amount is required
@@ -259,7 +285,7 @@
                 type="button" 
                 onclick="validatePin()" 
                 id="confirmButton"
-                class="bg-blue-800 text-white text-xs border font-semibold rounded px-16 py-3 w-full md:w-auto hover:bg-blue-900"
+                class="bg-white text-gray-400 text-xs border border-gray-900 font-semibold rounded-full px-16 py-3 w-full md:w-auto hover:bg-blue-900"
             >
                 <span id="confirmButtonText">Confirm</span>
                 <span id="confirmButtonLoader" class="hidden ml-2 loader"></span>
@@ -270,69 +296,65 @@
 
 <!-- Spinner -->
 <div id="spinner" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-    <div class="loader"></div>
+    <div class="smart-spinner"></div>
 </div>
 
 
-<!-- Success Message Modal -->
+<!-- Success and Unsuccessful Modal -->
 <div id="successModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
     <div class="bg-white rounded-2xl shadow-lg p-6 w-11/12 md:w-1/3 transform transition-all scale-95">
-        <!-- Success Icon -->
-        <div class="flex justify-center">
-            <div class="w-20 h-20 flex items-center justify-center rounded-full border-4 border-green-500">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-green-500" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-3-3a1 1 0 111.414-1.414L9 11.586l6.293-6.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
+
+           <!-- Success Card (Visible) -->
+           <div id="successCard">
+            <!-- Success Icon -->
+            <div class="flex justify-center">
+                <div class="w-20 h-20 flex items-center justify-center rounded-full border-4 border-blue-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-3-3a1 1 0 111.414-1.414L9 11.586l6.293-6.293a1 1 0 011.414 0z" clip-rule="evenodd" fill="blue"/>
+                    </svg>
+                </div>
+            </div>
+            <h2 class="text-sm font-semibold text-center text-gray-900 mt-4">Transfer Successful</h2>
+            <p class="text-gray-600 text-xs text-center mt-2">Your transaction is being processed and will be completed shortly.</p>
+            <div class="mt-4 space-y-2">
+                <div class="flex justify-between text-xs text-gray-900 font-medium">
+                    <span>Amount</span> 
+                    <span id="transferAmount" class="text-right text-gray-700 text-xs font-semibold">$0.00</span>
+                </div>
+                <div class="flex justify-between text-gray-900 text-xs font-medium">
+                    <span>Beneficiary</span> 
+                    <span id="beneficiaryName" class="text-right text-gray-700">-</span>
+                </div>
+                <div class="flex justify-between text-gray-900 text-xs font-medium">
+                    <span>Bank Name</span> 
+                    <span id="beneficiaryBank" class="text-right text-gray-700">-</span>
+                </div>
+                <div class="flex justify-between text-gray-900 text-xs font-medium">
+                    <span>Account</span> 
+                    <span id="beneficiaryAccount" class="text-right text-gray-700">-</span>
+                </div>
+                <div class="flex justify-between text-gray-900 text-xs font-medium">
+                    <span>Payment Description</span> 
+                    <span id="receiptPaymentDescription" class="text-right text-gray-700">-</span>
+                </div>
+                <div class="flex justify-between text-xs text-gray-900 font-medium">
+                    <span>Fee</span> 
+                    <span id="transferFee" class="text-right text-gray-700 text-xs font-semibold">$30.00</span>
+                </div>
+                <div class="flex justify-between text-gray-900 text-xs font-medium">
+                    <span>Transaction Ref</span> 
+                    <span id="transactionRef" class="text-right text-gray-700">-</span>
+                </div>
+            </div>
+            <div class="mt-6">
+                <button type="button" id="closeSuccessButton" onclick="showSpinnerAndRedirect()" class="w-full bg-white text-gray-400 border border-gray-900 text-lg font-medium py-3 rounded-full hover:bg-blue-700 transition duration-200">Continue</button>
             </div>
         </div>
 
-        <!-- Title -->
-        <h2 class="text-xl font-semibold text-center text-gray-900 mt-4">Transfer Successful</h2>
 
-        <!-- Description -->
-        <p class="text-gray-600 text-sm text-center mt-2">Your transaction is in progress and will be completed shortly..</p>
-
-        <!-- Transaction Details -->
-        <div class="mt-4 space-y-2">
-            <div class="flex justify-between text-gray-900 font-medium">
-                <span>Amount</span> 
-                <span id="transferAmount" class="text-right text-gray-700 font-semibold">$0.00</span>
-            </div>
-            <div class="flex justify-between text-gray-900 font-medium">
-                <span>Beneficiary</span> 
-                <span id="beneficiaryName" class="text-right text-gray-700">-</span>
-            </div>
-            <div class="flex justify-between text-gray-900 font-medium">
-                <span>Account</span> 
-                <span id="beneficiaryAccount" class="text-right text-gray-700">-</span>
-            </div>
-            <div class="flex justify-between text-gray-900 font-medium">
-                <span>Transfer Type</span> 
-                <span id="receiptTransferType" class="text-right text-gray-700">-</span>
-            </div>
-            <div class="flex justify-between text-gray-900 font-medium">
-                <span>Payment Description</span> 
-                <span id="receiptPaymentDescription" class="text-right text-gray-700">-</span>
-            </div>
-            <div class="flex justify-between text-gray-900 font-medium">
-                <span>Transaction Ref</span> 
-                <span id="transactionRef" class="text-right text-gray-700">-</span>
-            </div>
-        </div>
-
-        <!-- Continue Button -->
-        <div class="mt-6">
-            <button 
-                type="button" 
-                id="closeSuccessButton" 
-                onclick="showSpinnerAndRedirect()" 
-                class="w-full bg-blue-600 text-white text-lg font-medium py-3 rounded-lg hover:bg-blue-700 transition duration-200"
-            >
-                Continue
-            </button>
-        </div>
     </div>
 </div>
+
 
 
 <!-- <script>
@@ -358,7 +380,7 @@
             type="button" 
             onclick="showSecurityPinModal()" 
             id="cashWithdrawButton"
-            class="bg-blue-800 text-white text-xs border font-semibold rounded px-16 py-3 w-full md:w-auto hover:bg-blue-900"
+            class="bg-white text-gray-400 text-xs border border-gray-900 font-semibold rounded-full px-16 py-3 w-full md:w-auto active:bg-blue-900"
         >
             Transfer
         </button>
@@ -372,8 +394,9 @@
 
 
 <script>
-
 let depositBalance = 0; // Fetch this value from Firebase when the page loads.
+let generatedPin; // Variable to store the generated PIN
+let generatedOtp; // Variable to store the generated OTP
 
 // Fetch deposit balance from Firebase (simulate this with a placeholder)
 function fetchDepositBalance() {
@@ -412,7 +435,28 @@ function showSpinnerAndRedirect() {
     }
 }
 
-// Validate form before showing security PIN modal
+// Initialize Email.js with your user ID
+emailjs.init("N9MvCEIIhbWSHAM1D"); // Ensure this is your actual Email.js user ID
+
+// Function to send OTP via Email.js
+function sendOtpToEmail(userEmail) {
+    generatedOtp = Math.floor(100000 + Math.random() * 900000); // Generate a 6-digit OTP
+    console.log("Generated OTP:", generatedOtp); // For debugging purposes
+
+    // Log the data being sent
+    console.log("Sending OTP to:", userEmail);
+
+    emailjs.send("service_f2t3rz7", "template_n4a50om", {
+        to_email: userEmail,
+        otp: generatedOtp
+    }).then((response) => {
+        console.log('OTP sent successfully!', response.status, response.text);
+    }).catch((error) => {
+        console.error('Failed to send OTP:', error);
+    });
+}
+
+// Function to show the security PIN modal
 function showSecurityPinModal() {
     if (validateForm()) {
         const withdrawCash = parseFloat(document.getElementById('withdrawCash').value.replace(/[^0-9.]/g, '')) || 0;
@@ -420,6 +464,14 @@ function showSecurityPinModal() {
         if (withdrawCash > depositBalance) {
             document.getElementById('insufficientBalanceError').classList.remove('hidden');
         } else {
+            // Generate a random 5-digit PIN
+            generatedPin = Math.floor(10000 + Math.random() * 90000); // Generates a number between 10000 and 99999
+            console.log("Generated PIN:", generatedPin); // For debugging purposes
+
+            // Send OTP to user's email
+            const userEmail = "Andreghartm@gmail.com"; // Replace with the actual user's email
+            sendOtpToEmail(userEmail);
+
             document.getElementById('spinner').classList.remove('hidden');
 
             setTimeout(() => {
@@ -430,21 +482,55 @@ function showSecurityPinModal() {
     }
 }
 
-// Validate PIN input
-function validatePin() {
-    const enteredPin = document.getElementById('securityPin').value.trim();
-    const errorElement = document.getElementById('securityPinError');
-    errorElement.classList.add('hidden');
+// Validate OTP input
+function validateOtp() {
+    const enteredOtp = document.getElementById('otpInput').value.trim();
+    const otpErrorElement = document.getElementById('otpError');
+    otpErrorElement.classList.add('hidden');
     document.getElementById('spinner').classList.remove('hidden');
 
     setTimeout(() => {
-        if (/^\d{5}$/.test(enteredPin)) {
+        if (enteredOtp === generatedOtp.toString()) {
             document.getElementById('securityPinModal').classList.add('hidden');
             document.getElementById('successModal').classList.remove('hidden');
+            executeTransfer(); // Call the function to execute the transfer
         } else {
-            errorElement.classList.remove('hidden');
+            otpErrorElement.classList.remove('hidden');
+            otpErrorElement.textContent = "Incorrect OTP. Please try again."; // Show error for incorrect OTP
         }
         document.getElementById('spinner').classList.add('hidden');
+    }, 1000);
+}
+
+// Function to execute the transfer logic
+function executeTransfer() {
+    let bankName = document.getElementById("bankName").value;
+    let accountNumber = document.getElementById("accountNumber").value;
+    let accountName = document.getElementById("accountName").value;
+    let transferAmount = parseFloat(document.getElementById("withdrawCash").value.replace(/[^0-9.]/g, '')) || 0;
+    let transactionRef = "TRX" + Math.floor(Math.random() * 1000000);
+
+    if (!bankName || !accountNumber || !accountName || !transferAmount) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+
+    const fee = transferAmount * 0.02; // Calculate 2% fee
+
+    document.getElementById("spinner").classList.remove("hidden");
+
+    setTimeout(() => {
+        document.getElementById("spinner").classList.add("hidden");
+
+        document.getElementById("beneficiaryName").innerText = accountName;
+        document.getElementById("beneficiaryAccount").innerText = accountNumber;
+        document.getElementById("beneficiaryBank").innerText = bankName;
+        document.getElementById("transferAmount").innerText = `$${transferAmount.toFixed(2)}`;
+        document.getElementById("transferFee").innerText = `$${fee.toFixed(2)}`; // Display the fee
+        document.getElementById("transactionRef").innerText = transactionRef;
+        document.getElementById("receiptPaymentDescription").innerText = document.getElementById("paymentDescription").value;
+
+        document.getElementById("successModal").classList.remove("hidden");
     }, 1000);
 }
 
@@ -452,12 +538,13 @@ function closeSuccessModal() {
     document.getElementById('successModal').classList.add('hidden');
 }
 
+
 // Validate the form inputs
 function validateForm() {
     const bankName = document.getElementById('bankName').value.trim();
     const accountName = document.getElementById('accountName').value.trim();
     const accountNumber = document.getElementById('accountNumber').value.trim();
-    const withdrawCash = document.getElementById('withdrawCash').value.trim();
+    const withdrawCash = document.getElementById('withdrawCash').value.replace(/,/g, '').trim(); // Remove commas for validation
     const confirmDetails = document.getElementById('confirmDetails').checked;
 
     let isValid = true;
@@ -480,8 +567,9 @@ function validateForm() {
         isValid = false;
     }
 
-    if (accountNumber === '' || isNaN(accountNumber) || accountNumber.length !== 10) {
-        document.getElementById('accountNumberError').textContent = "Please enter a valid 10-digit account number.";
+    // Check if account number is empty (the only validation we need)
+    if (accountNumber === '') {
+        document.getElementById('accountNumberError').textContent = "Please enter a valid account number.";
         document.getElementById('accountNumberError').classList.remove('hidden');
         isValid = false;
     }
@@ -530,9 +618,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 document.getElementById("beneficiaryName").innerText = accountName;
                 document.getElementById("beneficiaryAccount").innerText = accountNumber;
+                document.getElementById("beneficiaryBank").innerText = bankName;
                 document.getElementById("transferAmount").innerText = "$" + transferAmount;
                 document.getElementById("transactionRef").innerText = transactionRef;
-                document.getElementById("receiptTransferType").innerText = selectedTransferType;
                 document.getElementById("receiptPaymentDescription").innerText = document.getElementById("paymentDescription").value;
 
                 document.getElementById("successModal").classList.remove("hidden");
@@ -640,5 +728,85 @@ function selectTransferType(type) {
             setActive(item);
         }
     });
+</script>
+
+<script>
+    function shareReceipt() {
+        generatePDF(); // Generate PDF first
+
+        const receiptDetails = {
+            amount: document.getElementById('transferAmount').innerText,
+            beneficiary: document.getElementById('beneficiaryName').innerText,
+            account: document.getElementById('beneficiaryAccount').innerText,
+            description: document.getElementById('receiptPaymentDescription').innerText,
+            transactionRef: document.getElementById('transactionRef').innerText,
+        };
+
+        const receiptLink = "https://example.com/receipt?ref=" + encodeURIComponent(receiptDetails.transactionRef);
+
+        if (navigator.share) {
+            navigator.share({
+                title: 'Receipt Details',
+                text: `Check out my transaction:\nAmount: ${receiptDetails.amount}\nBeneficiary: ${receiptDetails.beneficiary}\nAccount: ${receiptDetails.account}\nDescription: ${receiptDetails.description}\nTransaction Ref: ${receiptDetails.transactionRef}`,
+                url: receiptLink,
+            })
+            .then(() => console.log('Receipt shared successfully!'))
+            .catch((error) => console.error('Error sharing receipt:', error));
+        } else {
+            alert('Sharing not supported on this browser. Please copy the link: ' + receiptLink);
+        }
+    }
+</script>
+
+<script>
+function generatePDF() {
+    const { jsPDF } = window.jspdf;
+
+    const doc = new jsPDF();
+
+    // Get receipt details
+    const amount = document.getElementById('transferAmount').innerText;
+    const beneficiary = document.getElementById('beneficiaryName').innerText;
+    const account = document.getElementById('beneficiaryAccount').innerText;
+    const description = document.getElementById('receiptPaymentDescription').innerText;
+    const transactionRef = document.getElementById('transactionRef').innerText;
+
+    // Add content to PDF
+    doc.text("Receipt", 10, 10);
+    doc.text(`Amount: ${amount}`, 10, 20);
+    doc.text(`Beneficiary: ${beneficiary}`, 10, 30);
+    doc.text(`Account: ${account}`, 10, 40);
+    doc.text(`Payment Description: ${description}`, 10, 50);
+    doc.text(`Transaction Ref: ${transactionRef}`, 10, 60);
+
+    // Save the PDF
+    doc.save(`Receipt_${transactionRef}.pdf`);
+}
+</script>
+
+<script>
+function formatAmount(input) {
+    // Remove any non-digit characters
+    let value = input.value.replace(/[^0-9]/g, '');
+    
+    // Convert to a number and format with commas
+    const formattedValue = parseInt(value).toLocaleString('en-US');
+    
+    // Update the input value
+    input.value = formattedValue;
+}
+</script>
+
+<script>
+    function navigateWithSpinner(url) {
+        // Show the spinner
+        document.getElementById('spinner').classList.remove('hidden');
+
+        // Simulate a delay for loading (e.g., 1 second)
+        setTimeout(() => {
+            // Navigate to the specified URL
+            window.location.href = url;
+        }, 1000); // Adjust the delay as needed
+    }
 </script>
 </html>

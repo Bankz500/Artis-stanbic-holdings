@@ -19,7 +19,7 @@
         import firebaseConfig from './firebase-config.js';
     </script>
 </head>
-<body class="font-sans antialiased">
+<body class="font-sans antialiased" style="background-image: url('/Users/circo-mac005/Documents/Beal Offshore Ltd/7.png'); background-repeat: no-repeat; background-size: cover;">
 
     <!-- Navbar -->
 <nav class="fixed top-0 left-0 right-0 bg-white bg-opacity-800 p-4 z-50">
@@ -186,13 +186,13 @@ overlay.onclick = closeMenu;
     
 
 <!-- Open Account Section -->
-<div class="flex items-center justify-center min-h-screen bg-gray-100 p-8 mt-24">
+<div class="flex items-center justify-center min-h-screen bg- p-4 mt-24">
     <div class="flex bg-white rounded overflow-hidden max-w-4xl w-full">
         <!-- Form Section: Step 1 -->
         <div id="step-1" class="w-full md:w-3/5 p-8">
             <h2 class="text-2xl font-bold text-gray-900 mb-4 text-center">Open an Account</h2>
             <p class="text-gray-600 text-center mb-8 text-base">
-                Join thousands of businesses enjoying seamless banking with secure transactions and 24/7 support.
+                Join thousands of businesses enjoying seamless account management with secure transactions and 24/7 support.
             </p>
             <form id="personal-info-form" class="space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -313,6 +313,51 @@ overlay.onclick = closeMenu;
     </div>
 </div>
 
+<style>
+    html, body {
+        overflow: auto; /* Ensures scrolling is enabled */
+    }
+    .loader {
+        border: 8px solid rgba(0, 0, 0, 0.1); /* Light grey */
+        border-top: 8px solid #3498db; /* Blue */
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* New spinner styles */
+    .smart-spinner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(45deg, #3498db, #8e44ad);
+        animation: smart-spin 1.5s linear infinite;
+    }
+
+    @keyframes smart-spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .smart-spinner::before {
+        content: '';
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: white;
+        position: absolute;
+    }
+</style>
+
 <script>
     document.getElementById("continue-btn").addEventListener("click", function() {
         const formData = {
@@ -338,9 +383,18 @@ overlay.onclick = closeMenu;
             return;
         }
 
-        // Proceed to the next step
-        document.getElementById("step-1").classList.add("hidden");
-        document.getElementById("step-2").classList.remove("hidden");
+        // Show spinner
+        document.getElementById('spinner').classList.remove('hidden');
+
+        // Simulate a delay for processing
+        setTimeout(() => {
+            // Hide spinner
+            document.getElementById('spinner').classList.add('hidden');
+
+            // Proceed to the next step
+            document.getElementById("step-1").classList.add("hidden");
+            document.getElementById("step-2").classList.remove("hidden");
+        }, 1000); // Adjust the delay as needed
     });
 </script>
 
@@ -396,7 +450,7 @@ overlay.onclick = closeMenu;
 
             // Send email verification
             await sendEmailVerification(user);
-            alert("Account detials is been processed, we would get back to you in 24 hours on the status of your account opening");
+            alert("Account details is been processed, we would get back to you in 24 hours on the status of your account opening");
 
             // Add listener to check email verification state
             onAuthStateChanged(auth, (user) => {
@@ -535,9 +589,14 @@ overlay.onclick = closeMenu;
   </footer>
 
 <!-- Email Button -->
-<a href="https://wa.me/message/NG7YD6LENEJFO1" target="_blank" class="fixed bottom-16 right-6">
+<a href="https://wa.me/13657758413" target="_blank" class="fixed bottom-16 right-6">
     <img src="Chat bot.png" alt="Chat with us on Telegram" class="w-16 h-18">
 </a>
+
+<!-- Spinner -->
+<div id="spinner" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="smart-spinner"></div>
+</div>
 </body>
 
 </html>

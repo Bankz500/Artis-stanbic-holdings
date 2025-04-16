@@ -20,11 +20,50 @@
         html, body {
             overflow: auto; /* Ensures scrolling is enabled */
         }
+        .loader {
+            border: 8px solid rgba(0, 0, 0, 0.1); /* Light grey */
+            border-top: 8px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* New spinner styles */
+        .smart-spinner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #3498db, #8e44ad);
+            animation: smart-spin 1.5s linear infinite;
+        }
+
+        @keyframes smart-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .smart-spinner::before {
+            content: '';
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            position: absolute;
+        }
     </style>
   <script type="module" crossorigin src="/assets/support-C0QGMDg4.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
 </head>
-<body class="font-sans antialiased bg-gray-100">
+<body class="font-sans antialiased" style="background-image: url('/assets/background%205-gJdUV8Bp.png');">
 
 <!-- Navbar -->
 <nav class="bg-white p-4 fixed top-0 w-full z-50">
@@ -35,7 +74,7 @@
         </a>
 
             <!-- Sign out button for mobile and desktop -->
-            <button onclick="signOut()" class="bg-white border-b-2 text-black text-xs px-6 py-2 rounded hover:bg-white border">Sign Out</button>
+            <button onclick="signOut()" class="bg-white border-b-2 text-black text-xs px-6 py-2 rounded-full hover:bg-white border">Sign Out</button>
         </div>
     </div>
 </nav>
@@ -51,7 +90,7 @@
     <div class="flex">
 
 <!-- Contact Card -->
-<div class="w-full Center p-4 bg-blue-900 mt-2 px-8">
+<div class="w-full Center p-8 bg-blue-900 mt-2 px-8">
     <h2 class="text-xl font-bold text-center text-white mb-4">Support</h2>
     <p class="text-center text-xs text-gray-300 mb-4">Visit the chat Center</p>
     <p class="text-center text-white mb-4"><a href="https://wa.me/13657758413" class="hover:underline">BealOffshore.live/helpcenter</a></p>
@@ -69,8 +108,8 @@
     <div class="border-t border-gray-400 mt-4 pt-4">
         <h3 class="text-sm font-semibold text-white mb-2">Email</h3>
         <p class="text-gray-600 text-xs mb-2 flex justify-between items-center">
-            <a href="mailto:Support@bealoffshore.com" class="text-white hover:underline flex justify-between items-center w-full">
-                <span>Support@Bealoffshore.com</span>
+            <a href="mailto:bealoffshore@gmail.com?subject=Support Inquiry&body=Hello," class="text-white hover:underline flex justify-between items-center w-full">
+                <span>Support@beal-offshore.com</span>
                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAACxLAAAsSwGlPZapAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAPzSURBVHgB7Z2NcdswDIXpTpBu4G7QbuANmg2SDZJMkHSCeIO4EzSZwNcJ3A2UDZINXsFIvfpsiQQoUvTP++54zsXSIwQIJHSyKOcIIYQQQgghhBBCyLkws2wM4EI+bqQtpM27Rpx7l/ZH2ou059ls9qrdURUAcfxcPh6lXTqiYSXthyYQ0QCI86/kYyntwhELPit8EJahjT6FvhTn37s2mnS+He+zx86HgwxmgOzox/pg9Iiaa8mEn31f9AagG/M3jmd+Lvxw9K1vThgagnza0Pn5+BiO+r7Yy4Du7G8cKcFnyYL34BYSgFvEaaQtuuuCs0f8cN35JMaDRmytcD4dv4P3CeJBWO/u1zcHfHVhfAoxAPt4n7xHtpm7GNDRSLt25APxxaW0N43jNGIWntBO2mcJ2mHn0eIwjaiVRtrCnRloi5AGRjTCqdy7MwHGs36qAHganPCQ5I9N2gYj0HSSg5PLBjmmGygn2hCajnKxxglkA9qzfo1MaDrMSYMjLldhKC+1aDrVONXKE44oG5BQXnZEg6XpPEZqSjY4gnIVieVl55N5bCONASoB+fMBaRzsBI30s/52SyOIxgi1ANqIN7DT4ICGJKSXl5vd44jtoDHGLIAjzgakl5fLAb0gGoOSBDBy7HQTg0JzWWxnjWHJAt1BrWCnwYTlKtLLyyUi90JiAhrjxgk40x2iXZ5QMBswrrxU/SgtJlRe4L/OQZWrmGiIjImVF9jXqz5BI0N5aegrSHmBfs0q5SoylpeGPoOUFwhrT5YNyFxeGvoNUl4grl90LEbluSfWSXkBnZFFylUULC8NxxakvIDN2CzlKiYoLw3HFKS8gN3gUUMGDuwKPNZpeYF0w1MnaCtJ5aXhOIKUFxhnfGq5qiW5vDQcwzj/jRbIAMpkwyQPm8SMKC+QCaSP7bs0mPBOXMyY8gIZQXq5+o9s5aXB5tMJwJZN1nI1e3lpsPX0AtDZpS1X/TZzV4nR/hstUBgMT9BFy0uDfacdAA/abPi15fg1DuQmv9V/fQ/pBZ08ExwZxOq/4JPypDwMQGUYgMowAJVhACrDAFSGAagMA1AZBqAyDEBlGIDKMACVYQAqwwBUhgGojDkA4HJlWekLwKsLE1vS7GxB/Dm32JJmXLQvFWRctO+3CzOXtgHXjPugc/zCtSsNzyObv+z+o++esD+73xwpwZfd5Yv3MqBb2fXZkdys+taO5uLd02BbvLvb8M6RXAy+TWPwOkB2WPkdHRlL8C0amleY+J/7+cdEORzZ8MPOXXciD2J5ic+DtCtHNPgi5i7LS3y26QLhf/b93bVXxMyKlteu+WuoZfQdAYQQQgghhBBCCCHkLPkLd2qGY6nLkVsAAAAASUVORK5CYII=" alt="Email Icon" class="inline-block h-4 w-4" />
             </a>
         </p>
@@ -280,4 +319,22 @@ window.onscroll = resetTimer;
         }
     });
 </script>
+
+<script>
+    function navigateWithSpinner(url) {
+        // Show the spinner
+        document.getElementById('spinner').classList.remove('hidden');
+
+        // Simulate a delay for loading (e.g., 1 second)
+        setTimeout(() => {
+            // Navigate to the specified URL
+            window.location.href = url;
+        }, 1000); // Adjust the delay as needed
+    }
+</script>
+
+<!-- Spinner -->
+<div id="spinner" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="smart-spinner"></div>
+</div>
 </html>

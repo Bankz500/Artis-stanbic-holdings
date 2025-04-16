@@ -17,7 +17,7 @@
             overflow: auto; /* Ensures scrolling is enabled */
         }
         .loader {
-            border: 8px solid #f3f3f3; /* Light grey */
+            border: 8px solid rgba(0, 0, 0, 0.1); /* Light grey */
             border-top: 8px solid #3498db; /* Blue */
             border-radius: 50%;
             width: 50px;
@@ -28,6 +28,32 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        /* New spinner styles */
+        .smart-spinner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #3498db, #8e44ad);
+            animation: smart-spin 1.5s linear infinite;
+        }
+
+        @keyframes smart-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .smart-spinner::before {
+            content: '';
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            position: absolute;
         }
     </style>
     <script type="module">
@@ -99,6 +125,10 @@
                     document.getElementById('history1').textContent = `${userData.history1 || 'No history available'}`;
                     document.getElementById('history2').textContent = `${userData.history2 || ''}`;
                     document.getElementById('history3').textContent = `${userData.history3 || ''}`;
+                    document.getElementById('history4').textContent = `${userData.history4 || ''}`;
+                    document.getElementById('history5').textContent = `${userData.history5 || ''}`;
+                    document.getElementById('history6').textContent = `${userData.history6 || ''}`;
+                    document.getElementById('history7').textContent = `${userData.history7 || ''}`;
                     document.getElementById('wallet').textContent = `${userData.wallet || '$0.00'}`;
                     document.getElementById('bonus-wallet').textContent = `${userData.bonus || '$0.00'}`;
                     document.getElementById('pending1').textContent = `${userData.pending1 || 'No pending transactions'}`;
@@ -202,18 +232,18 @@
     </script>
     
 </head>
-<body class="font-sans antialiased bg-white">
+<body class="font-sans antialiased" style="background-image: url('/Users/circo-mac005/Documents/Beal Offshore Ltd/background 5.png');">
 
 <!-- Navbar -->
 <nav class="bg-white p-4 fixed top-0 w-full z-50">
     <div class="container mx-auto flex items-center justify-between">
         <!-- Left Logo -->
-        <a href="index.html" class="flex items-center">
+        <a href="/" class="flex items-center">
             <img src="Logo.png" alt="Beal Offshore Ltd Logo" class="h-14">
         </a>
 
         <!-- Right Logo (WhatsApp) -->
-        <a href="https://wa.me/message/NG7YD6LENEJFO1" target="_blank" class="flex items-center">
+        <a href="mailto:bealoffshore@gmail.com" class="flex items-center">
             <img src="chat.png" alt="Gift Card Brand Logo" class="h-8 w-8">
         </a>
     </div>
@@ -236,55 +266,35 @@
 
 
 <!-- Main Content -->
-<div class="flex-1 p-2 bg-white ">
-    <div class="flex-1 py-2 bg-blue-900 rounded-lg text-black mt-6">
+<div class="flex-1 p-2 bg-white/50 ">
+    <div class="flex-1 py-2 bg- rounded text-black mt-6">
 
         <!-- Flex container to align Welcome Message and Generate Wallet Address -->
         <div class="flex justify-between items-center mb-6">
             <!-- Welcome Message -->
-            <div class="flex-1 p-2 bg-gray-100">
+            <div class="flex-1 p-2 bg-">
                 <h1 id="welcome-name" class="text-sm font-semibold mb-6 mt-6 rounded-lg text-gray-800">Welcome back</h1>
                 
 <!-- Include FontAwesome for icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-<div class="flex justify-between items-stretch space-x-4 mt-6">
+<div class="flex justify-between items-stretch space-x-2 mt-6">
 <!-- Deposit Account Card -->
-<div class="relative bg-blue-900 border rounded-lg p-4 flex flex-col justify-between h-48 w-1/3">
-    <!-- Card label -->
+<div class="relative bg-blue-900 border rounded-lg p-3 flex flex-col justify-between h-48 w-1/3">
+    <i class="fas fa-lock absolute top-2 right-2 text-white text-sm"></i>
     <label for="Deposit-account" class="block text-sm font-regular text-white text-left">Checking offshore</label>
-    
-    <!-- Balance display -->
     <p id="Deposit-account" class="mt-2 text-xs font-bold text-white text-center">$0.00</p>
     
 </div>
 
-<!-- JavaScript -->
-<script>
-    function toggleBalance() {
-        const balanceElement = document.getElementById("Deposit-account");
-        const toggleIcon = document.getElementById("toggle-icon");
-
-        // Toggle visibility
-        if (balanceElement.style.display === "none") {
-            balanceElement.style.display = "block";
-            toggleIcon.classList.remove("eye-close-fill.png");
-            toggleIcon.classList.add("fa-eye");
-        } else {
-            balanceElement.style.display = "none";
-            toggleIcon.classList.remove("fa-eye");
-            toggleIcon.classList.add("fa-eye-slash");
-        }
-    }
-</script>
 
 <!-- Font Awesome for icons -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
 
 <!-- Wallet Card -->
-<div class="relative bg-white rounded-lg p-3 flex flex-col justify-between h-48 w-1/3">
-    <!-- <i class="fas fa-lock absolute top-2 right-2 text-black text-sm"></i> Unlocked Padlock Icon -->
+<div class="relative bg-white border rounded-lg p-4 flex flex-col justify-between h-48 w-1/3">
+    <!-- <i class="fas fa-lock absolute top-2 right-2 text-black text-sm"></i> -->
     <label for="wallet" class="block text-sm font-regular text-black text-left">Fixed offshore</label>
     <p id="wallet" class="mt-2 text-xs font-bold text-black text-center">$0.00</p>
     <button 
@@ -296,7 +306,7 @@
 </div>
 
     <!-- Signup Offer Card -->
-    <div class="relative bg-blue-600 shadow rounded-lg p-4 flex flex-col justify-between h-48 w-1/3">
+    <div class="relative bg-black border rounded-lg p-3 flex flex-col justify-between h-48 w-1/3">
         <label for="bonus-wallet" class="block text-sm font-regular text-white text-left">Savings offshore</label>
         <p id="bonus-wallet" class="mt-2 text-xs font-bold text-white text-center">$0.00</p>
     </div>
@@ -307,12 +317,12 @@
 <hr class="my-4 border-gray-200">
 
 <!-- Simplified Fintech Style UI with Responsive Layout -->
-<div class="bg-gray-100 mt-6 p-0">
+<div class="bg- mt-6 p-0">
     <!-- Quick Access Header -->
     <h2 class="text-xs font-bold text-gray-700 mb-4 text-left md:text-left">Quick Access</h2>
 
     <!-- Card Grid Section -->
-    <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+    <div class="grid grid-cols-2 gap-2 md:grid-cols-4">
         <!-- BTC Exchange Card -->
         <div onclick="navigateWithSpinner('deposit.html')" 
              class="cursor-pointer bg-white text-black py-4 px-6 rounded-lg flex flex-col items-center space-y-2 hover:shadow-md transition duration-200">
@@ -328,8 +338,8 @@
         </div> -->
 
         <!-- PayPal Payment Card -->
-        <div onclick="navigateWithSpinner('transfer.html')" 
-             class="cursor-pointer bg-white text-black py-4 px-6 rounded-lg flex flex-col items-center space-y-2 hover:shadow-md transition duration-200">
+        <div onclick="navigateWithSpinner('')" 
+             class="cursor-pointer bg-white text-black py-4 px-6 rounded-lg flex flex-col items-center space-y-2 hover:shadow-md transition duration-200 shadow-lg">
             <img src="transfer.png" alt="PayPal Icon" class="h-6 w-6">
             <span class="text-xs font-semibold">Transfer</span>
         </div>
@@ -360,19 +370,57 @@
     
     <!-- Header Section -->
     <div class="flex items-center justify-between mb-4">
-        <label for="Profit-wallet" class="bg-white rounded text-sm font-semibold text-gray-800">
-            Transaction history
-        </label>
+        <h2 class="text-xs font-semibold text-gray-800">Transaction History</h2>
     </div>
     <!-- Divider -->
     <hr class="border-gray-200 mb-4">
     <!-- History Content -->
-    <div class="flex flex-col items-start mb-4">
+    <div class="flex flex-col items-start text-xs mb-4 space-y-4">
         <!-- History Entries -->
-        <p id="history1" class="text-xs text-red-600 mb-2">No history available</p>
-        <p id="history2" class="text-xs text-green-700 mb-2"></p>
-        <p id="history3" class="text-xs text-green-700 mb-2"></p>
+        <div id="history1" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+            <h3 class="font-semibold text-xs text-gray-800">No history available</h3>
+        </div>
+        <div id="history2" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+            <h3 class="font-semibold text-xs text-green-600"></h3>
+            <p class="text-xs font-regular text-green-800"></p>
+        </div>
+        <div id="history3" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+            <h3 class="font-semibold text-xs text-red-600"></h3>
+            <p class="text-xs font-bold text-gray-800"></p>
+        </div>
+        <div id="history4" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+            <h3 class="font-semibold text-xs text-blue-600"></h3>
+            <p class="text-xs font-bold text-gray-800"></p>
+        </div>
+        <div id="history5" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+            <h3 class="font-semibold text-xs text-yellow-600"></h3>
+            <p class="text-xs font-bold text-gray-800"></p>
+        </div>
+        <div id="history6" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+            <h3 class="font-semibold text-xs text-gray-800"></h3>
+            <p class="text-xs font-bold text-gray-800"></p>
+        </div>
+        <div id="history7" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+            <h3 class="font-semibold text-xs text-gray-800"></h3>
+            <p class="text-xs font-bold text-gray-800"></p>
+        </div>
+        <!-- Hidden history entries -->
+        <!-- <div id="history8" class="bg-white p-3 rounded border transition-transform transform hover:scale-105 hidden">
+            <h3 class="font-semibold text-xs text-gray-800"></h3>
+            <p class="text-xs font-bold text-gray-800"></p>
+        </div>
+        <div id="history9" class="bg-white p-3 rounded border transition-transform transform hover:scale-105 hidden">
+            <h3 class="font-semibold text-xs text-gray-800"></h3>
+            <p class="text-xs font-bold text-gray-800"></p>
+        </div>
+        <div id="history10" class="bg-white p-3 rounded border transition-transform transform hover:scale-105 hidden">
+            <h3 class="font-semibold text-xs text-gray-800"></h3>
+            <p class="text-xs font-bold text-gray-800"></p>
+        </div> -->
     </div>
+
+    <!-- See More Text -->
+    <!-- <p id="see-more" class="text-blue-500 text-xs cursor-pointer hover:text-blue-600 transition duration-300 ease-in-out">See More</p> -->
 </div>
 
 
@@ -387,47 +435,53 @@
 <div class="bg-white rounded p-6 w-full">
     <!-- Header Section -->
     <div class="flex items-center justify-between mb-4">
-        <label for="pending-wallet" class="bg-white rounded text-sm font-semibold text-gray-800">
-            Pending Transactions
+        <h2 class="text-xs font-semibold text-gray-800">Pending Transactions</h2>
     </div>
     <!-- Divider -->
     <hr class="border-gray-300 mb-4">
     <!-- Content Section -->
-    <div class="text-gray-600 text-sm">
-        <p id="pending1" class="text-xs">No pending transactions</p>
-        <hr class="border-white mb-4">
-        <p id="pending2" class="text-xs"></p>
-        <hr class="border-white mb-4">
-        <p id="pending3" class="text-xs"></p>
+    <div class="text-gray-600 text-xs space-y-4">
+        <div id="pending1" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+            <h3 class="font-semibold text-red-600"></h3>
+            <p class="text-lg font-bold text-gray-800"></p>
+        </div>
+        <div id="pending2" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+            <h3 class="font-semibold text-green-600"></h3>
+            <p class="text-lg font-bold text-gray-800"></p>
+        </div>
+        <div id="pending3" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+            <h3 class="font-semibold text-blue-600"></h3>
+            <p class="text-lg font-bold text-gray-800"></p>
+        </div>
+        <!-- <p class="text-xs text-gray-500">No pending transactions</p> -->
     </div>
 </div>
 
 
 
-                <section class="py-8 bg" id="spacing">
-                    <div class="container mx-auto text-center">
-                    </div>
-                </section>
+<section class="py-8 bg" id="spacing">
+<div class="container mx-auto text-center">
+</div>
+</section>
 
-                <script>
-                    let originalBalance = '$0.00'; // Initialize with the actual wallet value
-                    
-                    function toggleBalance() {
-                        const wallet = document.getElementById('wallet');
-                        const Deposit = document.getElementById('Deposit-account');
-                        const toggleIcon = document.getElementById('toggle-icon');
-                    
-                        if (wallet.textContent === '****') {
-                            wallet.textContent = originalBalance; // Restore original balance
-                            toggleIcon.className = 'fas fa-eye'; // Eye icon
-                        } else {
-                            originalBalance = wallet.textContent; // Store the current balance
-                            wallet.textContent = '****'; // Mask the balance
-                            toggleIcon.className = 'fas fa-eye-slash'; // Eye-slash icon
-                        }
-                    }
-                    </script>
-                    
+<script>
+let originalBalance = '$0.00'; // Initialize with the actual wallet value
+
+function toggleBalance() {
+    const wallet = document.getElementById('wallet');
+    const Deposit = document.getElementById('Deposit-account');
+    const toggleIcon = document.getElementById('toggle-icon');
+
+    if (wallet.textContent === '****') {
+        wallet.textContent = originalBalance; // Restore original balance
+        toggleIcon.className = 'fas fa-eye'; // Eye icon
+    } else {
+        originalBalance = wallet.textContent; // Store the current balance
+        wallet.textContent = '****'; // Mask the balance
+        toggleIcon.className = 'fas fa-eye-slash'; // Eye-slash icon
+    }
+}
+</script>                    
 
 <script>
     // Ensure the script runs after the DOM is fully loaded
@@ -556,6 +610,20 @@
                 }, 1000); // Adjust the delay as needed
             });
         });
+
+        // See More button functionality
+        const seeMoreButton = document.getElementById('see-more');
+        if (seeMoreButton) {
+            seeMoreButton.addEventListener('click', function() {
+                // Show the hidden history entries
+                document.getElementById('history8').classList.remove('hidden');
+                document.getElementById('history9').classList.remove('hidden');
+                document.getElementById('history10').classList.remove('hidden');
+                
+                // Optionally, hide the "See More" button after clicking
+                this.classList.add('hidden');
+            });
+        }
     });
 </script>
 
@@ -574,6 +642,6 @@
 
 <!-- Spinner -->
 <div id="spinner" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-    <div class="loader"></div>
+    <div class="smart-spinner"></div>
 </div>
 </html>
