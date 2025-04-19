@@ -79,6 +79,35 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
+                    // Add these at the top of your script section
+                    let inactivityTimeout;
+            const TIMEOUT_DURATION = 200000; // 10 minutes in milliseconds
+
+            // Function to reset timer
+            function resetInactivityTimer() {
+                clearTimeout(inactivityTimeout);
+                inactivityTimeout = setTimeout(() => {
+                    // Sign out the user and redirect to login
+                    const auth = getAuth();
+                    signOut(auth).then(() => {
+                        window.location.href = 'login.html';
+                    }).catch((error) => {
+                        console.error('Error signing out:', error);
+                        window.location.href = 'login.html';
+                    });
+                }, TIMEOUT_DURATION);
+            }
+
+            // Add event listeners for user activity
+            document.addEventListener('mousemove', resetInactivityTimer);
+            document.addEventListener('keypress', resetInactivityTimer);
+            document.addEventListener('click', resetInactivityTimer);
+            document.addEventListener('scroll', resetInactivityTimer);
+            document.addEventListener('touchstart', resetInactivityTimer);
+
+            // Initialize timer when page loads
+            resetInactivityTimer();
+
         // DOM Elements
         const balanceElement = document.getElementById('balance');
         const welcomeName = document.getElementById('name');
@@ -89,13 +118,10 @@
         onAuthStateChanged(auth, async (user) => {
             console.log("Current user:", user);
             if (user) {
-                console.log("User is logged in:", user.uid);
-                console.log("Current user:", user);
 
                 // Fetch user data from Firestore
                 const userDocRef = doc(db, 'users', user.uid);
                 const userDoc = await getDoc(userDocRef);
-                console.log("User document exists:", userDoc.exists());
                 if (userDoc.exists()) {
                     console.log("User data:", userDoc.data());
                     const userData = userDoc.data();
@@ -113,32 +139,6 @@
                         welcomeName.textContent = userData.firstName
                             ? `, ${userData.firstName}`
                             : ', User';
-                    }
-
-                    // Fetch and display transaction history
-                    const historyRef = collection(db, 'history');
-                    const historyQuery = query(historyRef, where('userId', '==', user.uid));
-                    const historySnapshot = await getDocs(historyQuery);
-                    if (historyContainer) {
-                        historyContainer.innerHTML = '';
-
-                        if (!historySnapshot.empty) {
-                            historySnapshot.forEach(doc => {
-                                const historyData = doc.data();
-                                const historyCard = document.createElement('div');
-                                historyCard.className = 'bg-white p-4 rounded-lg shadow-md text-center';
-                                historyCard.innerHTML = `
-                                    <h3 class="font-semibold text-gray-800">${historyData.description || 'No description'}</h3>
-                                    <p class="text-gray-600">$${historyData.amount || ''}</p>
-                                `;
-                                historyContainer.appendChild(historyCard);
-                            });
-                        } else {
-                            const noHistoryCard = document.createElement('div');
-                            noHistoryCard.className = 'bg-white p-4 rounded-lg shadow-md text-center';
-                            noHistoryCard.innerHTML = '<h3 class="font-semibold text-gray-800">No history</h3>';
-                            historyContainer.appendChild(noHistoryCard);
-                        }
                     }
 
                     // Fetch and display pending transactions

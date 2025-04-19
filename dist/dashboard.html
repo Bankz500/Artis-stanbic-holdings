@@ -5,6 +5,362 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beal Offshore Ltd Dashboard</title>
+    <style>
+        :root {
+            --chase-blue: #117aca;
+            --chase-dark-blue: #0d5394;
+            --chase-light-blue: #eef4fa;
+            --chase-hover: #f5f7fa;
+            --chase-border: #e4e9ef;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--chase-blue);
+        }
+        
+        .welcome-section {
+            margin-bottom: 25px;
+        }
+        
+        .welcome-text {
+            font-size: 22px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .date-text {
+            font-size: 14px;
+            color: #777;
+        }
+        
+        .accounts-section {
+            margin-bottom: 30px;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .view-all {
+            font-size: 14px;
+            color: var(--chase-blue);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .accounts-carousel {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        
+        .account-card {
+            flex: 0 0 300px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            position: relative;
+            transition: transform 0.2s;
+        }
+        
+        .account-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            margin-bottom: 15px;
+        }
+        
+        .account-type {
+            font-size: 14px;
+            color: #777;
+        }
+        
+        .account-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .account-balance {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .account-number {
+            font-size: 14px;
+            color: #777;
+        }
+        
+        .account-actions {
+            display: flex;
+            justify-content: flex-start;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .action-button {
+            background-color: var(--chase-light-blue);
+            color: var(--chase-blue);
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .action-button:hover {
+            background-color: #d5e4f7;
+        }
+        
+        .quick-actions {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .actions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .action-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .action-item:hover {
+            background-color: var(--chase-hover);
+        }
+        
+        .action-icon {
+            background-color: var(--chase-light-blue);
+            color: var(--chase-blue);
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .action-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            text-align: center;
+        }
+        
+        .transactions-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .transaction-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--chase-border);
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #777;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab.active {
+            color: var(--chase-blue);
+            border-bottom: 3px solid var(--chase-blue);
+        }
+        
+        .transaction-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid var(--chase-border);
+            transition: background-color 0.2s;
+        }
+        
+        .transaction-item:hover {
+            background-color: var(--chase-hover);
+        }
+        
+        .transaction-info {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .transaction-icon {
+            background-color: var(--chase-light-blue);
+            color: var(--chase-blue);
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .transaction-details {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .transaction-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .transaction-date {
+            font-size: 14px;
+            color: #777;
+        }
+        
+        .transaction-amount {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .credit {
+            color: #0c9;
+        }
+        
+        .debit {
+            color: #e74c3c;
+        }
+        
+        .pending {
+            color: #f39c12;
+        }
+        
+        .notifications-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .notification-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            border-bottom: 1px solid var(--chase-border);
+            transition: background-color 0.2s;
+        }
+        
+        .notification-item:hover {
+            background-color: var(--chase-hover);
+        }
+        
+        .notification-icon {
+            color: var(--chase-blue);
+        }
+        
+        .notification-content {
+            flex: 1;
+        }
+        
+        .notification-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .notification-message {
+            font-size: 14px;
+            color: #777;
+        }
+        
+        .notification-time {
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+        }
+        
+        .footer {
+            background-color: white;
+            border-top: 1px solid var(--chase-border);
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #777;
+        }
+        
+        /* Extra classes for eye icon toggle */
+        .hide-balance {
+            filter: blur(5px);
+        }
+    </style>
     <link rel="manifest" href="/assets/manifest-CU0lAEK-.json">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/logo%20new-DPEJ_4oz.png">
     <link rel="icon" href="/assets/logo%20new-DPEJ_4oz.png" type="image/png">
@@ -57,419 +413,470 @@
         }
     </style>
     
-  <script type="module" crossorigin src="/assets/dashboard-BzxX3S_v.js"></script>
+  <script type="module" crossorigin src="/assets/dashboard-CPjWgmSD.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
 </head>
-<body class="font-sans antialiased" style="background-image: url('/assets/background%205-gJdUV8Bp.png');">
+<body class="font-sans antialiased" style="position: relative; overflow: hidden;">
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: url('/assets/background%205-gJdUV8Bp.png'); background-size: cover; opacity: 0.9; z-index: -1;"></div>
+    <!-- Navbar -->
+    <nav class="bg-white p-4 fixed top-0 w-full z-50">
+        <div class="container mx-auto flex items-center justify-between">
+            <!-- Left Logo -->
+            <a href="/" class="flex items-center">
+                <img src="/assets/LOGO-DP4bRQMr.png" alt="Beal Offshore Ltd Logo" class="h-14">
+            </a>
 
-<!-- Navbar -->
-<nav class="bg-white p-4 fixed top-0 w-full z-50">
-    <div class="container mx-auto flex items-center justify-between">
-        <!-- Left Logo -->
-        <a href="/" class="flex items-center">
-            <img src="/assets/LOGO-DP4bRQMr.png" alt="Beal Offshore Ltd Logo" class="h-14">
-        </a>
-
-        <!-- Right Logo (WhatsApp) -->
-        <a href="mailto:bealoffshore@gmail.com" class="flex items-center">
-            <img src="data:image/png;base64,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" alt="Gift Card Brand Logo" class="h-8 w-8">
-        </a>
-    </div>
-</nav>
-
-
-
-<!-- Spacer to prevent content overlap -->
-<div class="h-20"></div>
-
-<div class="flex">
-    <!-- Additional Content -->
-</div>
-
-
-
-        </ul>
+            <!-- Right Logo (WhatsApp) -->
+            <a href="mailto:bealoffshore@gmail.com" class="flex items-center">
+                <img src="data:image/png;base64,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" alt="Gift Card Brand Logo" class="h-8 w-8">
+            </a>
+        </div>
     </nav>
-</div>
+
+    <!-- Spacer to prevent content overlap -->
+    <div class="h-20"></div>
+
+    <div class="container">
+        <header class="header">
+            <div>
+                <i class="fas fa-bell" style="margin-right: 10px; color: var(--chase-blue);"></i>
+                <i class="fas fa-user-circle" style="font-size: 18px; color: var(--chase-blue);"></i>
+            </div>
+        </header>
+        
+        <!-- In your HTML section at the bottom -->
+        <div class="flex-1 p-2 bg-">
+            <h1 id="welcome-name" class="text-sm-xl font-semibold mb-6 mt-6 rounded-lg text-gray-900">
+                Welcome back, <span id="user-first-name"></span>            
+                <p class="date-text" id="date-time-text">Last login: Today at 8:45 AM</p>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const dateTimeText = document.getElementById('date-time-text');
+                        const today = new Date();
+                        const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+                        const date = today.toLocaleDateString(undefined, options);
+                        const time = today.getHours() + ":" + today.getMinutes() + " " + (today.getHours() >= 12 ? 'PM' : 'AM');
+                        dateTimeText.textContent = `Last login: ${date} at ${time}`;
+                    });
+                </script>
+            </h1>
 
 
-<!-- Main Content -->
-<div class="flex-1 p-2 bg-white/50 ">
-    <div class="flex-1 py-2 bg- rounded text-black mt-6">
-
-        <!-- Flex container to align Welcome Message and Generate Wallet Address -->
-        <div class="flex justify-between items-center mb-6">
-            <!-- Welcome Message -->
-            <div class="flex-1 p-2 bg-">
-                <h1 id="welcome-name" class="text-sm font-semibold mb-6 mt-6 rounded-lg text-gray-800">Welcome back</h1>
+            <!-- Add a horizontal line here -->
+            <hr class="my-4 border-gray-400">
+        
+            <section class="accounts-section">
+                <div class="section-header">
+                    <h2 class="section-title">Accounts</h2>
+                </div>
                 
-<!-- Include FontAwesome for icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+                <div class="accounts-carousel">
+                    <!-- Checking Account Card -->
+                    <div class="account-card border">
+                        <div class="card-header">
+                            <span class="account-type">CHECKING</span>
+                            <h3 class="account-name">Checking Offshore</h3>
+                        </div>
+                        <div class="account-balance" id="Deposit-account">$0.00</div>
+                        <div class="account-actions">
+                            <a href="" class="action-button rounded-full">
+                                <i class="fas fa-exchange-alt"></i> Transfer
+                            </a>
+                            <a href="statement.html" class="action-button rounded-full">
+                                <i class="fas fa-file-invoice-dollar"></i> Statement
+                            </a>
+                        </div>
+                        <button id="toggle-checking" class="action-button" style="position: absolute; top: 15px; right: 15px; background: none; padding: 5px;">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Savings Account Card -->
+                    <div class="account-card border">
+                        <div class="card-header">
+                            <span class="account-type">SAVINGS</span>
+                            <h3 class="account-name">Savings Offshore</h3>
+                        </div>
+                        <div class="account-balance" id="bonus">$0.00</div>
+                        <div class="account-actions">
+                            <a href="" class="action-button rounded-full">
+                                <i class="fas fa-exchange-alt"></i> Transfer
+                            </a>
+                            <a href="statement.html" class="action-button rounded-full">
+                                <i class="fas fa-file-invoice-dollar"></i> Statement
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Fixed Account Card -->
+                    <div class="account-card border">
+                        <div class="card-header">
+                            <span class="account-type">FIXED DEPOSIT</span>
+                            <h3 class="account-name">Fixed Offshore</h3>
+                        </div>
+                        <div class="account-balance" id="wallet">$0.00</div>
+                        <div class="account-actions">
+                            <a href="" class="action-button rounded-full">
+                                <i class="fas fa-exchange-alt"></i> Transfer
+                            </a>
+                            <a href="statement.html" class="action-button rounded-full">
+                                <i class="fas fa-file-invoice-dollar"></i> Statement
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-<div class="flex justify-between items-stretch space-x-2 mt-6">
-<!-- Deposit Account Card -->
-<div class="relative bg-blue-900 border rounded-lg p-3 flex flex-col justify-between h-48 w-1/3">
-    <i class="fas fa-lock absolute top-2 right-2 text-white text-sm"></i>
-    <label for="Deposit-account" class="block text-sm font-regular text-white text-left">Checking offshore</label>
-    <p id="Deposit-account" class="mt-2 text-xs font-bold text-white text-center">$0.00</p>
-    
-</div>
+            <!-- Add a horizontal line here -->
+            <hr class="my-4 border-gray-400"> <!-- Added line -->
+        
+            <section class="quick-actions border">
+                <div class="section-header">
+                    <h2 class="section-title">Quick Actions</h2>
+                </div>
+                
+                <div class="actions-grid">
+                    <div class="action-item" onclick="navigateWithSpinner('deposit.html')">
+                        <div class="action-icon">
+                            <img src="data:image/png;base64,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" alt="Deposit Icon" class="h-6 w-6">
+                        </div>
+                        <span class="action-label">Deposit</span>
+                    </div>
+                    
+                    <div class="action-item" onclick="navigateWithSpinner('')">
+                        <div class="action-icon">
+                            <img src="data:image/png;base64,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" alt="Transfer Icon" class="h-6 w-6">
+                        </div>
+                        <span class="action-label">Transfer</span>
+                    </div>
+                    
+                    <div class="action-item" onclick="navigateWithSpinner('statement.html')">
+                        <div class="action-icon">
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAACxLAAAsSwGlPZapAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAQNSURBVHgB7Z0xT9tAFMffc6KSobQggURLqdIFKnWBrWPY2gn6EfgElLETZesG36Bdu9GtW8PWDRZUmGoJqDJQNVQMQcK+3pkgUZAc39m+dxe/n4QUFAcl9/N7Z/t/xAAMwzBMVUEokGazOdaL762CwJb6tf9DjvyQ26KGa53wIATHKETAVPN5EyLxUT5sgaPID9oN4vriycn+HjhEADl59HRuFSOxCw4PvkIAjMXB5bfp6Rfz4BC5KmDqyew6IL4Hj3CtEowFqD1fCNgCD3FJgpEA1fNV21FlDZ7iigSzOSCCdZ8HX+HKnKBdAf0jnp8wJFBXQh00wRiXhdp/UjeCEGJcadR7e2EYdsEiUzNzQmf7G5VAIkG7BQkRL6VuIAe/EVwsdI4P2rYH3xTKdqQtABFS32QggjVfBv4mVBIMKiB98v119GMbPIVCQu4z4WHDtoTKCZAtdGB7tCmhcgKCoL7okoTKCTgJ9/dcklDJOcAlCZWdhF2RUOmjIBckVP4wlFoCnwcArQQW0IdKAgu4AYUEFnAL2xK08wDfyZIXRNElZCVvnsAVUADXEpK0UBMWUBBJRn61OE0LFlAgMl/WngtI5oDrpYzqDWdZXaGztlNNnoNCo7IwWSlivQKu1xTJh62sb1hut6xek6XHysEnXeeji3UBciA3TfaUzD22hitZDiFdwboAtTeDIVl6rGpTIsAFhMCLbNr6HJCnR2etnP5c8QZKQHfd0SDsV0COHi0r4AsMGfYPQw17dFI5NXwLQ4Z1Abo9+koWttVrXPwXo7yQnAeU2aN9g8+EiWEBxLAAYlgAMSyAGBZADAsgxos8oGwov0vCizygbHTyhqLxJg8oG9NMNy9e5QFlY5Lp5sV+BTicVlFUpld5QNlQ5A3e5AFlQ5U3OJ8HlA113sB5ADF8JkwMCyCGBRDDAohhAcSwAGJYADGcBwDnAeRwHuAAnAc4AOcBxHAeQAznAYRwHkAE5wEVh8+EiWEBxLAAYlgAMSyAGBZADAsgpnAB6n6SwGTGQACGac/2oGH9iqItHs/Mpl7JVXdkAk0MBIgw9Wl5TX0Yq0B9phhwM20bAWjhWxMF7gzYotmLRnYH7S2+oAZeJmUt9ZlgwO15EYX21VTtG7kl9wyORv4Ac5caPtO9oKddAf1bVLWBuYX4ZHI11ewoyLPvZSubZCxqwQYYUAMDzrun3dGHExfy4StgAGN41zk6/AoGGAlQnJ/9/n7/wSTKWaQFVQZxo3N8+AEMMRagOP972h4dmziTJfhS/tqACqHaTrLn5xh8RS4BiqQSxic/y8PTcSBY1kEDtuU8+Nq07fz3l6BAklVv6na3QizJY+J5qq8QLp7k7D+UZ1o7jXpvy8eblTIMwzDu8Q/aiQiDu/WN4AAAAABJRU5ErkJggg==" alt="Statements Icon" class="h-6 w-6">
+                        </div>
+                        <span class="action-label">Statements</span>
+                    </div>
+                    
+                    <div class="action-item" onclick="navigateWithSpinner('pin.html')">
+                        <div class="action-icon">
+                            <img src="data:image/png;base64,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" alt="Change PIN Icon" class="h-6 w-6">
+                        </div>
+                        <span class="action-label">Change PIN</span>
+                    </div>
+                </div>
+            </section>
+        
+            <!-- Add a horizontal line here -->
+            <hr class="my-4 border-gray-400"> <!-- Added line -->
 
+            <!-- Profit Wallet Card -->
+            <div class="bg-white rounded p-6 w-full">
+                
+                <!-- Header Section -->
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-sm-2xl font-semibold text-gray-800">Transaction History</h2>
+                </div>
+                <!-- Divider -->
+                <hr class="border-gray-200 mb-4">
+                <!-- History Content -->
+                <div class="flex flex-col items-start text-sm mb-4 space-y-4">
+                    <!-- History Entries -->
+                    <div id="history1" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+                        <h3 class="font-semibold text-sm-1xl text-gray-800">No history available</h3>
+                    </div>
+                    <div id="history2" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+                        <h3 class="font-semibold text-xs text-green-600"></h3>
+                        <p class="text-sm-1xl font-regular text-green-800"></p>
+                    </div>
+                    <div id="history3" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+                        <h3 class="font-semibold text-xs text-red-600"></h3>
+                        <p class="text-sm-1xl font-bold text-gray-800"></p>
+                    </div>
+                    <div id="history4" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+                        <h3 class="font-semibold text-xs text-blue-600"></h3>
+                        <p class="text-sm-1xl font-bold text-gray-800"></p>
+                    </div>
+                    <div id="history5" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+                        <h3 class="font-semibold text-xs text-yellow-600"></h3>
+                        <p class="text-sm-1xl font-bold text-gray-800"></p>
+                    </div>
+                    <div id="history6" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+                        <h3 class="font-semibold text-xs text-gray-800"></h3>
+                        <p class="text-sm-1xl font-bold text-gray-800"></p>
+                    </div>
+                    <div id="history7" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+                        <h3 class="font-semibold text-xs text-gray-800"></h3>
+                        <p class="text-sm-1xl font-bold text-gray-800"></p>
+                    </div>
+                </div>
 
-<!-- Font Awesome for icons -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-
-
-<!-- Wallet Card -->
-<div class="relative bg-white border rounded-lg p-4 flex flex-col justify-between h-48 w-1/3">
-    <!-- <i class="fas fa-lock absolute top-2 right-2 text-black text-sm"></i> -->
-    <label for="wallet" class="block text-sm font-regular text-black text-left">Fixed offshore</label>
-    <p id="wallet" class="mt-2 text-xs font-bold text-black text-center">$0.00</p>
-    <button 
-        id="toggle-balance" 
-        class="absolute top-2 right-2 text-black text-sm flex items-center"
-        onclick="toggleBalance()">
-        <i id="toggle-icon" class="fas fa-eye"></i> <!-- Font Awesome eye icon -->
-    </button>
-</div>
-
-    <!-- Signup Offer Card -->
-    <div class="relative bg-black border rounded-lg p-3 flex flex-col justify-between h-48 w-1/3">
-        <label for="bonus-wallet" class="block text-sm font-regular text-white text-left">Savings offshore</label>
-        <p id="bonus-wallet" class="mt-2 text-xs font-bold text-white text-center">$0.00</p>
-    </div>
-</div>
-
-
-<!-- Divider -->
-<hr class="my-4 border-gray-200">
-
-<!-- Simplified Fintech Style UI with Responsive Layout -->
-<div class="bg- mt-6 p-0">
-    <!-- Quick Access Header -->
-    <h2 class="text-xs font-bold text-gray-700 mb-4 text-left md:text-left">Quick Access</h2>
-
-    <!-- Card Grid Section -->
-    <div class="grid grid-cols-2 gap-2 md:grid-cols-4">
-        <!-- BTC Exchange Card -->
-        <div onclick="navigateWithSpinner('deposit.html')" 
-             class="cursor-pointer bg-white text-black py-4 px-6 rounded-lg flex flex-col items-center space-y-2 hover:shadow-md transition duration-200">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAACxLAAAsSwGlPZapAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAASrSURBVHgB7Z1PVtswEMZHdtcF9sBLb0Bv4J6g7QlaLtCYEwAnaHoCeoT2BNATlBs0j7ZrKHRrTyUnooBlS4lGkRLPb8VL/BJHM9+nfyMDwDAMwzAMwzAMwzAMwwwFAYEZldfbdf1sjAILAByplyBtbmSzXAqBXzOov0wnO1MISLAAyIYfVZifyUYvYK0Rn3NRnYYKRAYB2P/wd1xh9n39G1+B7+Vv+bFf/ikhAOQB2P1wd4yimsg/t2GDQISP+/K3ATGkFqQyf974G4sQcHQ12SL7jWQBmHl+9gM2n5tc1C+p+gQyC6ogJ5dnomzPBhc0kChgQNl/j1TBK6mCC/DkGRAwy37svUZG+rIW9ZH8wkt54zeQKLvldZFhdoaW+YpUgVL8BXjirQCX7JdfMs1mvplswz+kmTxidi6DcNB3HYUKvPsAF++XjX+4Lo2vUPeq1Gq7bq4CL7wU4OT9Qlz8nDx/BWvI3vj23DaZ9FWBlwJcsj+H6hTWFDmnsd67rwqWVsCmZ78mtAqWVsCmZ78mtAqWUsBQsl8TUgVLKWAo2a8JqYKFFTC07NeEUsHCChha9mtCqWAhBQw1+zUhVLCQAoaa/ZoQKnBWwNCzX0OtAmcFDD37NdQqcFIAZ/9jKFXgpADO/sdQqsCqAM5+M1QqsCqAs98MlQp6FcDZ3w+FCnoVwNnfD4UKOhXA2e+Grwo6FeBS+zLk7Nf4qsAYgN3yrrAW1srsp6iLWXd+NW0gLvqvwkI6SmF6x1gXJBDtY1jEYm/8B4EE8SUX1VHoWnzNg9J5VXZCUERsb4auOqJWH6CyX2B9DquHtOayi3nf9h0iVG+b+oKWBQnAMcSBtOayC9n4KrmilM6b+oJ2H4D4BqKBRaiDEIrdWX3/CKKBrUq7ICdkfECEY2UTQIz6TCHqE4hLS3nJBQACWdHcepIjxQAAtRXFt55uEg0AnRUlYj2dLHw+4OenLe+SdoXDFF5bkddSh4v1qPL5q09bL4CARedG0RQgJ16HojkU3YefFblaTybH5xCJaAFoJlyitq6jLGtFrtYjrzld1QzcRNQ+4GqyM7Gvoyw3KnK2nsnOCUSE5IyYD8qKark0gL2zU8p1p//EtJ77e4DIuFoRNbGtR5PEMNTRishIwXo0ycwD3EZFNKRgPZpkArAqK0rFejRJzYRDW1FK1qNJbikilBWpz0zJejTJBUDZgzpVr7YpgYAmmHL/OlvBbtsyRJ8HmJg31FsYAMmuhg4FDkBkOACR4QBEhgMQGQ5AZDgAkVk4AOpxXsCQYQrAFPo5AMbIXnlrqypsLbEYAiCm0IPc6jtjFbRp2gTxY+9FQlw+fakVABT4DSzfpaqLHaI9CFTDj8q7Yl5xPeq7VgB+bb9m+ED5YdfAkJOL+sXTBcGWAmaPl1zd9uBwEJ9Nq7HGUdAqtweHgGgOn5jPkhkDEKtSYVOperZBO+cBansQOQjeqD3o381Wa8f7YGG/vC4Bs2PcsP+IERplO5Wl8efX2WkOtkF2AgjvgLEjt0BzqA5dtkAXfmZcDfAGMX8tx7QHrIo5Qq0eiClC9U3u8U7W6UHlDMMwDMMwDMMwDMMwzOr4B/eChj0DnWyDAAAAAElFTkSuQmCC" alt="BTC Icon" class="h-6 w-6">
-            <span class="text-xs font-semibold">Deposit</span>
-        </div>
-
-        <!-- Zelle Payment Card -->
-        <!-- <div onclick="navigateWithSpinner('withdraw.html')" 
-             class="cursor-pointer bg-white text-black py-4 px-6 rounded-lg flex flex-col items-center space-y-2 hover:shadow-md transition duration-200">
-            <img src="withdraw.png" alt="Zelle Icon" class="h-8 w-8">
-            <span class="text-xs font-semibold">Withdraw</span>
-        </div> -->
-
-        <!-- PayPal Payment Card -->
-        <div onclick="navigateWithSpinner('')" 
-             class="cursor-pointer bg-white text-black py-4 px-6 rounded-lg flex flex-col items-center space-y-2 hover:shadow-md transition duration-200 shadow-lg">
-            <img src="data:image/png;base64,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" alt="PayPal Icon" class="h-6 w-6">
-            <span class="text-xs font-semibold">Transfer</span>
-        </div>
-
-        <!-- USDT Exchange Card -->
-        <div onclick="navigateWithSpinner('statement.html')" 
-             class="cursor-pointer bg-white text-black py-4 px-6 rounded-lg flex flex-col items-center space-y-2 hover:shadow-md transition duration-200">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAACxLAAAsSwGlPZapAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAQNSURBVHgB7Z0xT9tAFMffc6KSobQggURLqdIFKnWBrWPY2gn6EfgElLETZesG36Bdu9GtW8PWDRZUmGoJqDJQNVQMQcK+3pkgUZAc39m+dxe/n4QUFAcl9/N7Z/t/xAAMwzBMVUEokGazOdaL762CwJb6tf9DjvyQ26KGa53wIATHKETAVPN5EyLxUT5sgaPID9oN4vriycn+HjhEADl59HRuFSOxCw4PvkIAjMXB5bfp6Rfz4BC5KmDqyew6IL4Hj3CtEowFqD1fCNgCD3FJgpEA1fNV21FlDZ7iigSzOSCCdZ8HX+HKnKBdAf0jnp8wJFBXQh00wRiXhdp/UjeCEGJcadR7e2EYdsEiUzNzQmf7G5VAIkG7BQkRL6VuIAe/EVwsdI4P2rYH3xTKdqQtABFS32QggjVfBv4mVBIMKiB98v119GMbPIVCQu4z4WHDtoTKCZAtdGB7tCmhcgKCoL7okoTKCTgJ9/dcklDJOcAlCZWdhF2RUOmjIBckVP4wlFoCnwcArQQW0IdKAgu4AYUEFnAL2xK08wDfyZIXRNElZCVvnsAVUADXEpK0UBMWUBBJRn61OE0LFlAgMl/WngtI5oDrpYzqDWdZXaGztlNNnoNCo7IwWSlivQKu1xTJh62sb1hut6xek6XHysEnXeeji3UBciA3TfaUzD22hitZDiFdwboAtTeDIVl6rGpTIsAFhMCLbNr6HJCnR2etnP5c8QZKQHfd0SDsV0COHi0r4AsMGfYPQw17dFI5NXwLQ4Z1Abo9+koWttVrXPwXo7yQnAeU2aN9g8+EiWEBxLAAYlgAMSyAGBZADAsgxos8oGwov0vCizygbHTyhqLxJg8oG9NMNy9e5QFlY5Lp5sV+BTicVlFUpld5QNlQ5A3e5AFlQ5U3OJ8HlA113sB5ADF8JkwMCyCGBRDDAohhAcSwAGJYADGcBwDnAeRwHuAAnAc4AOcBxHAeQAznAYRwHkAE5wEVh8+EiWEBxLAAYlgAMSyAGBZADAsgpnAB6n6SwGTGQACGac/2oGH9iqItHs/Mpl7JVXdkAk0MBIgw9Wl5TX0Yq0B9phhwM20bAWjhWxMF7gzYotmLRnYH7S2+oAZeJmUt9ZlgwO15EYX21VTtG7kl9wyORv4Ac5caPtO9oKddAf1bVLWBuYX4ZHI11ewoyLPvZSubZCxqwQYYUAMDzrun3dGHExfy4StgAGN41zk6/AoGGAlQnJ/9/n7/wSTKWaQFVQZxo3N8+AEMMRagOP972h4dmziTJfhS/tqACqHaTrLn5xh8RS4BiqQSxic/y8PTcSBY1kEDtuU8+Nq07fz3l6BAklVv6na3QizJY+J5qq8QLp7k7D+UZ1o7jXpvy8eblTIMwzDu8Q/aiQiDu/WN4AAAAABJRU5ErkJggg==" alt="USDT Icon" class="h-6 w-6">
-            <span class="text-xs font-semibold">Statement</span>
-        </div>
-
-        <!-- Change PIN Button -->
-        <div onclick="navigateWithSpinner('pin.html')" 
-             class="cursor-pointer bg-white text-black py-4 px-6 rounded-lg flex flex-col items-center space-y-2 hover:shadow-md transition duration-200">
-            <img src="data:image/png;base64,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" alt="Change PIN Icon" class="h-6 w-6">
-            <span class="text-xs font-semibold">Change PIN</span>
-        </div>
-    </div>
-</div>
-
-
-
-<!-- Add a horizontal line here -->
-<hr class="my-4 border-gray-200"> <!-- Added line -->
-
-<!-- Profit Wallet Card -->
-<div class="bg-white rounded p-6 w-full">
-    
-    <!-- Header Section -->
-    <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xs font-semibold text-gray-800">Transaction History</h2>
-    </div>
-    <!-- Divider -->
-    <hr class="border-gray-200 mb-4">
-    <!-- History Content -->
-    <div class="flex flex-col items-start text-xs mb-4 space-y-4">
-        <!-- History Entries -->
-        <div id="history1" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
-            <h3 class="font-semibold text-xs text-gray-800">No history available</h3>
-        </div>
-        <div id="history2" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
-            <h3 class="font-semibold text-xs text-green-600"></h3>
-            <p class="text-xs font-regular text-green-800"></p>
-        </div>
-        <div id="history3" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
-            <h3 class="font-semibold text-xs text-red-600"></h3>
-            <p class="text-xs font-bold text-gray-800"></p>
-        </div>
-        <div id="history4" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
-            <h3 class="font-semibold text-xs text-blue-600"></h3>
-            <p class="text-xs font-bold text-gray-800"></p>
-        </div>
-        <div id="history5" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
-            <h3 class="font-semibold text-xs text-yellow-600"></h3>
-            <p class="text-xs font-bold text-gray-800"></p>
-        </div>
-        <div id="history6" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
-            <h3 class="font-semibold text-xs text-gray-800"></h3>
-            <p class="text-xs font-bold text-gray-800"></p>
-        </div>
-        <div id="history7" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
-            <h3 class="font-semibold text-xs text-gray-800"></h3>
-            <p class="text-xs font-bold text-gray-800"></p>
-        </div>
-        <!-- Hidden history entries -->
-        <!-- <div id="history8" class="bg-white p-3 rounded border transition-transform transform hover:scale-105 hidden">
-            <h3 class="font-semibold text-xs text-gray-800"></h3>
-            <p class="text-xs font-bold text-gray-800"></p>
-        </div>
-        <div id="history9" class="bg-white p-3 rounded border transition-transform transform hover:scale-105 hidden">
-            <h3 class="font-semibold text-xs text-gray-800"></h3>
-            <p class="text-xs font-bold text-gray-800"></p>
-        </div>
-        <div id="history10" class="bg-white p-3 rounded border transition-transform transform hover:scale-105 hidden">
-            <h3 class="font-semibold text-xs text-gray-800"></h3>
-            <p class="text-xs font-bold text-gray-800"></p>
-        </div> -->
-    </div>
-
-    <!-- See More Text -->
-    <!-- <p id="see-more" class="text-blue-500 text-xs cursor-pointer hover:text-blue-600 transition duration-300 ease-in-out">See More</p> -->
-</div>
+                <!-- See More Text -->
+                <!-- <p id="see-more" class="text-blue-500 text-xs cursor-pointer hover:text-blue-600 transition duration-300 ease-in-out">See More</p> -->
+            </div>
 
 
+            <!-- Add a horizontal line here -->
+            <hr class="my-4 border-gray-400">
 
-<section class="py-4 bg" id="spacing">
-    <div class="container mx-auto text-center">
-    </div>
-</section>
+            <!-- Pending Transactions Card -->
+            <div class="bg-white rounded p-6 w-full mt-8">
+                <!-- Header Section -->
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-sm-2xl font-semibold text-gray-800">Pending Transactions</h2>
+                </div>
+                <!-- Divider -->
+                <hr class="border-gray-300 mb-4">
+                <!-- Content Section -->
+                <div class="text-gray-600 text-sm space-y-4">
+                    <div id="pending1" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+                        <h3 class="font-semibold text-red-600"></h3>
+                        <p class="text-sm font-bold text-gray-800"></p>
+                    </div>
+                    <div id="pending2" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+                        <h3 class="font-semibold text-green-600"></h3>
+                        <p class="text-sm font-bold text-gray-800"></p>
+                    </div>
+                    <div id="pending3" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
+                        <h3 class="font-semibold text-blue-600"></h3>
+                        <p class="text-sm font-bold text-gray-800"></p>
+                    </div>
+                    <!-- <p class="text-xs text-gray-500">No pending transactions</p> -->
+                </div>
+            </div>
+        
+            <section class="py-8 bg" id="spacing">
+            <div class="container mx-auto text-center">
+            </div>
+            </section>
 
-
-<!-- Pending Transactions Card -->
-<div class="bg-white rounded p-6 w-full">
-    <!-- Header Section -->
-    <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xs font-semibold text-gray-800">Pending Transactions</h2>
-    </div>
-    <!-- Divider -->
-    <hr class="border-gray-300 mb-4">
-    <!-- Content Section -->
-    <div class="text-gray-600 text-xs space-y-4">
-        <div id="pending1" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
-            <h3 class="font-semibold text-red-600"></h3>
-            <p class="text-lg font-bold text-gray-800"></p>
-        </div>
-        <div id="pending2" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
-            <h3 class="font-semibold text-green-600"></h3>
-            <p class="text-lg font-bold text-gray-800"></p>
-        </div>
-        <div id="pending3" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
-            <h3 class="font-semibold text-blue-600"></h3>
-            <p class="text-lg font-bold text-gray-800"></p>
-        </div>
-        <!-- <p class="text-xs text-gray-500">No pending transactions</p> -->
-    </div>
-</div>
-
-
-
-<section class="py-8 bg" id="spacing">
-<div class="container mx-auto text-center">
-</div>
-</section>
-
-<script>
-let originalBalance = '$0.00'; // Initialize with the actual wallet value
-
-function toggleBalance() {
-    const wallet = document.getElementById('wallet');
-    const Deposit = document.getElementById('Deposit-account');
-    const toggleIcon = document.getElementById('toggle-icon');
-
-    if (wallet.textContent === '****') {
-        wallet.textContent = originalBalance; // Restore original balance
-        toggleIcon.className = 'fas fa-eye'; // Eye icon
-    } else {
-        originalBalance = wallet.textContent; // Store the current balance
-        wallet.textContent = '****'; // Mask the balance
-        toggleIcon.className = 'fas fa-eye-slash'; // Eye-slash icon
-    }
-}
-</script>                    
-
-<script>
-    // Ensure the script runs after the DOM is fully loaded
-    document.addEventListener('DOMContentLoaded', async () => {
-        try {
-            // Fetch transaction history from Firestore
-            const historyRef = getFirestore(app).collection('history'); // Reference to history collection
-            const historySnapshot = await historyRef.where('userId', '==', user.uid).get(); // Fetch history for the authenticated user
-
-            const historyContainer = document.getElementById('history-container');
-
-            if (!historySnapshot.empty) {
-                historySnapshot.forEach(doc => {
-                    const historyData = doc.data();
-                    // Create a new history card for each transaction
-                    const historyCard = document.createElement('div');
-                    historyCard.className = 'bg-white p-4 rounded-lg shadow-md text-center h-16';
-                    historyCard.innerHTML = `
-                        <h3 class="font-semibold text-gray-800">${historyData.date || 'No description'}</h3>
-                        <p class="text-gray-600">ID: ${doc.id}</p>
-                        <p class="text-gray-600">$${historyData.amount || '0.00'}</p>
-                            <p class="text-gray-600">$${historyData.time || '.00'}</p>
-                    `;
-                    historyContainer.appendChild(historyCard); // Append to the history section
+            <script>
+                // Toggle balance visibility functions
+                document.getElementById('toggle-checking').addEventListener('click', function() {
+                    const balance = document.getElementById('Deposit-account');
+                    const icon = this.querySelector('i');
+                    
+                    if (balance.classList.contains('hide-balance')) {
+                        balance.classList.remove('hide-balance');
+                        icon.className = 'fas fa-eye';
+                    } else {
+                        balance.classList.add('hide-balance');
+                        icon.className = 'fas fa-eye-slash';
+                    }
                 });
-            } else {
-                console.log('No transaction history found for this user.'); // Debugging log
-                // If no history is found, display a message
-                const noHistoryCard = document.createElement('div');
-                noHistoryCard.className = 'bg-white p-4 rounded-lg shadow-md text-center h-16';
-                noHistoryCard.innerHTML = `
-                    <h3 class="font-semibold text-gray-800">No history</h3>
-                    <p class="text-gray-600">You have no transaction history.</p>
-                `;
-                historyContainer.appendChild(noHistoryCard); // Append the no history message
-            }
-        } catch (error) {
-            console.error('Error fetching transaction history:', error); // Log any errors
-        }
-    });
-</script>
-
-<!-- Bottom Navbar (Mobile Friendly) -->
-<div class="mobile-nav fixed bottom-0 left-0 right-0 bg-white shadow-lg border-t p-3" style="height: 100px;">
-    <div class="flex justify-around items-center h-full">
-        <!-- Wallet Icon -->
-        <a href="dashboard.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
-            <div class="bg-white rounded p-2">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAARbSURBVHgB7Vq9cttGEN470LGLFHQSy5KawEVm6NhSECmZccl0SWeVqSw/gZkniFWldNKlM/UEUZ5ATOfCoag/k12QmUxEy5wxXUn+uVvvgfg5/NEgAJos/M1wuHfYA3Z53y727gjwAbMFgynBtOrVS3BeVXKv88iGKaF0B26srG1KYHcAsB55VIsDbh8ftptQIkpzoGbdMpl4/TBueOyRLTQu3C1rVkpx4Ib1rSWF+INEM3J32/nGSD+AjcZH35XhBIeCuL66fg+F2AXdeITfzgx5uXvQvqY+aMhriLClDaPZevXP9dW1BhREoRkgAx6Qsb4RjMFQSr7RO3rcStRfWb8NDB/oM0Jj7j85aG9BTuRyIJHvRBfkkmjRscePtUwm+W6IVox1kF/YyEOpiSmk+E7TvxsOVtw+4/LrdxmvoHQukq4aEwxH557qh4EJYUyirPgOUjZJXPT6GHG7e7TXGPb751nv0yfdwWl/57OFJUYUqrvdVYaicWVx6cXg6cmjrPfK7IDL9/skXnIMJ74j8h+6R383IScGpyetK1eX94l+t6hZdbu/X1hcgmdPT/7Kco93xkARvmdFkbgYGwNF+Z4VReIilUJl8T0r8saFkWx8nO8C2I+9o/bvMGVMGhexGIi+nMrme1YkxQUH/uvx4eOfdL1QDKhKMvRmBdgpm+9ZkRQXEmTj5s1v6rpeRW8gY/coeByZjG8+OWzfhRmi0+kM6WuTShBl3R3VJxj+TF8tT8efgS8o4yBFvteWhsxdn5SNi4Zo0A86HLWwrujlXfMdqEhRD4bgn7OgTRrUTCCwjtc2BK97su8ACyKesk6gPC9gDP0MhEwPbK/TnyJHrsKcIc2mIAshswMZTZg3IPvKFzFgSDADhtBoEyjPCxgECYYbwg76NXy5svbcmyq1JLRHaWzmsCyr+lLw5167e9j27Q4Xcyyg0cdvKhbMCc4hsCWaYEIOIMh9TxZczo0DTAa2IMp/9WuRcjrknQkFoUoTpzwpDtMTxs5AOBMVC+TRDh08VJ/CTqRkIIUwhUKZCAtRSH/Z6HIepGUgp603VPkQ1BxQNSn6YcZQGUh7iQ2Pqa7Qr8eXlHOWifQMFIlRBzEH5i0T6RmIauQX0esJi/pyM1EJMH2JsVb0YtyBEjNRKdBsMCTPQKGSMpFEd2s9Ik8KPQNh5c0wfj0BZdVENTf/93KeykRqoCHVQJejOpXEkSoTuctLNxO1IAd6BY+TVAZitJR3jUpcZCXuzCEEqx/JRovpWYCL4NlEJTtRJ6kTJd/xZcDN2ur6e3fCOfmhZ3vttE2GxJ25wen/9sLVZUWdmmpToNymtvnp8uf7g/5/U10jqOPZpYVPfnF3BsF9frN7sLedpJ+6O+0EkOR7sQM6lj+jZELC89TmWloiGbu97mzvCSPD0em0wFpnhtgYlwUznZGpdMgSD6/Lx+jghM4GkG2lHRaG9GFC1GqTn2NNgl5ven9L+IBp4C127CiPC2xWGQAAAABJRU5ErkJggg==" alt="Wallet Icon" class="h-6 w-6" />
-            </div>
-            <span class="text-xs font-medium mt-2">Home</span>
-        </a>
-        <!-- Deposit Icon -->
-        <a href="deposit.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
-            <div class="bg-white rounded p-2">
-                <img src="data:image/png;base64,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" alt="Redeem Icon" class="h-6 w-6" />
-            </div>
-            <span class="text-xs font-medium mt-2">Deposit</span>
-        </a>
-        <!-- Withdraw Icon -->
-        <!-- <a href="withdraw.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
-            <div class="bg-white rounded p-2">
-                <img src="withdraw.png" alt="Withdraw Icon" class="h-6 w-6" />
-            </div>
-            <span class="text-xs font-medium mt-2">Withdraw</span>
-        </a> -->
-        <!-- Verify Icon -->
-        <a href="support.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
-            <div class="bg-white rounded p-2">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAVLSURBVHgB7VnNUhtHEO6eJf5JUokOwYQkVRE3CD9Zg1Plm8UTBD8B4gmAJ7B4AuAJDE+AOOZk5eaqxMqGX928uQQFcyB/NgXZ6fSstKPZH0krCRCu4quimNHszHRP98x83QNwi/4C4ZIxaj/OIlzYAigT/CYBTy3++wc+dlyndAqXiJ4VyNq5zEfyr7wk/B6BbALItOni8rQOK7j9r/VJsVeFulZgwn6U8zx6BkA56AEIuCGtD1YqzksXukDHCozb39nSk6vNBEeEUyJ00F9pjYyyDCJbiJIt1K0iHSkwNjWzCERrCcOUAGmbzu8UK5XWAoyP8wJYXo4FniciO9LsCoCV/d3yBqREKgWUn9/3/t6KrTrB+rsBWXAdpys/Hp14lEP08izGfEgohMLBTnklzRhtFfBPFe/8BRezRrcSWd5CxXFcuASMTc7MsQVXeUGyegZ2qYPdVwvt+lqtGpOER4KVw73ywkm1emnH4cnxUeWr4aFNj2CYZwjcyn4w9EX2zfHRdqu+LRUYHBzaUgMFdZKwcLhfXoMrQLVaPTs5rhY/ezCM7EK5+s/20NCXmTfHv//QrF9TBUanpp+xf+WDuhK+sp9+c3ULtkbJVIKAHg9+PvznyR9HL5O+T9wDddd5rT9itznYKxfgGsH7YoPFDzb3KVl3HiYdsSKpc93vg1rpuoVXuGt5S7y8br2aQe9iNem7mALjk9N5MDatOm2gD3D4aCYpjLlpboKP3eh3MQWkcSazf21c1lHZDSp7P5f8S7IODxV1CSOkgPJ987KSlkx1mVwlmJYYMlAua9shKhJSAOX5ki73efUDRK1wX4q82R5WAPBJUCbAlhfItYJ5li4zbTebtAI2m8YkV+8srwQ3BHeF3GjUwgRQK3AGA7qBbxGnW4J2FXBqsrj1amacVzto0wqg1wgBieRvcOOAji56Iq4A+1m2UUYXbhqQ9KJKbARFDQsYsSyXb4z7BDBlMmUV8J5jAPoMFWNzNoNjZjzdd35yOu3fkQI1lvrfIoLM+0G6b1YsdhOMq/gaiQrS87Q7jE1Ouzze8uHuq2LacVK7UCM6k0tB7of8bAPlFfUenZqZTz0WxxoqOZCQQ8ryqFudjJVagXhcHGlngaI8JQn+QhAUdD/0rViq/e9sLIVUCvhBd134Wt5HzB7ulpEsOWJy9g+lWGo7oXehGSW7YPGtkCPsMrNSyIfmWFHO05MCKiGlKwTFGsFioqXIHuGyborneWIgw4qCxHpw49eJ47rxaRZSIJUC7OfZoMyr9mOozULjzhCfQg8QZLoRpBrrvb8HbhXoN24V6De0AmSwvegNyTzFDcrquQh6g+7PWYbQPB4JtzFP+LTj4/prSJBVGB+4Rvlbs29lp1zgTpyjwadRnoJSzjUq9Cu0g8HruZwLzVML4J+quSqRNwIysiWWFJr06dSiionPPfE6WH2Lb9u9+oXVDPHsdVzBWB//TUAGmb+mKUMToYcVvq0Pd8ojQZu2gJ8Jg0b076F8XssTNYeopfuyeuAULDKSJsmoBWg1j0+3mbUGdZSwGZLBrNy1aMmIfPzVracaQ1ATMj96wQpr9+G3r9RJMCHFctI86iUo+EaVv2HWynT7F70neZHeDsg1c6xYdjpi4gCuCqrVpDUuE/bdbrLXoywwj/c81hAQOopwIf6dhJyNJtsS0+v1h7it2CBJkLDc7aNH+nmaP2k1fSMbtW02LRaYij5JngBLwvKW93nzQI9Q1hCIiyabDZ5r2U03Ky1eLVO9Uiq3slBmVVndAyprdxWJLxXE3Du75/t7u+faW9wU/A/JvW6n3/qIXAAAAABJRU5ErkJggg==" alt="Support Icon" class="h-6 w-6" />
-            </div>
-            <span class="text-xs font-medium mt-2">Support</span>
-        </a>
-        <!-- Profile Icon -->
-        <a href="profile.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
-            <div class="bg-white rounded p-2">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAT9SURBVHgB7Vm/UxtXEN69U2IHZyZKBluIZIZzkRnhCLiRnRm6iC4l6dIFunQ4fwGiSweUqYDSndIllUXnmSTiDAKU7jyTMRiYiSCJIQ7vbfaddJIs34HunQAXfI1un96P3Xf73u5+B3CNqwXCBSBrP8gTSIskWI1FamgYTsX5tQQ9Rs8MyNjjForTGQQ5RQDJkG4uApak+c5c1XniQg/QEwOGR+/PIFHhDMXfXBihsLVenoOYiGWAZeeTfXQ0z64y1TGri4QlQHrmyYRjhGQD1V2qrWPx2BTTruPUQBMJiIE+8dcS7/pkqwVLRDhX3Qj29Uz2QR4NudQyhCb7hKmUnwZNmKCJzGhuln++9WUkmNuulKcP9p67YWPUfwcvdhb776SRXSjfaLZvD6QPuf0JaEDLAO/ASlH0ZaX8VqVc6Hb8wd5OqcOI8f7BoUcHu39EdiUDNGCI/2abAvt7FOV9VL0xfE7qSKJ89RA0oGUAAeX9Z1Ma2v6rzkvbpN+ABiIbkOEgxT+WJ/DuVyr6walaH+s2xGQ2680dCZENQCntpkD0FOICabU5HUoLIiK6AW3Bik+hAzHBkdn1nwk748T50DoDbxOivwFq+qw6eEMQE3yQx1rTwcVfo4IMt23BPMQGNc8U32iRXVIrF7o3kvvTT9xMMiZ0byJ1o6GQjxuauNvr5bsQEXpxAGHFfxZIs6AJVn6p+UxQAg3oGWDIBWz6K+Xv1fOiSGjkUpYvS1NqpdZaudDB7m7to4H0v2zEl42m/J2BNOy/2FntZrxSnne84MteIri+VgQNxKoHhkfuL/MbaE8BXNM0psNKR1VqCqFcrpWKsALFrY3yV6CJWPXADVM8fCXMDzg38msCS/ChHB7Juayag9iI1IRDXNCw8p2RllZemqSVxPnoSUmZyeYKnBp3fQ64b40Eu81meQFiQrugaYeX3w+mVtiXP2Tt1PUaWBsrxTl4/ECmnK5urP0EPcCF0CqN0tH28yYVvVUArFZ6T6tc46rRUxdSNMst+Mfi+GyDhKSfbqigJw10TcDa3/C+4zolbRqlE7ENUHe7lPILApzk1NLuapCqI5g3Mkxc2XR+iVVTaBsQFJT0NEDHIFrc3CgvgwYiG3Ce4l6VRuAQ0SEa9XyJmbsktw/xahaFvyWXzHcnonKmkQzozGHqCnNQkrBCYBRPEqfOeTShZdvJm6cJG1FM8eg3mIionGlXBgRxoEpxKWHxJCEXdLnNjG1bcGpMGQgz7cQw18nLL03xXTfzdmUAJ22PX3cZ5kCZlK06jgs9gDLEEOZ8W07lrbG98dvEeWPPTSWGR3Pz/PN1c1qfA+WUGnoENdf+3s6jDrrRSqU+Tu7vPf/5rLFnGvDZSE59rPjel6NyoFHRyZnyGxm/nRp8yu3VsDGhLqT8/j1xtAZ+1USwyDsfK/XtFsPZ3AJrNtMQa8emvBt2HkJLylviSPmj5QlccB8nZAEuCTfUWtiiHPukEbpxoQZIaOX3xK4T5ytKVDi8llqzbf2ZsL6BBnxqf66CjeUJvBNVzSgZBzdNWWwRB+HEb6ABCSmanXXpjrjw3gLSj74sDBkYwcNcyPIfmAOKz0Bro0Ue80aOBfUIMYCaUdEguDTf70Q3awcaQG2UN7ZxoZeN13hYhMOgPoGB7JN0yjkl/J0puMWtK6xj1VfN/lT6GQe21WNmA2u7uydwjbcM/wOLnCVOEwYUZwAAAABJRU5ErkJggg==" alt="Profile Icon" class="h-6 w-6" />
-            </div>
-            <span class="text-xs font-medium mt-2">Profile</span>
-        </a>
-    </div>
-</div>
-
-
-<!-- Script -->
-<script>
-    // Function to set the active navbar item
-    function setActive(element) {
-        // Reset all items to default styles
-        const icons = document.querySelectorAll('.nav-item div');
-        const texts = document.querySelectorAll('.nav-item span');
-        icons.forEach(icon => icon.classList.remove('bg-green-300', 'text-white'));
-        texts.forEach(text => text.classList.remove('text-black'));
-
-        // Add active styles to the clicked item
-        const icon = element.querySelector('div');
-        const text = element.querySelector('span');
-        icon.classList.add('bg-blue-400', 'text-white'); // Highlight background of active icon
-        text.classList.add('text-black'); // Highlight text of active item
-    }
-
-    // Set the active state on page load based on the current URL
-    const currentPath = window.location.pathname;
-    const navItems = document.querySelectorAll('.nav-item');
-    navItems.forEach(item => {
-        if (item.href.includes(currentPath)) {
-            setActive(item);
-        }
-    });
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Select all buttons and CTAs
-        const buttons = document.querySelectorAll('button, .cta');
-
-        buttons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Show the spinner
-                document.getElementById('spinner').classList.remove('hidden');
-
-                // Simulate a delay for loading (e.g., 1 second)
-                setTimeout(() => {
-                    // Hide the spinner after the action is completed
-                    document.getElementById('spinner').classList.add('hidden');
-                }, 1000); // Adjust the delay as needed
-            });
-        });
-
-        // See More button functionality
-        const seeMoreButton = document.getElementById('see-more');
-        if (seeMoreButton) {
-            seeMoreButton.addEventListener('click', function() {
-                // Show the hidden history entries
-                document.getElementById('history8').classList.remove('hidden');
-                document.getElementById('history9').classList.remove('hidden');
-                document.getElementById('history10').classList.remove('hidden');
                 
-                // Optionally, hide the "See More" button after clicking
-                this.classList.add('hidden');
-            });
-        }
-    });
-</script>
+                document.getElementById('toggle-savings').addEventListener('click', function() {
+                    const balance = document.getElementById('bonus');
+                    const icon = this.querySelector('i');
+                    
+                    if (balance.classList.contains('hide-balance')) {
+                        balance.classList.remove('hide-balance');
+                        icon.className = 'fas fa-eye';
+                    } else {
+                        balance.classList.add('hide-balance');
+                        icon.className = 'fas fa-eye-slash';
+                    }
+                });
+                
+                document.getElementById('toggle-fixed').addEventListener('click', function() {
+                    const balance = document.getElementById('wallet');
+                    const icon = this.querySelector('i');
+                    
+                    if (balance.classList.contains('hide-balance')) {
+                        balance.classList.remove('hide-balance');
+                        icon.className = 'fas fa-eye';
+                    } else {
+                        balance.classList.add('hide-balance');
+                        icon.className = 'fas fa-eye-slash';
+                    }
+                });
+                
+                // Navigation with spinner function (placeholder)
+                function navigateWithSpinner(url) {
+                    // Implementation would go here
+                    console.log("Navigating to: " + url);
+                }
+            </script>
 
-<script>
-    function navigateWithSpinner(url) {
-        // Show the spinner
-        document.getElementById('spinner').classList.remove('hidden');
+            <script>
+            let originalBalance = '$0.00'; // Initialize with the actual wallet value
 
-        // Simulate a delay for loading (e.g., 1 second)
-        setTimeout(() => {
-            // Navigate to the specified URL
-            window.location.href = url;
-        }, 1000); // Adjust the delay as needed
-    }
-</script>
+            function toggleBalance() {
+                const wallet = document.getElementById('wallet');
+                const Deposit = document.getElementById('Deposit-account');
+                const toggleIcon = document.getElementById('toggle-icon');
 
-<!-- Spinner -->
-<div id="spinner" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-    <div class="smart-spinner"></div>
-</div>
+                if (wallet.textContent === '****') {
+                    wallet.textContent = originalBalance; // Restore original balance
+                    toggleIcon.className = 'fas fa-eye'; // Eye icon
+                } else {
+                    originalBalance = wallet.textContent; // Store the current balance
+                    wallet.textContent = '****'; // Mask the balance
+                    toggleIcon.className = 'fas fa-eye-slash'; // Eye-slash icon
+                }
+            }
+            </script>                    
+
+            <script>
+                // Ensure the script runs after the DOM is fully loaded
+                document.addEventListener('DOMContentLoaded', async () => {
+                    try {
+                        // Fetch transaction history from Firestore
+                        const historyRef = getFirestore(app).collection('history'); // Reference to history collection
+                        const historySnapshot = await historyRef.where('userId', '==', user.uid).get(); // Fetch history for the authenticated user
+
+                        const historyContainer = document.getElementById('history-container');
+
+                        if (!historySnapshot.empty) {
+                            historySnapshot.forEach(doc => {
+                                const historyData = doc.data();
+                                // Create a new history card for each transaction
+                                const historyCard = document.createElement('div');
+                                historyCard.className = 'bg-white p-4 rounded-lg shadow-md text-center h-16';
+                                historyCard.innerHTML = `
+                                    <h3 class="font-semibold text-gray-800">${historyData.date || 'No description'}</h3>
+                                    <p class="text-gray-600">ID: ${doc.id}</p>
+                                    <p class="text-gray-600">$${historyData.amount || '0.00'}</p>
+                                        <p class="text-gray-600">$${historyData.time || '.00'}</p>
+                                `;
+                                historyContainer.appendChild(historyCard); // Append to the history section
+                            });
+                        } else {
+                            console.log('No transaction history found for this user.'); // Debugging log
+                            // If no history is found, display a message
+                            const noHistoryCard = document.createElement('div');
+                            noHistoryCard.className = 'bg-white p-4 rounded-lg shadow-md text-center h-16';
+                            noHistoryCard.innerHTML = `
+                                <h3 class="font-semibold text-gray-800">No history</h3>
+                                <p class="text-gray-600">You have no transaction history.</p>
+                            `;
+                            historyContainer.appendChild(noHistoryCard); // Append the no history message
+                        }
+                    } catch (error) {
+                        console.error('Error fetching transaction history:', error); // Log any errors
+                    }
+                });
+            </script>
+
+            <!-- Bottom Navbar (Mobile Friendly) -->
+            <div class="mobile-nav fixed bottom-0 left-0 right-0 bg-white shadow-lg border-t p-3" style="height: 100px;">
+                <div class="flex justify-around items-center h-full">
+                    <!-- Wallet Icon -->
+                    <a href="dashboard.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
+                        <div class="bg-white rounded p-2">
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAARbSURBVHgB7Vq9cttGEN470LGLFHQSy5KawEVm6NhSECmZccl0SWeVqSw/gZkniFWldNKlM/UEUZ5ATOfCoag/k12QmUxEy5wxXUn+uVvvgfg5/NEgAJos/M1wuHfYA3Z53y727gjwAbMFgynBtOrVS3BeVXKv88iGKaF0B26srG1KYHcAsB55VIsDbh8ftptQIkpzoGbdMpl4/TBueOyRLTQu3C1rVkpx4Ib1rSWF+INEM3J32/nGSD+AjcZH35XhBIeCuL66fg+F2AXdeITfzgx5uXvQvqY+aMhriLClDaPZevXP9dW1BhREoRkgAx6Qsb4RjMFQSr7RO3rcStRfWb8NDB/oM0Jj7j85aG9BTuRyIJHvRBfkkmjRscePtUwm+W6IVox1kF/YyEOpiSmk+E7TvxsOVtw+4/LrdxmvoHQukq4aEwxH557qh4EJYUyirPgOUjZJXPT6GHG7e7TXGPb751nv0yfdwWl/57OFJUYUqrvdVYaicWVx6cXg6cmjrPfK7IDL9/skXnIMJ74j8h+6R383IScGpyetK1eX94l+t6hZdbu/X1hcgmdPT/7Kco93xkARvmdFkbgYGwNF+Z4VReIilUJl8T0r8saFkWx8nO8C2I+9o/bvMGVMGhexGIi+nMrme1YkxQUH/uvx4eOfdL1QDKhKMvRmBdgpm+9ZkRQXEmTj5s1v6rpeRW8gY/coeByZjG8+OWzfhRmi0+kM6WuTShBl3R3VJxj+TF8tT8efgS8o4yBFvteWhsxdn5SNi4Zo0A86HLWwrujlXfMdqEhRD4bgn7OgTRrUTCCwjtc2BK97su8ACyKesk6gPC9gDP0MhEwPbK/TnyJHrsKcIc2mIAshswMZTZg3IPvKFzFgSDADhtBoEyjPCxgECYYbwg76NXy5svbcmyq1JLRHaWzmsCyr+lLw5167e9j27Q4Xcyyg0cdvKhbMCc4hsCWaYEIOIMh9TxZczo0DTAa2IMp/9WuRcjrknQkFoUoTpzwpDtMTxs5AOBMVC+TRDh08VJ/CTqRkIIUwhUKZCAtRSH/Z6HIepGUgp603VPkQ1BxQNSn6YcZQGUh7iQ2Pqa7Qr8eXlHOWifQMFIlRBzEH5i0T6RmIauQX0esJi/pyM1EJMH2JsVb0YtyBEjNRKdBsMCTPQKGSMpFEd2s9Ik8KPQNh5c0wfj0BZdVENTf/93KeykRqoCHVQJejOpXEkSoTuctLNxO1IAd6BY+TVAZitJR3jUpcZCXuzCEEqx/JRovpWYCL4NlEJTtRJ6kTJd/xZcDN2ur6e3fCOfmhZ3vttE2GxJ25wen/9sLVZUWdmmpToNymtvnp8uf7g/5/U10jqOPZpYVPfnF3BsF9frN7sLedpJ+6O+0EkOR7sQM6lj+jZELC89TmWloiGbu97mzvCSPD0em0wFpnhtgYlwUznZGpdMgSD6/Lx+jghM4GkG2lHRaG9GFC1GqTn2NNgl5ven9L+IBp4C127CiPC2xWGQAAAABJRU5ErkJggg==" alt="Wallet Icon" class="h-6 w-6" />
+                        </div>
+                        <span class="text-xs font-medium mt-2">Home</span>
+                    </a>
+                    <!-- Deposit Icon -->
+                    <a href="deposit.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
+                        <div class="bg-white rounded p-2">
+                            <img src="data:image/png;base64,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" alt="Redeem Icon" class="h-6 w-6" />
+                        </div>
+                        <span class="text-xs font-medium mt-2">Deposit</span>
+                    </a>
+                    <!-- Withdraw Icon -->
+                    <!-- <a href="withdraw.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
+                        <div class="bg-white rounded p-2">
+                            <img src="withdraw.png" alt="Withdraw Icon" class="h-6 w-6" />
+                        </div>
+                        <span class="text-xs font-medium mt-2">Withdraw</span>
+                    </a> -->
+                    <!-- Verify Icon -->
+                    <a href="support.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
+                        <div class="bg-white rounded p-2">
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAVLSURBVHgB7VnNUhtHEO6eJf5JUokOwYQkVRE3CD9Zg1Plm8UTBD8B4gmAJ7B4AuAJDE+AOOZk5eaqxMqGX928uQQFcyB/NgXZ6fSstKPZH0krCRCu4quimNHszHRP98x83QNwi/4C4ZIxaj/OIlzYAigT/CYBTy3++wc+dlyndAqXiJ4VyNq5zEfyr7wk/B6BbALItOni8rQOK7j9r/VJsVeFulZgwn6U8zx6BkA56AEIuCGtD1YqzksXukDHCozb39nSk6vNBEeEUyJ00F9pjYyyDCJbiJIt1K0iHSkwNjWzCERrCcOUAGmbzu8UK5XWAoyP8wJYXo4FniciO9LsCoCV/d3yBqREKgWUn9/3/t6KrTrB+rsBWXAdpys/Hp14lEP08izGfEgohMLBTnklzRhtFfBPFe/8BRezRrcSWd5CxXFcuASMTc7MsQVXeUGyegZ2qYPdVwvt+lqtGpOER4KVw73ywkm1emnH4cnxUeWr4aFNj2CYZwjcyn4w9EX2zfHRdqu+LRUYHBzaUgMFdZKwcLhfXoMrQLVaPTs5rhY/ezCM7EK5+s/20NCXmTfHv//QrF9TBUanpp+xf+WDuhK+sp9+c3ULtkbJVIKAHg9+PvznyR9HL5O+T9wDddd5rT9itznYKxfgGsH7YoPFDzb3KVl3HiYdsSKpc93vg1rpuoVXuGt5S7y8br2aQe9iNem7mALjk9N5MDatOm2gD3D4aCYpjLlpboKP3eh3MQWkcSazf21c1lHZDSp7P5f8S7IODxV1CSOkgPJ987KSlkx1mVwlmJYYMlAua9shKhJSAOX5ki73efUDRK1wX4q82R5WAPBJUCbAlhfItYJ5li4zbTebtAI2m8YkV+8srwQ3BHeF3GjUwgRQK3AGA7qBbxGnW4J2FXBqsrj1amacVzto0wqg1wgBieRvcOOAji56Iq4A+1m2UUYXbhqQ9KJKbARFDQsYsSyXb4z7BDBlMmUV8J5jAPoMFWNzNoNjZjzdd35yOu3fkQI1lvrfIoLM+0G6b1YsdhOMq/gaiQrS87Q7jE1Ouzze8uHuq2LacVK7UCM6k0tB7of8bAPlFfUenZqZTz0WxxoqOZCQQ8ryqFudjJVagXhcHGlngaI8JQn+QhAUdD/0rViq/e9sLIVUCvhBd134Wt5HzB7ulpEsOWJy9g+lWGo7oXehGSW7YPGtkCPsMrNSyIfmWFHO05MCKiGlKwTFGsFioqXIHuGyborneWIgw4qCxHpw49eJ47rxaRZSIJUC7OfZoMyr9mOozULjzhCfQg8QZLoRpBrrvb8HbhXoN24V6De0AmSwvegNyTzFDcrquQh6g+7PWYbQPB4JtzFP+LTj4/prSJBVGB+4Rvlbs29lp1zgTpyjwadRnoJSzjUq9Cu0g8HruZwLzVML4J+quSqRNwIysiWWFJr06dSiionPPfE6WH2Lb9u9+oXVDPHsdVzBWB//TUAGmb+mKUMToYcVvq0Pd8ojQZu2gJ8Jg0b076F8XssTNYeopfuyeuAULDKSJsmoBWg1j0+3mbUGdZSwGZLBrNy1aMmIfPzVracaQ1ATMj96wQpr9+G3r9RJMCHFctI86iUo+EaVv2HWynT7F70neZHeDsg1c6xYdjpi4gCuCqrVpDUuE/bdbrLXoywwj/c81hAQOopwIf6dhJyNJtsS0+v1h7it2CBJkLDc7aNH+nmaP2k1fSMbtW02LRaYij5JngBLwvKW93nzQI9Q1hCIiyabDZ5r2U03Ky1eLVO9Uiq3slBmVVndAyprdxWJLxXE3Du75/t7u+faW9wU/A/JvW6n3/qIXAAAAABJRU5ErkJggg==" alt="Support Icon" class="h-6 w-6" />
+                        </div>
+                        <span class="text-xs font-medium mt-2">Support</span>
+                    </a>
+                    <!-- Profile Icon -->
+                    <a href="profile.html" class="nav-item flex flex-col items-center" onclick="setActive(this)">
+                        <div class="bg-white rounded p-2">
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAT9SURBVHgB7Vm/UxtXEN69U2IHZyZKBluIZIZzkRnhCLiRnRm6iC4l6dIFunQ4fwGiSweUqYDSndIllUXnmSTiDAKU7jyTMRiYiSCJIQ7vbfaddJIs34HunQAXfI1un96P3Xf73u5+B3CNqwXCBSBrP8gTSIskWI1FamgYTsX5tQQ9Rs8MyNjjForTGQQ5RQDJkG4uApak+c5c1XniQg/QEwOGR+/PIFHhDMXfXBihsLVenoOYiGWAZeeTfXQ0z64y1TGri4QlQHrmyYRjhGQD1V2qrWPx2BTTruPUQBMJiIE+8dcS7/pkqwVLRDhX3Qj29Uz2QR4NudQyhCb7hKmUnwZNmKCJzGhuln++9WUkmNuulKcP9p67YWPUfwcvdhb776SRXSjfaLZvD6QPuf0JaEDLAO/ASlH0ZaX8VqVc6Hb8wd5OqcOI8f7BoUcHu39EdiUDNGCI/2abAvt7FOV9VL0xfE7qSKJ89RA0oGUAAeX9Z1Ma2v6rzkvbpN+ABiIbkOEgxT+WJ/DuVyr6walaH+s2xGQ2680dCZENQCntpkD0FOICabU5HUoLIiK6AW3Bik+hAzHBkdn1nwk748T50DoDbxOivwFq+qw6eEMQE3yQx1rTwcVfo4IMt23BPMQGNc8U32iRXVIrF7o3kvvTT9xMMiZ0byJ1o6GQjxuauNvr5bsQEXpxAGHFfxZIs6AJVn6p+UxQAg3oGWDIBWz6K+Xv1fOiSGjkUpYvS1NqpdZaudDB7m7to4H0v2zEl42m/J2BNOy/2FntZrxSnne84MteIri+VgQNxKoHhkfuL/MbaE8BXNM0psNKR1VqCqFcrpWKsALFrY3yV6CJWPXADVM8fCXMDzg38msCS/ChHB7Juayag9iI1IRDXNCw8p2RllZemqSVxPnoSUmZyeYKnBp3fQ64b40Eu81meQFiQrugaYeX3w+mVtiXP2Tt1PUaWBsrxTl4/ECmnK5urP0EPcCF0CqN0tH28yYVvVUArFZ6T6tc46rRUxdSNMst+Mfi+GyDhKSfbqigJw10TcDa3/C+4zolbRqlE7ENUHe7lPILApzk1NLuapCqI5g3Mkxc2XR+iVVTaBsQFJT0NEDHIFrc3CgvgwYiG3Ce4l6VRuAQ0SEa9XyJmbsktw/xahaFvyWXzHcnonKmkQzozGHqCnNQkrBCYBRPEqfOeTShZdvJm6cJG1FM8eg3mIionGlXBgRxoEpxKWHxJCEXdLnNjG1bcGpMGQgz7cQw18nLL03xXTfzdmUAJ22PX3cZ5kCZlK06jgs9gDLEEOZ8W07lrbG98dvEeWPPTSWGR3Pz/PN1c1qfA+WUGnoENdf+3s6jDrrRSqU+Tu7vPf/5rLFnGvDZSE59rPjel6NyoFHRyZnyGxm/nRp8yu3VsDGhLqT8/j1xtAZ+1USwyDsfK/XtFsPZ3AJrNtMQa8emvBt2HkJLylviSPmj5QlccB8nZAEuCTfUWtiiHPukEbpxoQZIaOX3xK4T5ytKVDi8llqzbf2ZsL6BBnxqf66CjeUJvBNVzSgZBzdNWWwRB+HEb6ABCSmanXXpjrjw3gLSj74sDBkYwcNcyPIfmAOKz0Bro0Ue80aOBfUIMYCaUdEguDTf70Q3awcaQG2UN7ZxoZeN13hYhMOgPoGB7JN0yjkl/J0puMWtK6xj1VfN/lT6GQe21WNmA2u7uydwjbcM/wOLnCVOEwYUZwAAAABJRU5ErkJggg==" alt="Profile Icon" class="h-6 w-6" />
+                        </div>
+                        <span class="text-xs font-medium mt-2">Profile</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Script -->
+            <script>
+                // Function to set the active navbar item
+                function setActive(element) {
+                    // Reset all items to default styles
+                    const icons = document.querySelectorAll('.nav-item div');
+                    const texts = document.querySelectorAll('.nav-item span');
+                    icons.forEach(icon => icon.classList.remove('bg-green-300', 'text-white'));
+                    texts.forEach(text => text.classList.remove('text-black'));
+
+                    // Add active styles to the clicked item
+                    const icon = element.querySelector('div');
+                    const text = element.querySelector('span');
+                    icon.classList.add('bg-blue-400', 'text-white'); // Highlight background of active icon
+                    text.classList.add('text-black'); // Highlight text of active item
+                }
+
+                // Set the active state on page load based on the current URL
+                const currentPath = window.location.pathname;
+                const navItems = document.querySelectorAll('.nav-item');
+                navItems.forEach(item => {
+                    if (item.href.includes(currentPath)) {
+                        setActive(item);
+                    }
+                });
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    // Select all buttons and CTAs
+                    const buttons = document.querySelectorAll('button, .cta');
+
+                    buttons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            // Show the spinner
+                            document.getElementById('spinner').classList.remove('hidden');
+
+                            // Simulate a delay for loading (e.g., 1 second)
+                            setTimeout(() => {
+                                // Hide the spinner after the action is completed
+                                document.getElementById('spinner').classList.add('hidden');
+                            }, 1000); // Adjust the delay as needed
+                        });
+                    });
+
+                    // See More button functionality
+                    const seeMoreButton = document.getElementById('see-more');
+                    if (seeMoreButton) {
+                        seeMoreButton.addEventListener('click', function() {
+                            // Show the hidden history entries
+                            document.getElementById('history8').classList.remove('hidden');
+                            document.getElementById('history9').classList.remove('hidden');
+                            document.getElementById('history10').classList.remove('hidden');
+                            
+                            // Optionally, hide the "See More" button after clicking
+                            this.classList.add('hidden');
+                        });
+                    }
+                });
+            </script>
+
+            <script>
+                function navigateWithSpinner(url) {
+                    // Show the spinner
+                    document.getElementById('spinner').classList.remove('hidden');
+
+                    // Simulate a delay for loading (e.g., 1 second)
+                    setTimeout(() => {
+                        // Navigate to the specified URL
+                        window.location.href = url;
+                    }, 1000); // Adjust the delay as needed
+                }
+            </script>
+
+            <!-- Spinner -->
+            <div id="spinner" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                <div class="smart-spinner"></div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
