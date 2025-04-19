@@ -589,23 +589,25 @@
 </head>
 <body class="font-sans antialiased" style="position: relative; overflow: hidden;">
     <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: url('/Users/circo-mac005/Documents/Beal Offshore Ltd/background 5.png'); background-size: cover; opacity: 0.9; z-index: -1;"></div>
+
+
     <!-- Navbar -->
-    <nav class="bg-white p-4 fixed top-0 w-full z-50">
+    <nav class="bg-white fixed top-0 w-full z-50 border-b">
         <div class="container mx-auto flex items-center justify-between">
             <!-- Left Logo -->
             <a href="/" class="flex items-center">
                 <img src="Logo.png" alt="Beal Offshore Ltd Logo" class="h-14">
             </a>
 
-            <!-- Right Logo (WhatsApp) -->
-            <a href="mailto:bealoffshore@gmail.com" class="flex items-center">
-                <img src="chat.png" alt="Gift Card Brand Logo" class="h-8 w-8">
+            <!-- Right Logo (Email) -->
+            <a href="mailto:bealoffshore@gmail.com" class="flex items-center bg-blue-50 p-2 rounded-full hover:bg-blue-100 transition-all">
+                <img src="chat.png" alt="Contact" class="h-8 w-8">
             </a>
         </div>
     </nav>
 
     <!-- Spacer to prevent content overlap -->
-    <div class="h-20"></div>
+    <div class="h-12"></div>
 
     <div class="container">
         <header class="header">
@@ -650,7 +652,7 @@
                         </div>
                         <div class="account-balance" id="Deposit-account">$0.00</div>
                         <div class="account-actions">
-                            <a href="" class="action-button rounded-full">
+                            <a href="transfer.html" class="action-button rounded-full">
                                 <i class="fas fa-exchange-alt"></i> Transfer
                             </a>
                             <a href="statement.html" class="action-button rounded-full">
@@ -670,7 +672,7 @@
                         </div>
                         <div class="account-balance" id="bonus">$0.00</div>
                         <div class="account-actions">
-                            <a href="" class="action-button rounded-full">
+                            <a href="transfer.html" class="action-button rounded-full">
                                 <i class="fas fa-exchange-alt"></i> Transfer
                             </a>
                             <a href="statement.html" class="action-button rounded-full">
@@ -687,7 +689,7 @@
                         </div>
                         <div class="account-balance" id="wallet">$0.00</div>
                         <div class="account-actions">
-                            <a href="" class="action-button rounded-full">
+                            <a href="transfer.html" class="action-button rounded-full">
                                 <i class="fas fa-exchange-alt"></i> Transfer
                             </a>
                             <a href="statement.html" class="action-button rounded-full">
@@ -712,9 +714,10 @@
                             <img src="deposit.png" alt="Deposit Icon" class="h-6 w-6">
                         </div>
                         <span class="action-label">Deposit</span>
+                        ""
                     </div>
                     
-                    <div class="action-item" onclick="navigateWithSpinner('')">
+                    <div class="action-item" onclick="navigateWithSpinner('transfer.html')">
                         <div class="action-icon">
                             <img src="transfer.png" alt="Transfer Icon" class="h-6 w-6">
                         </div>
