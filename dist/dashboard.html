@@ -413,7 +413,7 @@
         }
     </style>
     
-  <script type="module" crossorigin src="/assets/dashboard-CPjWgmSD.js"></script>
+  <script type="module" crossorigin src="/assets/dashboard-BgE8el93.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
 </head>
 <body class="font-sans antialiased" style="position: relative; overflow: hidden;">
@@ -572,43 +572,50 @@
             <hr class="my-4 border-gray-400"> <!-- Added line -->
 
             <!-- Profit Wallet Card -->
-            <div class="bg-white rounded p-6 w-full">
+            <div class="bg-white rounded p-4 w-full mb-20">
                 
                 <!-- Header Section -->
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-sm-2xl font-semibold text-gray-800">Transaction History</h2>
+                <div class="flex items-center justify-between mb-2">
+                    <h2 class="text-sm-2xl font-semibold text-gray-800 mt-6">Transaction History</h2>
                 </div>
                 <!-- Divider -->
                 <hr class="border-gray-200 mb-4">
                 <!-- History Content -->
                 <div class="flex flex-col items-start text-sm mb-4 space-y-4">
                     <!-- History Entries -->
-                    <div id="history1" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
-                        <h3 class="font-semibold text-sm-1xl text-gray-800">No history available</h3>
+                <div class="space-y-4">
+                    <div id="history1" class="bg-white rounded-xl border-l-4 border-gray-300 shadow-sm px-4 py-3 hover:shadow-md transition-all duration-200">
+                        <h3 class="font-semibold text-base text-gray-700">No history available</h3>
                     </div>
-                    <div id="history2" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
-                        <h3 class="font-semibold text-xs text-green-600"></h3>
-                        <p class="text-sm-1xl font-regular text-green-800"></p>
+
+                    <div id="history2" class="bg-white rounded-xl border-l-4 border-green-500 shadow-sm px-4 py-3 hover:shadow-md transition-all duration-200">
+                        <h3 class="font-semibold text-sm text-green-600"></h3>
+                        <p class="text-base text-green-800 font-medium"></p>
                     </div>
-                    <div id="history3" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
-                        <h3 class="font-semibold text-xs text-red-600"></h3>
-                        <p class="text-sm-1xl font-bold text-gray-800"></p>
+
+                    <div id="history3" class="bg-white rounded-xl border-l-4 border-red-500 shadow-sm px-4 py-3 hover:shadow-md transition-all duration-200">
+                        <h3 class="font-semibold text-sm text-red-600"></h3>
+                        <p class="text-base text-gray-800 font-bold"></p>
                     </div>
-                    <div id="history4" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
-                        <h3 class="font-semibold text-xs text-blue-600"></h3>
-                        <p class="text-sm-1xl font-bold text-gray-800"></p>
+
+                    <div id="history4" class="bg-white rounded-xl border-l-4 border-blue-500 shadow-sm px-4 py-3 hover:shadow-md transition-all duration-200">
+                        <h3 class="font-semibold text-sm text-blue-600"></h3>
+                        <p class="text-base text-gray-800 font-bold"></p>
                     </div>
-                    <div id="history5" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
-                        <h3 class="font-semibold text-xs text-yellow-600"></h3>
-                        <p class="text-sm-1xl font-bold text-gray-800"></p>
+
+                    <div id="history5" class="bg-white rounded-xl border-l-4 border-yellow-500 shadow-sm px-4 py-3 hover:shadow-md transition-all duration-200">
+                        <h3 class="font-semibold text-sm text-yellow-600"></h3>
+                        <p class="text-base text-gray-800 font-bold"></p>
                     </div>
-                    <div id="history6" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
-                        <h3 class="font-semibold text-xs text-gray-800"></h3>
-                        <p class="text-sm-1xl font-bold text-gray-800"></p>
+
+                    <div id="history6" class="bg-white rounded-xl border-l-4 border-gray-400 shadow-sm px-4 py-3 hover:shadow-md transition-all duration-200">
+                        <h3 class="font-semibold text-sm text-gray-800"></h3>
+                        <p class="text-base text-gray-800 font-bold"></p>
                     </div>
-                    <div id="history7" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
-                        <h3 class="font-semibold text-xs text-gray-800"></h3>
-                        <p class="text-sm-1xl font-bold text-gray-800"></p>
+
+                    <div id="history7" class="bg-white rounded-xl border-l-4 border-gray-400 shadow-sm px-4 py-3 hover:shadow-md transition-all duration-200">
+                        <h3 class="font-semibold text-sm text-gray-800"></h3>
+                        <p class="text-base text-gray-800 font-bold"></p>
                     </div>
                 </div>
 
@@ -621,30 +628,25 @@
             <hr class="my-4 border-gray-400">
 
             <!-- Pending Transactions Card -->
-            <div class="bg-white rounded p-6 w-full mt-8">
+            <div class="bg-white rounded w-full mt-8">
                 <!-- Header Section -->
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-sm-2xl font-semibold text-gray-800">Pending Transactions</h2>
+                <div class="flex items-center justify-between mb-5">
+                    <h2 class="text-sm font-extrabold text-gray-800">Pending Transactions</h2>
                 </div>
+
                 <!-- Divider -->
-                <hr class="border-gray-300 mb-4">
+                <div class="h-px bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 mb-6"></div>
+
                 <!-- Content Section -->
-                <div class="text-gray-600 text-sm space-y-4">
-                    <div id="pending1" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
-                        <h3 class="font-semibold text-red-600"></h3>
-                        <p class="text-sm font-bold text-gray-800"></p>
+                <div class="space-y-4">
+                    <div id="pending1" class="bg-gray-50 rounded-lg border-l-4 border-red-500 px-5 py-4  hover: transition-all duration-200">
+                        <h3 class="text-red-600 font-semibold text-base mb-1"></h3>
+                        <p class="text-gray-700 text-sm font-medium leading-relaxed"></p>
                     </div>
-                    <div id="pending2" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
-                        <h3 class="font-semibold text-green-600"></h3>
-                        <p class="text-sm font-bold text-gray-800"></p>
-                    </div>
-                    <div id="pending3" class="bg-white p-3 rounded border transition-transform transform hover:scale-105">
-                        <h3 class="font-semibold text-blue-600"></h3>
-                        <p class="text-sm font-bold text-gray-800"></p>
-                    </div>
-                    <!-- <p class="text-xs text-gray-500">No pending transactions</p> -->
                 </div>
             </div>
+
+
         
             <section class="py-8 bg" id="spacing">
             <div class="container mx-auto text-center">
@@ -758,6 +760,9 @@
                     }
                 });
             </script>
+
+
+
 
             <!-- Bottom Navbar (Mobile Friendly) -->
             <div class="mobile-nav fixed bottom-0 left-0 right-0 bg-white shadow-lg border-t p-3" style="height: 100px;">
